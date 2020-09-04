@@ -12,11 +12,8 @@
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Manage</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
-                    {
-                        <a asp-area="Identity" asp-page="/Account/Manage/Index" class="nav-link">User Profile</a>
-                    }
-
+                    <a asp-area="Identity" asp-page="/Account/Manage/Index" class="nav-link">User Profile</a>
+                    
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-action="ListRoles" asp-controller="Role" class="nav-link">Manage Roles</a>
