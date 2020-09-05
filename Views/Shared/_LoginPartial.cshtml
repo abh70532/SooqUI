@@ -13,19 +13,24 @@
                    aria-haspopup="true" aria-expanded="false">Manage</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a asp-area="Identity" asp-page="/Account/Manage/Index" class="nav-link">User Profile</a>
-                    
+
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-action="ListRoles" asp-controller="Role" class="nav-link">Manage Roles</a>
+                    }
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="ListUsers" asp-controller="Role" class="nav-link">User Registration</a>
                     }
 
                     @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
                     {
                         <a href="#" class="nav-link">Reports</a>
                     }
-                    @if (User.IsInRole("Admin") || User.IsInRole("Buyer") )
+                    @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
                     {
-                       <a href="#" class="nav-link">Vendor Request</a>
+                        <a href="#" class="nav-link">Vendor Request</a>
                     }
 
                 </div>

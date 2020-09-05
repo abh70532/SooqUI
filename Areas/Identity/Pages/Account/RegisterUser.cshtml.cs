@@ -17,15 +17,15 @@ using WrokFlowWeb.Areas.Identity.Data;
 
 namespace WrokFlowWeb.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
-    public class RegisterModel : PageModel
+    [Authorize]
+    public class RegisterUserModel : PageModel
     {
         private readonly SignInManager<WrokFlowWebUser> _signInManager;
         private readonly UserManager<WrokFlowWebUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
-        public RegisterModel(
+        public RegisterUserModel(
             UserManager<WrokFlowWebUser> userManager,
             SignInManager<WrokFlowWebUser> signInManager,
             ILogger<RegisterModel> logger,
@@ -81,10 +81,6 @@ namespace WrokFlowWeb.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                Response.Redirect("/");
-            }
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -95,11 +91,11 @@ namespace WrokFlowWeb.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new WrokFlowWebUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName };
+                var user = new WrokFlowWebUser { UserName = Input.Email, Email = Input.Email,FirstName=Input.FirstName,LastName=Input.LastName,Department=Input.Department,StartDate= Convert.ToDateTime(Input.StartDate) };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("User registration  a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -118,8 +114,7 @@ namespace WrokFlowWeb.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return RedirectToAction("ListUsers", "Role");
                     }
                 }
                 foreach (var error in result.Errors)

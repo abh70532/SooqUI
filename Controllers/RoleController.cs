@@ -33,6 +33,18 @@ namespace WrokFlowWeb.Controllers
             return View(roleManager.Roles);
         }
 
+        public ActionResult ListUsers(String search)
+        {
+            var users = !string.IsNullOrEmpty(search) ? userManager.Users.Where(x => x.Email.Contains(search) 
+            || x.PhoneNumber.Contains(search) || x.Department.Contains(search)) : userManager.Users;
+            //users = users.Select(x => x.Email.Contains(search))
+
+            if (HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                return PartialView("_IndexGrid", users);
+
+            return View();
+        }
+
         // GET: RoleController/Details/5
         public async Task<IActionResult> Details(string id)
         {
