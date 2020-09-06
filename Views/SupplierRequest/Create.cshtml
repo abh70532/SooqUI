@@ -1,0 +1,132 @@
+﻿
+@model WrokFlowWeb.ViewModel.SupplierViewModel
+
+@{
+    ViewBag.Title = "Create Supplier Request";
+}
+
+<h1>@ViewBag.Title</h1>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="SupplierRequest" asp-action="Create" method="post">
+
+            <hr />
+
+            <div class="form-group">
+                <label asp-for="SuplierTypeRequestId"></label>
+                <div class="col-md-5">
+                    <select asp-for="SuplierTypeRequestId"
+                            asp-items="@(new SelectList(Model.SuplierTypeRequest,"SuplierTypeRequestId","SuplierTypeRequest"))">
+                        <option></option>
+                    </select>
+                    <span asp-validation-for="SuplierTypeRequestId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequestTypeMasterId"></label>
+                <div class="col-md-5">
+                    <select asp-for="RequestTypeMasterId"
+                            asp-items="@(new SelectList(Model.RequestTypeMaster,"RequestTypeMasterId","RequestType"))">
+                        <option></option>
+                    </select>
+                    <span asp-validation-for="RequestTypeMasterId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div id="controlId">
+
+                <div class="form-group">
+                    <label asp-for="RequesterName"></label>
+                    <input asp-for="RequesterName" class="form-control" />
+                    <span asp-validation-for="RequesterName" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Department"></label>
+                    <input asp-for="Department" class="form-control" />
+                    <span asp-validation-for="Department" class="text-danger"></span>
+
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="SupplierName"></label>
+                <input asp-for="SupplierName" class="form-control" />
+                <span asp-validation-for="SupplierName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Street"></label>
+                <input asp-for="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address1"></label>
+                <input asp-for="Address1" class="form-control" />
+                <span asp-validation-for="Address1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address1"></label>
+                <input asp-for="Address1" class="form-control" />
+                <span asp-validation-for="Address1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address2"></label>
+                <input asp-for="Address2" class="form-control" />
+                <span asp-validation-for="Address2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostalCode"></label>
+                <input asp-for="PostalCode" class="form-control" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Country"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailId"></label>
+                <input asp-for="EmailId" class="form-control" />
+                <span asp-validation-for="EmailId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactPhone"></label>
+                <input asp-for="ContactPhone" class="form-control" />
+                <span asp-validation-for="ContactPhone" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Supplier Request</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $("#controlId").hide();
+        $("#RequestTypeMasterId").on("change", function () {
+            if ($("#RequestTypeMasterId option:selected").val() == 2) {
+                $("#controlId").show();
+    } else {
+      $("#controlId").hide();
+    }
+  });
+    </script>
+}

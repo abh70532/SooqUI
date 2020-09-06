@@ -8,12 +8,18 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WrokFlowWeb.Areas.Identity.Data;
 using WrokFlowWeb.Controllers;
+using WrokFlowWeb.Database;
 using WrokFlowWeb.Data;
+using WrokFlowWeb.Services;
+using WrokFlowWeb.Services.Interface;
+
+
 
 namespace WrokFlowWeb
 {
@@ -29,6 +35,11 @@ namespace WrokFlowWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<WrokFlowWebEntityContext>(options =>
+                   options.UseSqlServer(
+                       Configuration.GetConnectionString("WrokFlowWebContextConnection")));
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -55,6 +66,10 @@ namespace WrokFlowWeb
                 .Build();
                 options.Filters.Add(new AuthorizeFilter());
             });
+
+            services.AddScoped<ISupplierRequestService, SupplierRequestService>();
+
+            services.AddScoped<UnitOfWork.IUnitOfWork, WrokFlowWeb.UnitOfWork.UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

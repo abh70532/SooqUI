@@ -30,7 +30,7 @@
                     }
                     @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
                     {
-                        <a href="#" class="nav-link">Vendor Request</a>
+                        <a h asp-action="List" asp-controller="SupplierRequest" class="nav-link">Supplier Request</a>
                     }
 
                 </div>

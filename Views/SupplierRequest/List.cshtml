@@ -1,0 +1,35 @@
+﻿@model IEnumerable<WrokFlowWeb.Database.SupplierRequest>
+@{
+    ViewBag.Title = "Supplier Requests";
+}
+
+<h1> All Roles</h1>
+
+@if (Model.Any())
+{
+    <a class="btn btn-primary mb-3" asp-action="Get" asp-controller="SupplierRequest"> Add Supplier Request</a>
+  
+
+    @(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => Html.CheckBox("Person_" + model.SupplierRequestId)); // IHtmlContent has encoding disabled by default.
+
+        columns.Add(model => model.SupplierRequestCode).Titled("SupplierRequestCode");
+        columns.Add(model => model.SuplierTypeRequest.SuplierTypeRequest).Titled("SuplierTypeRequest");
+        columns.Add(model => model.RequestTypeMaster.RequestType).Titled("RequestType");
+        columns.Add(model => model.SupplierName).Titled("SupplierName");
+        columns.Add(model => $"<a href=\"Details\\{model.SupplierRequestId}\">Edit</a>").Encoded(false);
+
+    }).Pageable(pager =>
+    {
+        pager.PageSizes = new Dictionary<Int32, String> { { 0, "All" }, { 10, "10" }, { 25, "25" } };
+        pager.ShowPageSizes = true;
+        pager.PagesToDisplay = 3;
+        pager.CurrentPage = 1;
+        pager.RowsPerPage = 10;
+    })
+)
+}
+
