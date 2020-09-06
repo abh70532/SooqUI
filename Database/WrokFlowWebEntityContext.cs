@@ -155,6 +155,8 @@ namespace WrokFlowWeb.Database
 
             modelBuilder.Entity<RequestTypeMaster>(entity =>
             {
+                entity.Property(e => e.RequestTypeMasterId).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.RequestType).HasMaxLength(100);
             });
 
@@ -163,13 +165,13 @@ namespace WrokFlowWeb.Database
                 entity.HasKey(e => e.SuplierTypeRequestId)
                     .HasName("PK_SuplierTypeRequest");
 
+                entity.Property(e => e.SuplierTypeRequestId).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.SuplierTypeRequest).HasMaxLength(100);
             });
 
             modelBuilder.Entity<SupplierRequest>(entity =>
             {
-                entity.Property(e => e.SupplierRequestId).ValueGeneratedNever();
-
                 entity.Property(e => e.Address1).HasMaxLength(200);
 
                 entity.Property(e => e.Address2).HasMaxLength(200);
@@ -194,11 +196,7 @@ namespace WrokFlowWeb.Database
 
                 entity.Property(e => e.Street).HasMaxLength(100);
 
-                entity.Property(e => e.SupplierName)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
-
-                entity.Property(e => e.SupplierRequestCode).ValueGeneratedOnAdd();
+                entity.Property(e => e.SupplierName).HasMaxLength(100);
 
                 entity.HasOne(d => d.RequestTypeMaster)
                     .WithMany(p => p.SupplierRequest)

@@ -3,12 +3,13 @@
     ViewBag.Title = "Supplier Requests";
 }
 
-<h1> All Roles</h1>
+<h1> Supplier Requests</h1>
+<a class="btn btn-primary mb-3" asp-action="Get" asp-controller="SupplierRequest"> Add Supplier Request</a>
 
 @if (Model.Any())
 {
-    <a class="btn btn-primary mb-3" asp-action="Get" asp-controller="SupplierRequest"> Add Supplier Request</a>
-  
+
+
 
     @(Html
     .Grid(Model)
