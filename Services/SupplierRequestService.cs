@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using WrokFlowWeb.Database;
 using WrokFlowWeb.Services.Interface;
@@ -17,7 +18,7 @@ namespace WrokFlowWeb.Services
             this._context = Context;
         }
 
-        public async Task Add(SupplierViewModel model)
+        public async Task<long> Add(SupplierViewModel model)
         {
             var request = new SupplierRequest()
             {
@@ -38,6 +39,7 @@ namespace WrokFlowWeb.Services
                 ContactPhone = model.ContactPhone };
             this._context.SupplierRequest.Add(request);
             await this._context.CompleteAsync();
+            return  request.SupplierRequestId; 
         }
 
         public void AddSupplierRequest(SupplierRequest supplierRequest)

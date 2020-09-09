@@ -6,7 +6,6 @@ namespace WrokFlowWeb.Database
     public partial class SupplierRequest
     {
         public long SupplierRequestId { get; set; }
-        public long SupplierRequestCode { get; set; }
         public byte? SuplierTypeRequestId { get; set; }
         public byte? RequestTypeMasterId { get; set; }
         public string RequesterName { get; set; }

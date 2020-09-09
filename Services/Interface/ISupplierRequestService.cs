@@ -15,7 +15,7 @@ namespace WrokFlowWeb.Services.Interface
         Task<List<Database.SuplierTypeRequestMaster>> GetSupplierTypeRequestMaster();
         Task<List<Database.SupplierRequest>> GetSupplierRequestMaster();
         Task<List<Database.RequestTypeMaster>> GetRequestTypeMaster();
-        Task Add(SupplierViewModel supplierRequest);
+        Task<long> Add(SupplierViewModel supplierRequest);
 
     }
 }

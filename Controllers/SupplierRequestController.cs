@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WrokFlowWeb.Database;
 using WrokFlowWeb.Services.Interface;
 using WrokFlowWeb.ViewModel;
+using WrokFlowWeb.ViewModel.SupplierRequest;
 
 namespace WrokFlowWeb.Controllers
 {
@@ -40,17 +41,23 @@ namespace WrokFlowWeb.Controllers
         }
 
         public async Task<IActionResult> Create(SupplierViewModel supplierViewModel)
-        {
-            if (ModelState.IsValid)
+        {       
+            var result =  await this.supplierRequest.Add(supplierViewModel);
+            var model = new SupplierRequestListViewModel()
             {
-                await this.supplierRequest.Add(supplierViewModel);
-            }
-            return View("List", await supplierRequest.GetSupplierRequests());
+             SupplierRequestId = result,
+              SupplierRequests = await supplierRequest.GetSupplierRequests()
+            };
+            return View("List", model);
         }
 
         public async Task<IActionResult> List()
         {
-            return View("List", await supplierRequest.GetSupplierRequests());
+            var model = new SupplierRequestListViewModel()
+            {
+                SupplierRequests = await supplierRequest.GetSupplierRequests()
+            };
+            return View("List", model);
         }
     }
 }

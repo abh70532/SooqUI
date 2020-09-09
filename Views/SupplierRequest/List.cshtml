@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WrokFlowWeb.Database.SupplierRequest>
+﻿@model WrokFlowWeb.ViewModel.SupplierRequest.SupplierRequestListViewModel
 @{
     ViewBag.Title = "Supplier Requests";
 }
@@ -6,18 +6,16 @@
 <h1> Supplier Requests</h1>
 <a class="btn btn-primary mb-3" asp-action="Get" asp-controller="SupplierRequest"> Add Supplier Request</a>
 
-@if (Model.Any())
+@if (Model.SupplierRequests.Any())
 {
 
-
-
     @(Html
-    .Grid(Model)
+    .Grid(Model.SupplierRequests)
     .Build(columns =>
     {
-        columns.Add(model => Html.CheckBox("Person_" + model.SupplierRequestId)); // IHtmlContent has encoding disabled by default.
+        columns.Add(model => Html.CheckBox("Person_" + model. SupplierRequestId)); // IHtmlContent has encoding disabled by default.
 
-        columns.Add(model => model.SupplierRequestCode).Titled("SupplierRequestCode");
+        columns.Add(model => model.SupplierRequestId).Titled("SupplierRequestCode");
         columns.Add(model => model.SuplierTypeRequest.SuplierTypeRequest).Titled("SuplierTypeRequest");
         columns.Add(model => model.RequestTypeMaster.RequestType).Titled("RequestType");
         columns.Add(model => model.SupplierName).Titled("SupplierName");

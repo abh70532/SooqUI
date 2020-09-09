@@ -23,9 +23,9 @@ namespace WrokFlowWeb.ViewModel
         [Range(1, Int32.MaxValue, ErrorMessage = "Select Request Type")]
         [DisplayName("Request Type")]
         public byte RequestTypeMasterId { get; set; }
-        [RequiredIf("RequestTypeMasterId", 2)]
+        [Required]
         public string RequesterName { get; set; }
-        [RequiredIf("RequestTypeMasterId", 2)]
+        [Required]
         public string Department { get; set; }
         [Required]
         [DisplayName("Supplier Name")]
