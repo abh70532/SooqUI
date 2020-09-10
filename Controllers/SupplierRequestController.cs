@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +23,7 @@ namespace WrokFlowWeb.Controllers
         public SupplierRequestController(ISupplierRequestService supplierRequest)
         {
             this.supplierRequest = supplierRequest;
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
         }
         public async Task<IActionResult> Index()
         {
@@ -33,7 +36,8 @@ namespace WrokFlowWeb.Controllers
             var model = new SupplierViewModel
             {
                 SuplierTypeRequest = await this.supplierRequest.GetSupplierTypeRequestMaster(),
-                RequestTypeMaster = await this.supplierRequest.GetRequestTypeMaster()
+                RequestTypeMaster = await this.supplierRequest.GetRequestTypeMaster(),
+                CategoryMaster = await this.supplierRequest.GetCategoryMaster(),
             };
 
 
@@ -43,21 +47,61 @@ namespace WrokFlowWeb.Controllers
         public async Task<IActionResult> Create(SupplierViewModel supplierViewModel)
         {       
             var result =  await this.supplierRequest.Add(supplierViewModel);
+            
+            return RedirectToAction("List", new { requestid = result });
+        }
+
+        public async Task<IActionResult> List(long requestid)
+        {
             var model = new SupplierRequestListViewModel()
             {
-             SupplierRequestId = result,
-              SupplierRequests = await supplierRequest.GetSupplierRequests()
+                SupplierRequestId = requestid,
+                SupplierRequests = await supplierRequest.GetSupplierRequests()
             };
             return View("List", model);
         }
 
-        public async Task<IActionResult> List()
+
+        [HttpGet]
+        public  Task<IActionResult> Details(long requestid)
         {
-            var model = new SupplierRequestListViewModel()
-            {
-                SupplierRequests = await supplierRequest.GetSupplierRequests()
-            };
-            return View("List", model);
+
+            return Edit(requestid);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(long requestid)
+        {
+            var response = await this.supplierRequest.GetSupplierRequest(requestid);
+
+                var model = new SupplierViewModel()
+                {
+                    SuplierTypeRequest = await this.supplierRequest.GetSupplierTypeRequestMaster(),
+                    RequestTypeMaster = await this.supplierRequest.GetRequestTypeMaster(),
+                    CategoryMaster = await this.supplierRequest.GetCategoryMaster(),
+                    SuplierTypeRequestId = response.SuplierTypeRequestId,
+                    RequestTypeMasterId = response.RequestTypeMasterId,
+                    RequesterName = response.RequesterName,
+                    Department = response.Department,
+                    SupplierName = response.SupplierName,
+                    Street = response.Street,
+                    Address1 = response.Address1,
+                    Address2 = response.Address2,
+                    City = response.City,
+                    PostalCode = response.PostalCode,
+                    Country = response.Country,
+                    FirstName = response.FirstName,
+                    LastName = response.LastName,
+                    EmailId = response.EmailId,
+                    ContactPhone = response.ContactPhone
+                };
+            var ids = response.SupplierRequestCategoryMapping.Select(x => x.CategoryMasterId).ToList();
+            model.CategoryMaster.Where(c => ids.Contains(c.CategoryMasterId)).ToList().ForEach(option=> {
+                option.IsSelected = true;
+            });
+
+            return View("Edit", model);
         }
     }
 }

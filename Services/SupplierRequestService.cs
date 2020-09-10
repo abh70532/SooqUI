@@ -7,10 +7,11 @@ using WrokFlowWeb.Database;
 using WrokFlowWeb.Services.Interface;
 using WrokFlowWeb.UnitOfWork;
 using WrokFlowWeb.ViewModel;
+using WrokFlowWeb.ViewModel.CategoryMaster;
 
 namespace WrokFlowWeb.Services
 {
-    public class SupplierRequestService: ISupplierRequestService
+    public class SupplierRequestService: ISupplierRequestService, ICategoryMasterService
     {
         private readonly IUnitOfWork _context;
         public SupplierRequestService(IUnitOfWork Context)
@@ -39,6 +40,17 @@ namespace WrokFlowWeb.Services
                 ContactPhone = model.ContactPhone };
             this._context.SupplierRequest.Add(request);
             await this._context.CompleteAsync();
+            var categoryMaster = new List<SupplierRequestCategoryMapping>();
+            foreach (var item in model.CategoryMaster)
+            {
+                if (item.IsSelected)
+                    categoryMaster.Add(new SupplierRequestCategoryMapping() {
+                        SupplierRequestId = request.SupplierRequestId,
+                         CategoryMasterId = item.CategoryMasterId
+                    }); ;
+            }
+            this._context.SupplierCategoryMappingRepository.Add(categoryMaster);
+            await this._context.CompleteAsync();
             return  request.SupplierRequestId; 
         }
 
@@ -53,10 +65,7 @@ namespace WrokFlowWeb.Services
 
         }
 
-        public SupplierRequest GetSupplierRequest(long id)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public async Task<List<SupplierRequest>> GetSupplierRequestMaster()
         {
@@ -71,6 +80,31 @@ namespace WrokFlowWeb.Services
         public async Task<List<SuplierTypeRequestMaster>> GetSupplierTypeRequestMaster()
         {
             return await this._context.SupplierRequest.GetSupplierTypeRequestMaster();
+        }
+
+        public async Task<List<CategoryMasterViewModel>> GetCategoryMaster()
+        {
+            var response = new List<CategoryMasterViewModel>();
+            var category = await this._context.SupplierRequest.GetCategoryMaster();
+            foreach (var item in category)
+            {
+                response.Add(new CategoryMasterViewModel()
+                {
+                     Category = item.Category,
+                     CategoryMasterId = item.CategoryMasterId
+                });
+            }
+            return response;
+        }
+
+        Task<long> ICategoryMasterService.Add(CategoryMasterViewModel categoryMasterView)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<SupplierRequest> GetSupplierRequest(long id)
+        {
+            return await this._context.SupplierRequest.GetSupplierRequest(id);
         }
     }
 }

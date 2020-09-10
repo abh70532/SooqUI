@@ -26,13 +26,13 @@ namespace WrokFlowWeb.Database
         public virtual DbSet<RequestTypeMaster> RequestTypeMaster { get; set; }
         public virtual DbSet<SuplierTypeRequestMaster> SuplierTypeRequestMaster { get; set; }
         public virtual DbSet<SupplierRequest> SupplierRequest { get; set; }
+        public virtual DbSet<SupplierRequestCategoryMapping> SupplierRequestCategoryMapping { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=WrokFlowWeb;User Id=sa; Password=123456;");
+
             }
         }
 
@@ -207,6 +207,21 @@ namespace WrokFlowWeb.Database
                     .WithMany(p => p.SupplierRequest)
                     .HasForeignKey(d => d.SuplierTypeRequestId)
                     .HasConstraintName("FK_SupplierRequest_SuplierTypeRequestMaster");
+            });
+
+            modelBuilder.Entity<SupplierRequestCategoryMapping>(entity =>
+            {
+                entity.Property(e => e.SupplierRequestCategoryMappingId).ValueGeneratedOnAdd();
+
+                entity.HasOne(d => d.CategoryMaster)
+                    .WithMany(p => p.SupplierRequestCategoryMapping)
+                    .HasForeignKey(d => d.CategoryMasterId)
+                    .HasConstraintName("FK_SupplierRequestCategoryMapping_CategoryMaster");
+
+                entity.HasOne(d => d.SupplierRequest)
+                    .WithMany(p => p.SupplierRequestCategoryMapping)
+                    .HasForeignKey(d => d.SupplierRequestId)
+                    .HasConstraintName("FK_SupplierRequestCategoryMapping_SupplierRequest");
             });
 
             OnModelCreatingPartial(modelBuilder);

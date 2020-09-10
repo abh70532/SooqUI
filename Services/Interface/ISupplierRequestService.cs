@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WrokFlowWeb.Database;
 using WrokFlowWeb.ViewModel;
+using WrokFlowWeb.ViewModel.CategoryMaster;
 
 namespace WrokFlowWeb.Services.Interface
 {
@@ -11,11 +12,12 @@ namespace WrokFlowWeb.Services.Interface
     {
         Task<List<SupplierRequest>> GetSupplierRequests();
         void AddSupplierRequest(SupplierRequest supplierRequest);
-        SupplierRequest GetSupplierRequest(long id);
+        Task<Database.SupplierRequest> GetSupplierRequest(long id);
         Task<List<Database.SuplierTypeRequestMaster>> GetSupplierTypeRequestMaster();
         Task<List<Database.SupplierRequest>> GetSupplierRequestMaster();
         Task<List<Database.RequestTypeMaster>> GetRequestTypeMaster();
         Task<long> Add(SupplierViewModel supplierRequest);
+        Task<List<CategoryMasterViewModel>> GetCategoryMaster();
 
     }
 }

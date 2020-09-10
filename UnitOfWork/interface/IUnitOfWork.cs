@@ -9,6 +9,8 @@ namespace WrokFlowWeb.UnitOfWork
     public interface IUnitOfWork
     {
         ISupplierRequestRepository SupplierRequest { get; }
+        ICategoryMasterRepository CategoryMasterRepository { get; }
+        ISupplierCategoryMappingRepository SupplierCategoryMappingRepository { get; }
         Task<int> CompleteAsync();
         int Complete();
     }

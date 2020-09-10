@@ -2,7 +2,7 @@
 @model WrokFlowWeb.ViewModel.SupplierViewModel
 
 @{
-    ViewBag.Title = "Create Supplier Request";
+    ViewBag.Title = "Edit Supplier Request";
 }
 
 <h1>@ViewBag.Title</h1>
@@ -128,7 +128,7 @@
                 <br />
                 <br />
             </div>
-            <button id="btnSubmit" type="submit" class="btn btn-primary">Create Supplier Request</button>
+            <button id="btnSubmit" type="submit" class="btn btn-primary">Update Supplier Request</button>
         </form>
     </div>
 </div>
@@ -137,7 +137,14 @@
     <partial name="_ValidationScriptsPartial" />
 
     <script>
-        $("#controlId").hide();
+        $(document).ready(function () {
+            if ($("#RequestTypeMasterId option:selected").val() == 2) {
+                $("#controlId").show();
+            } else {
+                $("#controlId").hide();
+            }
+        });
+        //$("#controlId").hide();
         $(".error").hide();
         $("#RequestTypeMasterId").on("change", function () {
             if ($("#RequestTypeMasterId option:selected").val() == 2) {
@@ -158,7 +165,7 @@
                     $(".error").hide();
                     return true;
                 }
-                
+
             });
         });
     </script>

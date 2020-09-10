@@ -5,8 +5,15 @@ namespace WrokFlowWeb.Database
 {
     public partial class CategoryMaster
     {
+        public CategoryMaster()
+        {
+            SupplierRequestCategoryMapping = new HashSet<SupplierRequestCategoryMapping>();
+        }
+
         public byte CategoryMasterId { get; set; }
         public string Category { get; set; }
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
+
+        public virtual ICollection<SupplierRequestCategoryMapping> SupplierRequestCategoryMapping { get; set; }
     }
 }

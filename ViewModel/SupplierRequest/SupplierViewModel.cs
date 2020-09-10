@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WrokFlowWeb.Database;
 using WrokFlowWeb.Helper;
+using WrokFlowWeb.ViewModel.CategoryMaster;
 
 namespace WrokFlowWeb.ViewModel
 {
@@ -24,6 +25,7 @@ namespace WrokFlowWeb.ViewModel
         [DisplayName("Request Type")]
         public byte RequestTypeMasterId { get; set; }
         [Required]
+        [DisplayName("Requester Name")]
         public string RequesterName { get; set; }
         [Required]
         public string Department { get; set; }
@@ -34,18 +36,31 @@ namespace WrokFlowWeb.ViewModel
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string City { get; set; }
+        [Required]
+        [DisplayName("Postal Code")]
         public string PostalCode { get; set; }
+        [Required]
+
         public string Country { get; set; }
         [Required]
+        [DisplayName("First Name")]
         public string FirstName { get; set; }
         [Required]
+        [DisplayName("Last Name")]
         public string LastName { get; set; }
         [Required]
         [EmailAddress]
+        [DisplayName("Email")]
         public string EmailId { get; set; }
+        [Required]
+        [DisplayName("Contact No")]
         public string ContactPhone { get; set; }
 
         public  List<RequestTypeMaster> RequestTypeMaster { get; set; }
         public virtual List<SuplierTypeRequestMaster> SuplierTypeRequest { get; set; }
+        [DisplayName("Category")]
+        public List<CategoryMasterViewModel> CategoryMaster { get; set; }
+
+        public string CategoryMasterNames { get; set; }
     }
 }

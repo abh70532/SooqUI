@@ -5,9 +5,14 @@ namespace WrokFlowWeb.Database
 {
     public partial class SupplierRequest
     {
+        public SupplierRequest()
+        {
+            SupplierRequestCategoryMapping = new HashSet<SupplierRequestCategoryMapping>();
+        }
+
         public long SupplierRequestId { get; set; }
-        public byte? SuplierTypeRequestId { get; set; }
-        public byte? RequestTypeMasterId { get; set; }
+        public byte SuplierTypeRequestId { get; set; }
+        public byte RequestTypeMasterId { get; set; }
         public string RequesterName { get; set; }
         public string Department { get; set; }
         public string SupplierName { get; set; }
@@ -24,5 +29,6 @@ namespace WrokFlowWeb.Database
 
         public virtual RequestTypeMaster RequestTypeMaster { get; set; }
         public virtual SuplierTypeRequestMaster SuplierTypeRequest { get; set; }
+        public virtual ICollection<SupplierRequestCategoryMapping> SupplierRequestCategoryMapping { get; set; }
     }
 }

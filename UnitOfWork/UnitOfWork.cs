@@ -17,6 +17,8 @@ namespace WrokFlowWeb.UnitOfWork
         }
 
         private ISupplierRequestRepository _supplierRequest;
+        private ISupplierCategoryMappingRepository _supplierCategoryMappingRepository;
+        private ICategoryMasterRepository _categoryMasterRepository;
         public ISupplierRequestRepository SupplierRequest
         {
             get
@@ -26,6 +28,30 @@ namespace WrokFlowWeb.UnitOfWork
                     this._supplierRequest = new SupplierRequestRepository(dbContext);
                 }
                 return this._supplierRequest;
+            }
+        }
+
+        public ICategoryMasterRepository CategoryMasterRepository
+        {
+            get
+            {
+                if (this._categoryMasterRepository == null)
+                {
+                    this._categoryMasterRepository = new CategoryMasterRepository(dbContext);
+                }
+                return this._categoryMasterRepository;
+            }
+        }
+
+        public ISupplierCategoryMappingRepository SupplierCategoryMappingRepository
+        {
+            get
+            {
+                if (this._supplierCategoryMappingRepository == null)
+                {
+                    this._supplierCategoryMappingRepository = new SupplierRequestCategoryMappingRepository(dbContext);
+                }
+                return this._supplierCategoryMappingRepository;
             }
         }
 
