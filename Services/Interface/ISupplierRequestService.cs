@@ -18,6 +18,7 @@ namespace WrokFlowWeb.Services.Interface
         Task<List<Database.RequestTypeMaster>> GetRequestTypeMaster();
         Task<long> Add(SupplierViewModel supplierRequest);
         Task<List<CategoryMasterViewModel>> GetCategoryMaster();
+        Task<List<Database.RoleApprovalMaster>> GetRoleApprovalMasterList(long moduleId);
 
     }
 }

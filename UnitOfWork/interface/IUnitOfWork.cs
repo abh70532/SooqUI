@@ -11,6 +11,8 @@ namespace WrokFlowWeb.UnitOfWork
         ISupplierRequestRepository SupplierRequest { get; }
         ICategoryMasterRepository CategoryMasterRepository { get; }
         ISupplierCategoryMappingRepository SupplierCategoryMappingRepository { get; }
+        ISupplierRequestApprovalLogRepository SupplierRequestApprovalLog { get; }
+        IRoleApprovalMasterRepository RoleApprovalMasterRepository { get; }
         Task<int> CompleteAsync();
         int Complete();
     }

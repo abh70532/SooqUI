@@ -19,6 +19,8 @@ namespace WrokFlowWeb.UnitOfWork
         private ISupplierRequestRepository _supplierRequest;
         private ISupplierCategoryMappingRepository _supplierCategoryMappingRepository;
         private ICategoryMasterRepository _categoryMasterRepository;
+        private ISupplierRequestApprovalLogRepository _supplierRequestApprovalLog;
+        private IRoleApprovalMasterRepository _roleApprovalMasterRepository;
         public ISupplierRequestRepository SupplierRequest
         {
             get
@@ -52,6 +54,30 @@ namespace WrokFlowWeb.UnitOfWork
                     this._supplierCategoryMappingRepository = new SupplierRequestCategoryMappingRepository(dbContext);
                 }
                 return this._supplierCategoryMappingRepository;
+            }
+        }
+
+        public ISupplierRequestApprovalLogRepository SupplierRequestApprovalLog
+        {
+            get
+            {
+                if (this._supplierRequestApprovalLog == null)
+                {
+                    this._supplierRequestApprovalLog = new SupplierRequestApprovalLogRepository(dbContext);
+                }
+                return this._supplierRequestApprovalLog;
+            }
+        }
+
+        public IRoleApprovalMasterRepository RoleApprovalMasterRepository
+        {
+            get
+            {
+                if (this._roleApprovalMasterRepository == null)
+                {
+                    this._roleApprovalMasterRepository = new RoleApprovalMasterRepository(dbContext);
+                }
+                return this._roleApprovalMasterRepository;
             }
         }
 

@@ -51,6 +51,12 @@ namespace WrokFlowWeb.Services
             }
             this._context.SupplierCategoryMappingRepository.Add(categoryMaster);
             await this._context.CompleteAsync();
+
+            var roleApprovalList = await GetRoleApprovalMasterList(1);
+            foreach (var item in roleApprovalList)
+            {
+
+            }
             return  request.SupplierRequestId; 
         }
 
@@ -105,6 +111,11 @@ namespace WrokFlowWeb.Services
         public async Task<SupplierRequest> GetSupplierRequest(long id)
         {
             return await this._context.SupplierRequest.GetSupplierRequest(id);
+        }
+
+        public async Task<List<RoleApprovalMaster>> GetRoleApprovalMasterList(long moduleId)
+        {
+            return await this._context.RoleApprovalMasterRepository.GetRoleApprovalMasterList(moduleId);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace WrokFlowWeb.Database
         {
             AspNetRoleClaims = new HashSet<AspNetRoleClaims>();
             AspNetUserRoles = new HashSet<AspNetUserRoles>();
+            RoleApprovalMaster = new HashSet<RoleApprovalMaster>();
         }
 
         public string Id { get; set; }
@@ -18,5 +19,6 @@ namespace WrokFlowWeb.Database
 
         public virtual ICollection<AspNetRoleClaims> AspNetRoleClaims { get; set; }
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
+        public virtual ICollection<RoleApprovalMaster> RoleApprovalMaster { get; set; }
     }
 }

@@ -24,16 +24,15 @@ namespace WrokFlowWeb.Database
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<CategoryMaster> CategoryMaster { get; set; }
         public virtual DbSet<RequestTypeMaster> RequestTypeMaster { get; set; }
+        public virtual DbSet<RoleApprovalMaster> RoleApprovalMaster { get; set; }
         public virtual DbSet<SuplierTypeRequestMaster> SuplierTypeRequestMaster { get; set; }
         public virtual DbSet<SupplierRequest> SupplierRequest { get; set; }
+        public virtual DbSet<SupplierRequestApprovalLog> SupplierRequestApprovalLog { get; set; }
         public virtual DbSet<SupplierRequestCategoryMapping> SupplierRequestCategoryMapping { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
 
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -146,6 +145,8 @@ namespace WrokFlowWeb.Database
 
             modelBuilder.Entity<CategoryMaster>(entity =>
             {
+                entity.Property(e => e.CategoryMasterId).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.Category).HasMaxLength(100);
 
                 entity.Property(e => e.IsActive)
@@ -158,6 +159,21 @@ namespace WrokFlowWeb.Database
                 entity.Property(e => e.RequestTypeMasterId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.RequestType).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<RoleApprovalMaster>(entity =>
+            {
+                entity.Property(e => e.RoleApprovalMasterId).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.RoleId)
+                    .IsRequired()
+                    .HasMaxLength(450);
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.RoleApprovalMaster)
+                    .HasForeignKey(d => d.RoleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_RoleApprovalMaster_AspNetRoles");
             });
 
             modelBuilder.Entity<SuplierTypeRequestMaster>(entity =>
@@ -182,11 +198,21 @@ namespace WrokFlowWeb.Database
 
                 entity.Property(e => e.Country).HasMaxLength(100);
 
+                entity.Property(e => e.CreatedBy).HasMaxLength(450);
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
                 entity.Property(e => e.Department).HasMaxLength(100);
 
                 entity.Property(e => e.EmailId).HasMaxLength(100);
 
                 entity.Property(e => e.FirstName).HasMaxLength(100);
+
+                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.IsDeleted).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.LastName).HasMaxLength(100);
 
@@ -198,6 +224,12 @@ namespace WrokFlowWeb.Database
 
                 entity.Property(e => e.SupplierName).HasMaxLength(100);
 
+                entity.Property(e => e.SupplierRequestApprovalId).HasColumnName("SupplierRequestApprovalID");
+
+                entity.Property(e => e.UpdatedBy).HasMaxLength(450);
+
+                entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
+
                 entity.HasOne(d => d.RequestTypeMaster)
                     .WithMany(p => p.SupplierRequest)
                     .HasForeignKey(d => d.RequestTypeMasterId)
@@ -207,6 +239,25 @@ namespace WrokFlowWeb.Database
                     .WithMany(p => p.SupplierRequest)
                     .HasForeignKey(d => d.SuplierTypeRequestId)
                     .HasConstraintName("FK_SupplierRequest_SuplierTypeRequestMaster");
+            });
+
+            modelBuilder.Entity<SupplierRequestApprovalLog>(entity =>
+            {
+                entity.HasKey(e => e.SupplierRequestApprovalId);
+
+                entity.Property(e => e.SupplierRequestApprovalId).HasColumnName("SupplierRequestApprovalID");
+
+                entity.Property(e => e.ApprovalComments).HasMaxLength(450);
+
+                entity.Property(e => e.ApprovedBy).HasMaxLength(450);
+
+                entity.Property(e => e.ApprovedOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.SupplierRequest)
+                    .WithMany(p => p.SupplierRequestApprovalLog)
+                    .HasForeignKey(d => d.SupplierRequestId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SupplierRequestApprovalLog_SupplierRequestApprovalLog");
             });
 
             modelBuilder.Entity<SupplierRequestCategoryMapping>(entity =>

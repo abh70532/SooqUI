@@ -23,7 +23,6 @@ namespace WrokFlowWeb.Controllers
         public SupplierRequestController(ISupplierRequestService supplierRequest)
         {
             this.supplierRequest = supplierRequest;
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
         }
         public async Task<IActionResult> Index()
         {
