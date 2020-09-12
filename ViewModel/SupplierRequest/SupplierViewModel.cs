@@ -56,11 +56,14 @@ namespace WrokFlowWeb.ViewModel
         [DisplayName("Contact No")]
         public string ContactPhone { get; set; }
 
-        public  List<RequestTypeMaster> RequestTypeMaster { get; set; }
+        public List<RequestTypeMaster> RequestTypeMaster { get; set; }
         public virtual List<SuplierTypeRequestMaster> SuplierTypeRequest { get; set; }
         [DisplayName("Category")]
         public List<CategoryMasterViewModel> CategoryMaster { get; set; }
 
         public string CategoryMasterNames { get; set; }
+
+        public string CreatedBy { get; set; }
+        public string UpdatedBy { get; set; }
     }
 }

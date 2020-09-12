@@ -233,11 +233,13 @@ namespace WrokFlowWeb.Database
                 entity.HasOne(d => d.RequestTypeMaster)
                     .WithMany(p => p.SupplierRequest)
                     .HasForeignKey(d => d.RequestTypeMasterId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SupplierRequest_RequestTypeMaster");
 
                 entity.HasOne(d => d.SuplierTypeRequest)
                     .WithMany(p => p.SupplierRequest)
                     .HasForeignKey(d => d.SuplierTypeRequestId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SupplierRequest_SuplierTypeRequestMaster");
             });
 
@@ -252,6 +254,12 @@ namespace WrokFlowWeb.Database
                 entity.Property(e => e.ApprovedBy).HasMaxLength(450);
 
                 entity.Property(e => e.ApprovedOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.RoleApprovalMaster)
+                    .WithMany(p => p.SupplierRequestApprovalLog)
+                    .HasForeignKey(d => d.RoleApprovalMasterId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SupplierRequestApprovalLog_RoleApprovalMaster");
 
                 entity.HasOne(d => d.SupplierRequest)
                     .WithMany(p => p.SupplierRequestApprovalLog)

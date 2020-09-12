@@ -38,20 +38,20 @@ namespace WrokFlowWeb.Controllers
                 RequestTypeMaster = await this.supplierRequest.GetRequestTypeMaster(),
                 CategoryMaster = await this.supplierRequest.GetCategoryMaster(),
             };
-
-
             return View("Create", model);
         }
 
         public async Task<IActionResult> Create(SupplierViewModel supplierViewModel)
-        {       
+        {
+            var user = this.User.Identity.Name;
+            supplierViewModel.CreatedBy = user;
             var result =  await this.supplierRequest.Add(supplierViewModel);
-            
             return RedirectToAction("List", new { requestid = result });
         }
 
         public async Task<IActionResult> List(long requestid)
         {
+
             var model = new SupplierRequestListViewModel()
             {
                 SupplierRequestId = requestid,

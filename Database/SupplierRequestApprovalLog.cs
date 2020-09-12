@@ -7,12 +7,14 @@ namespace WrokFlowWeb.Database
     {
         public int SupplierRequestApprovalId { get; set; }
         public long SupplierRequestId { get; set; }
+        public byte RoleApprovalMasterId { get; set; }
         public bool IsApproved { get; set; }
         public string ApprovedBy { get; set; }
         public DateTime? ApprovedOn { get; set; }
         public string ApprovalComments { get; set; }
         public byte OrderBy { get; set; }
 
+        public virtual RoleApprovalMaster RoleApprovalMaster { get; set; }
         public virtual SupplierRequest SupplierRequest { get; set; }
     }
 }

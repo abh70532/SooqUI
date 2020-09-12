@@ -15,6 +15,7 @@ namespace WrokFlowWeb.Repository.Interface
         Task<List<Database.SupplierRequest>> GetSupplierRequestMaster();
         Task<List<Database.RequestTypeMaster>> GetRequestTypeMaster();
         void Add(SupplierRequest supplierRequest);
+        void Update(SupplierRequest supplierRequest);
         Task<List<Database.CategoryMaster>> GetCategoryMaster();
     }
 }

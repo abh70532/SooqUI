@@ -32,7 +32,7 @@ namespace WrokFlowWeb.Repository
 
         public async Task<List<Database.SupplierRequest>> GetSupplierRequests()
         {
-            return await context.SupplierRequest.Include(x=>x.SuplierTypeRequest).Include(x=>x.RequestTypeMaster).Include(x=>x.SupplierRequestCategoryMapping).ThenInclude(x=>x.CategoryMaster).ToListAsync();
+            return await context.SupplierRequest.Where(x=> x.IsActive && !x.IsDeleted).Include(x=>x.SuplierTypeRequest).Include(x=>x.RequestTypeMaster).Include(x=> x.SupplierRequestApprovalLog).ThenInclude(x=>x.RoleApprovalMaster).ThenInclude(x=>x.Role).Include(x=>x.SupplierRequestCategoryMapping).ThenInclude(x=>x.CategoryMaster).ToListAsync();
         }
 
         public async Task<List<Database.SuplierTypeRequestMaster>> GetSupplierTypeRequestMaster()
@@ -54,6 +54,11 @@ namespace WrokFlowWeb.Repository
         public void  Add(SupplierRequest supplierRequest)
         {
             context.SupplierRequest.Add(supplierRequest);
+        }
+
+        public void Update(SupplierRequest supplierRequest)
+        {
+            context.SupplierRequest.Update(supplierRequest);
         }
 
         public async Task<List<Database.CategoryMaster>> GetCategoryMaster()

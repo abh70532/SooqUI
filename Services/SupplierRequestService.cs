@@ -37,7 +37,9 @@ namespace WrokFlowWeb.Services
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 EmailId = model.EmailId,
-                ContactPhone = model.ContactPhone };
+                ContactPhone = model.ContactPhone ,
+                IsApprovalPending = true,
+            CreatedBy = model.CreatedBy};
             this._context.SupplierRequest.Add(request);
             await this._context.CompleteAsync();
             var categoryMaster = new List<SupplierRequestCategoryMapping>();
@@ -53,10 +55,21 @@ namespace WrokFlowWeb.Services
             await this._context.CompleteAsync();
 
             var roleApprovalList = await GetRoleApprovalMasterList(1);
+            var roleApprovals = new List<SupplierRequestApprovalLog>();
             foreach (var item in roleApprovalList)
             {
-
+                roleApprovals.Add(new SupplierRequestApprovalLog() {
+                     SupplierRequestId = request.SupplierRequestId,
+                    RoleApprovalMasterId = item.RoleApprovalMasterId,
+                    OrderBy = item.OrderBy
+                    
+                });
             }
+            this._context.SupplierRequestApprovalLog.Add(roleApprovals);
+            await this._context.CompleteAsync();
+            request.SupplierRequestApprovalId = roleApprovals.Where(x=>!x.IsApproved).OrderBy(x => x.OrderBy).FirstOrDefault().SupplierRequestApprovalId;
+            this._context.SupplierRequest.Update(request);
+            await this._context.CompleteAsync();
             return  request.SupplierRequestId; 
         }
 

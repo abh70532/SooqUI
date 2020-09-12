@@ -33,8 +33,8 @@ namespace WrokFlowWeb.Database
         public DateTime? CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
-        public bool? IsActive { get; set; }
-        public bool? IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
 
         public virtual RequestTypeMaster RequestTypeMaster { get; set; }
         public virtual SuplierTypeRequestMaster SuplierTypeRequest { get; set; }
