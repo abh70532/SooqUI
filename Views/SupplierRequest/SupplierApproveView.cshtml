@@ -26,6 +26,27 @@
                     <td>@Html.DisplayFor(x => x.SupplierViewModel.FirstName)</td>
                 </tr>
             </table>
+
+            <div class="form-group">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aprroved By </th>
+                            <th>Comments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var approvedLog in Model.SupplierRequestApprovalLog)
+                        {
+                            <tr>
+                                <td>@approvedLog.ApprovedBy</td>
+                                <td>@approvedLog.ApprovalComments</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
             <div class="form-group">
                 @foreach (var approve in Model.ApproveList)
                 {

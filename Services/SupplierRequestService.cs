@@ -193,5 +193,10 @@ namespace WrokFlowWeb.Services
             this._context.SupplierRequest.Update(supplierRequest);
             await this._context.CompleteAsync();
         }
+
+        public async Task<List<SupplierRequestApprovalLog>> GetApprovedLogBySupplierRequestId(long supplierRequestId)
+        {
+           return await this._context.SupplierRequestApprovalLog.GetApprovedLogBySupplierRequestId(supplierRequestId);
+         }
     }
 }

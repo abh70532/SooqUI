@@ -37,5 +37,10 @@ namespace WrokFlowWeb.Repository
         {
             return await context.SupplierRequestApprovalLog.Where(x => x.SupplierRequestId == supplierRequestId).ToListAsync();
         }
+
+        public async Task<List<SupplierRequestApprovalLog>> GetApprovedLogBySupplierRequestId(long supplierRequestId)
+        {
+            return await context.SupplierRequestApprovalLog.Where(x => x.SupplierRequestId == supplierRequestId && x.IsApproved != null).ToListAsync();
+        }
     }
 }

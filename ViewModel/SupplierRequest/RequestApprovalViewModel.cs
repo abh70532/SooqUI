@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WrokFlowWeb.Database;
 
 namespace WrokFlowWeb.ViewModel.SupplierRequest
 {
@@ -18,6 +19,7 @@ namespace WrokFlowWeb.ViewModel.SupplierRequest
         public string[] ApproveList = new[] { "Approve", "Reject" };
         [Required]
         public string Comments { get; set; }
+        public List<SupplierRequestApprovalLog> SupplierRequestApprovalLog { get; set; }
         public SupplierViewModel SupplierViewModel { get; set; }
         public InboxListViewModel InboxListViewModel { get; set; }
     }

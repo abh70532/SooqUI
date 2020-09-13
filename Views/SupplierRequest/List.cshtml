@@ -25,7 +25,7 @@
         columns.Add(model => model.PostalCode).Titled("Postal Code");
         columns.Add(model => model.EmailId).Titled("Email");
         columns.Add(model => model.ContactPhone).Titled("Contact No");
-        columns.Add(model => model.SupplierRequestApprovalLog.Where(x=>x.SupplierRequestApprovalId==model.SupplierRequestApprovalId).FirstOrDefault().RoleApprovalMaster.Role.Name).Titled("Approval Status");
+        columns.Add(model => model.IsRejected ? "Rejected" : model.SupplierRequestApprovalLog.Where(x=>  x.SupplierRequestApprovalId==model.SupplierRequestApprovalId).FirstOrDefault().RoleApprovalMaster.Role.Name).Titled("Approval Status");
 
         columns.Add(model => string.Join(',',model.SupplierRequestCategoryMapping.Select(y=>y.CategoryMaster.Category))).Titled("Category");
         columns.Add(model => $"<a href=\"Edit?requestid={model.SupplierRequestId}\">Edit</a>").Encoded(false);

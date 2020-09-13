@@ -23,6 +23,7 @@ namespace WrokFlowWeb.Services.Interface
         List<InboxListViewModel> GetInboxList(string emailid);
         Task<SupplierRequestApprovalLog> GetApprovalLogById(int supplierRequestApprovalId);
         Task ApproveUpdate(RequestApprovalViewModel requestApprovalViewModel, string user);
+        Task<List<SupplierRequestApprovalLog>> GetApprovedLogBySupplierRequestId(long supplierRequestId);
 
     }
 }

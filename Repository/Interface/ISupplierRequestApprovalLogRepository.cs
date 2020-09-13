@@ -12,5 +12,6 @@ namespace WrokFlowWeb.Repository.Interface
         Task<SupplierRequestApprovalLog> GetApprovalLogById(int supplierRequestApprovalId);
         void Update(SupplierRequestApprovalLog supplierRequestApprovalLog);
         Task<List<SupplierRequestApprovalLog>> GetApprovalLogBySupplierRequestId(long supplierRequestId);
+        Task<List<SupplierRequestApprovalLog>> GetApprovedLogBySupplierRequestId(long supplierRequestId);
     }
 }

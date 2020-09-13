@@ -133,6 +133,7 @@ namespace WrokFlowWeb.Controllers
                 case (long)Module.SupplierRequest:
                     var response = await this.supplierRequest.GetSupplierRequest(requestid);
                      model.SupplierViewModel = await bindSupplierViewModel(response);
+                     model.SupplierRequestApprovalLog = await this.supplierRequest.GetApprovedLogBySupplierRequestId(requestid);
                     return View("SupplierApproveView", model);
                 default:
                     break;
