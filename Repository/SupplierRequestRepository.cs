@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -8,6 +10,7 @@ using WrokFlowWeb.Database;
 using WrokFlowWeb.Repository.Interface;
 using WrokFlowWeb.Services.Interface;
 using WrokFlowWeb.ViewModel.CategoryMaster;
+using System.Data.SqlClient;
 
 namespace WrokFlowWeb.Repository
 {
@@ -69,6 +72,27 @@ namespace WrokFlowWeb.Repository
         public Task<long> Add(CategoryMasterViewModel categoryMasterView)
         {
             throw new NotImplementedException();
+
+        }
+
+        public async Task<DataSet> GetInboxList(string emailid)
+        {
+            var ds = new DataSet();
+            using (var command =  context.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "Usp_GetInboxList";
+                command.CommandType = CommandType.StoredProcedure;
+                var param = command.CreateParameter();
+                param.ParameterName = "@Email";
+                param.Value = emailid;
+                param.DbType = DbType.AnsiString;
+                command.Parameters.Add(param);
+                context.Database.OpenConnection();
+                using (SqlDataAdapter adapter = new SqlDataAdapter((SqlCommand)command)) {
+                     adapter.Fill(ds);
+                } 
+            }
+            return ds;
         }
     }
 }

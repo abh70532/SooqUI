@@ -1,0 +1,52 @@
+﻿@model WrokFlowWeb.ViewModel.SupplierRequest.RequestApprovalViewModel
+
+@{
+    ViewBag.Title = "Approval Details";
+}
+
+<h1>Supplier Request Approval/Rejection Details</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="SupplierRequest" asp-action="Approve" method="post">
+            @Html.HiddenFor(m => m.InboxListViewModel.RequestId)
+            @Html.HiddenFor(m => m.InboxListViewModel.ModuleId)
+            <hr />
+            <table>
+                <tr>
+                    <td>@Html.DisplayNameFor(x => x.SupplierViewModel.SupplierName): </td>
+                    <td>@Html.DisplayFor(x => x.SupplierViewModel.SupplierName)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(x => x.SupplierViewModel.EmailId): </td>
+                    <td>@Html.DisplayFor(x => x.SupplierViewModel.EmailId)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(x => x.SupplierViewModel.FirstName): </td>
+                    <td>@Html.DisplayFor(x => x.SupplierViewModel.FirstName)</td>
+                </tr>
+            </table>
+            <div class="form-group">
+                @foreach (var approve in Model.ApproveList)
+                {
+                    <input type="radio" asp-for="Approve" value="@approve" />@approve<br />
+                }
+                <span asp-validation-for="Approve" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comments"></label>
+                <input asp-for="Comments" class="form-control" />
+                <span asp-validation-for="Comments" class="text-danger"></span>
+            </div>
+
+            <button id="btnSubmit" type="submit" class="btn btn-primary">Sumbit</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+

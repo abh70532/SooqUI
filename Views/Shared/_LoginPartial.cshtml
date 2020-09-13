@@ -14,6 +14,12 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a asp-area="Identity" asp-page="/Account/Manage/Index" class="nav-link">User Profile</a>
 
+                    @if (User.IsInRole("Admin") || User.IsInRole("VendorManagmentTeam") || User.IsInRole("ProcurementManger"))
+                    {
+                        <a asp-action="InboxList" asp-controller="SupplierRequest" class="nav-link">Inbox</a>
+                    }
+
+                    
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-action="ListRoles" asp-controller="Role" class="nav-link">Manage Roles</a>

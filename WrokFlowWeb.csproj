@@ -16,4 +16,8 @@
     <PackageReference Include="NonFactors.Grid.Mvc6" Version="6.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Database\model\" />
+  </ItemGroup>
+
 </Project>

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using WrokFlowWeb.Database;
 using WrokFlowWeb.ViewModel;
 using WrokFlowWeb.ViewModel.CategoryMaster;
+using WrokFlowWeb.ViewModel.SupplierRequest;
 
 namespace WrokFlowWeb.Services.Interface
 {
@@ -19,6 +20,9 @@ namespace WrokFlowWeb.Services.Interface
         Task<long> Add(SupplierViewModel supplierRequest);
         Task<List<CategoryMasterViewModel>> GetCategoryMaster();
         Task<List<Database.RoleApprovalMaster>> GetRoleApprovalMasterList(long moduleId);
+        List<InboxListViewModel> GetInboxList(string emailid);
+        Task<SupplierRequestApprovalLog> GetApprovalLogById(int supplierRequestApprovalId);
+        Task ApproveUpdate(RequestApprovalViewModel requestApprovalViewModel, string user);
 
     }
 }

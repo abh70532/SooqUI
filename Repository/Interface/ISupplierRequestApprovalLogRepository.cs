@@ -9,5 +9,8 @@ namespace WrokFlowWeb.Repository.Interface
     public interface ISupplierRequestApprovalLogRepository
     {
         void Add(List<SupplierRequestApprovalLog> supplierRequestApprovalLogs);
+        Task<SupplierRequestApprovalLog> GetApprovalLogById(int supplierRequestApprovalId);
+        void Update(SupplierRequestApprovalLog supplierRequestApprovalLog);
+        Task<List<SupplierRequestApprovalLog>> GetApprovalLogBySupplierRequestId(long supplierRequestId);
     }
 }

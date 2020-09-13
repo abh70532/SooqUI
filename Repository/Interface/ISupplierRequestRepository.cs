@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using WrokFlowWeb.Database;
@@ -17,5 +18,6 @@ namespace WrokFlowWeb.Repository.Interface
         void Add(SupplierRequest supplierRequest);
         void Update(SupplierRequest supplierRequest);
         Task<List<Database.CategoryMaster>> GetCategoryMaster();
+        Task<DataSet> GetInboxList(string emailid);
     }
 }

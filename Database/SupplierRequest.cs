@@ -35,6 +35,7 @@ namespace WrokFlowWeb.Database
         public DateTime? UpdatedOn { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsRejected { get; set; }
 
         public virtual RequestTypeMaster RequestTypeMaster { get; set; }
         public virtual SuplierTypeRequestMaster SuplierTypeRequest { get; set; }

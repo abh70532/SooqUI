@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ using WrokFlowWeb.Services.Interface;
 using WrokFlowWeb.UnitOfWork;
 using WrokFlowWeb.ViewModel;
 using WrokFlowWeb.ViewModel.CategoryMaster;
+using WrokFlowWeb.ViewModel.SupplierRequest;
+using static WrokFlowWeb.Constants.Constants;
 
 namespace WrokFlowWeb.Services
 {
@@ -67,7 +70,7 @@ namespace WrokFlowWeb.Services
             }
             this._context.SupplierRequestApprovalLog.Add(roleApprovals);
             await this._context.CompleteAsync();
-            request.SupplierRequestApprovalId = roleApprovals.Where(x=>!x.IsApproved).OrderBy(x => x.OrderBy).FirstOrDefault().SupplierRequestApprovalId;
+            request.SupplierRequestApprovalId = roleApprovals.Where(x=>!x.IsApproved.GetValueOrDefault()).OrderBy(x => x.OrderBy).FirstOrDefault().SupplierRequestApprovalId;
             this._context.SupplierRequest.Update(request);
             await this._context.CompleteAsync();
             return  request.SupplierRequestId; 
@@ -129,6 +132,66 @@ namespace WrokFlowWeb.Services
         public async Task<List<RoleApprovalMaster>> GetRoleApprovalMasterList(long moduleId)
         {
             return await this._context.RoleApprovalMasterRepository.GetRoleApprovalMasterList(moduleId);
+        }
+
+        public  List<InboxListViewModel> GetInboxList(string emailid)
+        {
+            var resposnse =   this._context.SupplierRequest.GetInboxList(emailid);
+            var inboxList = new List<InboxListViewModel>();
+
+            foreach (DataRow item in resposnse.Result.Tables[0].Rows)
+            {
+                inboxList.Add(new InboxListViewModel()
+                {  RequestId = Convert.ToInt64(item["RequestId"]),
+                    ModuleId = Convert.ToInt64(item["ModuleId"]),
+                    ModuleName = item["ModuleName"].ToString()
+                });
+            }
+            return inboxList;
+        }
+
+        public void Approve(long requestid, long moduleid)
+        {
+            switch (moduleid)
+            {
+                case (long)Module.SupplierRequest:
+
+                default:
+                    break;
+            }
+        }
+
+        public async Task<SupplierRequestApprovalLog> GetApprovalLogById(int supplierRequestApprovalId)
+        {
+            return await this._context.SupplierRequestApprovalLog.GetApprovalLogById(supplierRequestApprovalId);
+        }
+
+        public async Task ApproveUpdate(RequestApprovalViewModel requestApprovalViewModel, string user)
+        {
+            var supplierRequest = await this._context.SupplierRequest.GetSupplierRequest(requestApprovalViewModel.InboxListViewModel.RequestId);
+            var approvalLog = await this._context.SupplierRequestApprovalLog.GetApprovalLogById(supplierRequest.SupplierRequestApprovalId.GetValueOrDefault());
+            approvalLog.IsApproved = requestApprovalViewModel.Approve.ToUpper() == "APPROVE";
+            approvalLog.ApprovalComments = requestApprovalViewModel.Comments;
+            approvalLog.ApprovedOn = DateTime.Now;
+            approvalLog.ApprovedBy = user;
+            this._context.SupplierRequestApprovalLog.Update(approvalLog);
+            await this._context.CompleteAsync();
+            var approvalLogList = await this._context.SupplierRequestApprovalLog.GetApprovalLogBySupplierRequestId(approvalLog.SupplierRequestId);
+            supplierRequest.SupplierRequestApprovalId = approvalLogList.Where(x => !x.IsApproved.GetValueOrDefault()).OrderBy(x => x.OrderBy).FirstOrDefault()?.SupplierRequestApprovalId;
+            if (!approvalLog.IsApproved.GetValueOrDefault())
+            {
+                supplierRequest.IsRejected = true;
+                supplierRequest.IsApprovalPending = false;
+                supplierRequest.SupplierRequestApprovalId = null;
+            }
+
+            if (supplierRequest.SupplierRequestApprovalId == null || supplierRequest.SupplierRequestApprovalId == 0)
+            {
+                supplierRequest.SupplierRequestApprovalId = null;
+                supplierRequest.IsApprovalPending = false;
+            }
+            this._context.SupplierRequest.Update(supplierRequest);
+            await this._context.CompleteAsync();
         }
     }
 }

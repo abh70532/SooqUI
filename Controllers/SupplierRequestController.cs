@@ -11,6 +11,7 @@ using WrokFlowWeb.Database;
 using WrokFlowWeb.Services.Interface;
 using WrokFlowWeb.ViewModel;
 using WrokFlowWeb.ViewModel.SupplierRequest;
+using static WrokFlowWeb.Constants.Constants;
 
 namespace WrokFlowWeb.Controllers
 {
@@ -73,28 +74,7 @@ namespace WrokFlowWeb.Controllers
         public async Task<IActionResult> Edit(long requestid)
         {
             var response = await this.supplierRequest.GetSupplierRequest(requestid);
-
-                var model = new SupplierViewModel()
-                {
-                    SuplierTypeRequest = await this.supplierRequest.GetSupplierTypeRequestMaster(),
-                    RequestTypeMaster = await this.supplierRequest.GetRequestTypeMaster(),
-                    CategoryMaster = await this.supplierRequest.GetCategoryMaster(),
-                    SuplierTypeRequestId = response.SuplierTypeRequestId,
-                    RequestTypeMasterId = response.RequestTypeMasterId,
-                    RequesterName = response.RequesterName,
-                    Department = response.Department,
-                    SupplierName = response.SupplierName,
-                    Street = response.Street,
-                    Address1 = response.Address1,
-                    Address2 = response.Address2,
-                    City = response.City,
-                    PostalCode = response.PostalCode,
-                    Country = response.Country,
-                    FirstName = response.FirstName,
-                    LastName = response.LastName,
-                    EmailId = response.EmailId,
-                    ContactPhone = response.ContactPhone
-                };
+            var model = await bindSupplierViewModel(response);
             var ids = response.SupplierRequestCategoryMapping.Select(x => x.CategoryMasterId).ToList();
             model.CategoryMaster.Where(c => ids.Contains(c.CategoryMasterId)).ToList().ForEach(option=> {
                 option.IsSelected = true;
@@ -102,5 +82,71 @@ namespace WrokFlowWeb.Controllers
 
             return View("Edit", model);
         }
+
+       async Task<SupplierViewModel> bindSupplierViewModel(SupplierRequest response)
+        {
+            
+            var model = new SupplierViewModel()
+            {
+                SuplierTypeRequest = await this.supplierRequest.GetSupplierTypeRequestMaster(),
+                RequestTypeMaster = await this.supplierRequest.GetRequestTypeMaster(),
+                CategoryMaster = await this.supplierRequest.GetCategoryMaster(),
+                SuplierTypeRequestId = response.SuplierTypeRequestId,
+                RequestTypeMasterId = response.RequestTypeMasterId,
+                RequesterName = response.RequesterName,
+                Department = response.Department,
+                SupplierName = response.SupplierName,
+                Street = response.Street,
+                Address1 = response.Address1,
+                Address2 = response.Address2,
+                City = response.City,
+                PostalCode = response.PostalCode,
+                Country = response.Country,
+                FirstName = response.FirstName,
+                LastName = response.LastName,
+                EmailId = response.EmailId,
+                ContactPhone = response.ContactPhone
+            };
+            return model;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> InboxList()
+        {
+          List<InboxListViewModel> model  = this.supplierRequest.GetInboxList(this.User.Identity.Name);
+          return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Approve(long requestid, long moduleid)
+        {
+            RequestApprovalViewModel model = new RequestApprovalViewModel
+            {
+                InboxListViewModel = new InboxListViewModel()
+                {
+                    RequestId = requestid,
+                    ModuleId = moduleid
+                }
+            };
+            switch (moduleid)
+            {
+                case (long)Module.SupplierRequest:
+                    var response = await this.supplierRequest.GetSupplierRequest(requestid);
+                     model.SupplierViewModel = await bindSupplierViewModel(response);
+                    return View("SupplierApproveView", model);
+                default:
+                    break;
+            }
+
+            return null;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Approve(RequestApprovalViewModel requestApprovalViewModel)
+        {
+            await this.supplierRequest.ApproveUpdate(requestApprovalViewModel, this.User.Identity.Name);
+
+           return RedirectToAction("InboxList");
+        }
     }
-}
+}  
