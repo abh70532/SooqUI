@@ -7,6 +7,7 @@ namespace WrokFlowWeb.Database
     {
         public SupplierRequest()
         {
+            AspNetUsers = new HashSet<AspNetUsers>();
             SupplierRequestApprovalLog = new HashSet<SupplierRequestApprovalLog>();
             SupplierRequestCategoryMapping = new HashSet<SupplierRequestCategoryMapping>();
         }
@@ -28,6 +29,7 @@ namespace WrokFlowWeb.Database
         public string EmailId { get; set; }
         public string ContactPhone { get; set; }
         public bool? IsApprovalPending { get; set; }
+        public bool IsRejected { get; set; }
         public int? SupplierRequestApprovalId { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
@@ -35,10 +37,10 @@ namespace WrokFlowWeb.Database
         public DateTime? UpdatedOn { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
-        public bool IsRejected { get; set; }
 
         public virtual RequestTypeMaster RequestTypeMaster { get; set; }
         public virtual SuplierTypeRequestMaster SuplierTypeRequest { get; set; }
+        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
         public virtual ICollection<SupplierRequestApprovalLog> SupplierRequestApprovalLog { get; set; }
         public virtual ICollection<SupplierRequestCategoryMapping> SupplierRequestCategoryMapping { get; set; }
     }

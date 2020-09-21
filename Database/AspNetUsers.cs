@@ -32,7 +32,12 @@ namespace WrokFlowWeb.Database
         public string LastName { get; set; }
         public DateTime? StartDate { get; set; }
         public string Department { get; set; }
+        public byte? UserType { get; set; }
+        public long? SupplierRequestId { get; set; }
+        public string CompanyName { get; set; }
+        public string CostCenter { get; set; }
 
+        public virtual SupplierRequest SupplierRequest { get; set; }
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
