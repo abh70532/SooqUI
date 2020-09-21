@@ -20,7 +20,9 @@
         columns.Add(model => $"<a href=\"Details\\{model.Id}\">Edit</a>").Encoded(false);
         columns.Add(model => $"<a href=\"#\">Delete</a>").Encoded(false);
 
-    }).Pageable(pager =>
+    })
+    .Empty("No User Registration data to be displayed")
+    .Pageable(pager =>
     {
         pager.PageSizes = new Dictionary<Int32, String> { { 0, "All" }, { 10, "10" }, { 25, "25" } };
         pager.ShowPageSizes = true;

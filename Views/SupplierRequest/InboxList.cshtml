@@ -6,8 +6,7 @@
 
 <h1> Inbox Items</h1>
 
-@if (Model.Any())
-{
+
 
 
     @(Html
@@ -18,7 +17,9 @@
         columns.Add(model => model.RequestId).Titled("Request");
         columns.Add(model => $"<a href=\"Approve?requestid={model.RequestId}&moduleid={model.ModuleId}\">Aprrove/Reject</a>").Encoded(false);
 
-    }).Pageable(pager =>
+    })
+     .Empty("No request for approval")
+    .Pageable(pager =>
     {
         pager.PageSizes = new Dictionary<Int32, String> { { 0, "All" }, { 10, "10" }, { 25, "25" } };
         pager.ShowPageSizes = true;
@@ -27,4 +28,4 @@
         pager.RowsPerPage = 10;
     })
 )
-}
+

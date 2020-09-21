@@ -49,9 +49,9 @@ namespace WrokFlowWeb.Repository
             return await context.RequestTypeMaster.ToListAsync();
         }
 
-        public Task<List<SupplierRequest>> GetSupplierRequestMaster()
+        public async Task<List<SupplierRequest>> GetSupplierRequestMaster()
         {
-            throw new NotImplementedException();
+            return await context.SupplierRequest.Where(x=>x.IsActive && !x.IsDeleted).ToListAsync();
         }
 
         public void  Add(SupplierRequest supplierRequest)

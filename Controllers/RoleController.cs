@@ -231,5 +231,38 @@ namespace WrokFlowWeb.Controllers
             }
             return RedirectToAction("Details", new { id = userRoleViewModel.RoleId });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> MapUserSupplier()
+        {
+            var role = await roleManager.FindByIdAsync(roleid);
+            if (role == null)
+            {
+                ViewBag.ErrorMessage = $"Role with Id = {roleid} cannot be found";
+                return View("NotFound");
+            }
+
+            var model = new UserRoleViewModel()
+            {
+                RoleId = roleid
+            };
+
+
+            foreach (var user in userManager.Users)
+            {
+                var userRoleViewModel = new UserRoleList()
+                {
+                    UserId = user.Id,
+                    UserName = user.UserName
+                };
+                if (await userManager.IsInRoleAsync(user, role.Name))
+                {
+                    userRoleViewModel.IsSelected = true;
+                }
+                model.UserRoleList.Add(userRoleViewModel);
+            }
+
+            return View(model);
+        }
     }
 }

@@ -27,5 +27,10 @@ namespace WrokFlowWeb.Areas.Identity.Data
         
         [Column(TypeName = "nvarchar(100)")]
         public string Department { get; set; }
+        public byte? UserType { get; set; }
+        public long? SupplierRequestId { get; set; }
+        public string CompanyName { get; set; }
+        public string CostCenter { get; set; }
+
     }
 }
