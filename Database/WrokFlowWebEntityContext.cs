@@ -23,6 +23,7 @@ namespace WrokFlowWeb.Database
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<CategoryMaster> CategoryMaster { get; set; }
+        public virtual DbSet<ModuleMaster> ModuleMaster { get; set; }
         public virtual DbSet<RequestTypeMaster> RequestTypeMaster { get; set; }
         public virtual DbSet<RoleApprovalMaster> RoleApprovalMaster { get; set; }
         public virtual DbSet<SuplierTypeRequestMaster> SuplierTypeRequestMaster { get; set; }
@@ -126,6 +127,10 @@ namespace WrokFlowWeb.Database
                     .IsUnique()
                     .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
+                entity.Property(e => e.CompanyName).HasMaxLength(100);
+
+                entity.Property(e => e.CostCenter).HasMaxLength(100);
+
                 entity.Property(e => e.Department).HasMaxLength(100);
 
                 entity.Property(e => e.Email).HasMaxLength(256);
@@ -140,7 +145,13 @@ namespace WrokFlowWeb.Database
 
                 entity.Property(e => e.StartDate).HasColumnType("date");
 
+
                 entity.Property(e => e.UserName).HasMaxLength(256);
+
+                entity.HasOne(d => d.SupplierRequest)
+                    .WithMany(p => p.AspNetUsers)
+                    .HasForeignKey(d => d.SupplierRequestId)
+                    .HasConstraintName("FK_AspNetUsers_SupplierRequest");
             });
 
             modelBuilder.Entity<CategoryMaster>(entity =>
@@ -152,6 +163,18 @@ namespace WrokFlowWeb.Database
                 entity.Property(e => e.IsActive)
                     .IsRequired()
                     .HasDefaultValueSql("((1))");
+            });
+
+            modelBuilder.Entity<ModuleMaster>(entity =>
+            {
+                entity.HasKey(e => e.ModuleId)
+                    .HasName("PK_Module");
+
+                entity.Property(e => e.ModuleId).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.ModuleName)
+                    .IsRequired()
+                    .HasMaxLength(200);
             });
 
             modelBuilder.Entity<RequestTypeMaster>(entity =>
@@ -168,6 +191,12 @@ namespace WrokFlowWeb.Database
                 entity.Property(e => e.RoleId)
                     .IsRequired()
                     .HasMaxLength(450);
+
+                entity.HasOne(d => d.Module)
+                    .WithMany(p => p.RoleApprovalMaster)
+                    .HasForeignKey(d => d.ModuleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_RoleApprovalMaster_Module");
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.RoleApprovalMaster)
@@ -210,9 +239,9 @@ namespace WrokFlowWeb.Database
 
                 entity.Property(e => e.FirstName).HasMaxLength(100);
 
-                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.IsDeleted).HasDefaultValueSql("((0))");
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.LastName).HasMaxLength(100);
 

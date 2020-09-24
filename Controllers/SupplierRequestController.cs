@@ -83,7 +83,8 @@ namespace WrokFlowWeb.Controllers
             return View("Edit", model);
         }
 
-       async Task<SupplierViewModel> bindSupplierViewModel(SupplierRequest response)
+
+        async Task<SupplierViewModel> bindSupplierViewModel(SupplierRequest response)
         {
             
             var model = new SupplierViewModel()
@@ -134,6 +135,32 @@ namespace WrokFlowWeb.Controllers
                     var response = await this.supplierRequest.GetSupplierRequest(requestid);
                      model.SupplierViewModel = await bindSupplierViewModel(response);
                      model.SupplierRequestApprovalLog = await this.supplierRequest.GetApprovedLogBySupplierRequestId(requestid);
+                    return View("SupplierApproveView", model);
+                default:
+                    break;
+            }
+
+            return null;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewApprovals(long requestid, long moduleid)
+        {
+            RequestApprovalViewModel model = new RequestApprovalViewModel
+            {
+                IsView = true,
+                InboxListViewModel = new InboxListViewModel()
+                {
+                    RequestId = requestid,
+                    ModuleId = moduleid
+                }
+            };
+            switch (moduleid)
+            {
+                case (long)Module.SupplierRequest:
+                    var response = await this.supplierRequest.GetSupplierRequest(requestid);
+                    model.SupplierViewModel = await bindSupplierViewModel(response);
+                    model.SupplierRequestApprovalLog = await this.supplierRequest.GetApprovedLogBySupplierRequestId(requestid);
                     return View("SupplierApproveView", model);
                 default:
                     break;

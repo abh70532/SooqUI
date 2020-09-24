@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using WrokFlowWeb.Database;
 using WrokFlowWeb.ViewModel;
 using WrokFlowWeb.ViewModel.CategoryMaster;
+using WrokFlowWeb.ViewModel.Role;
 using WrokFlowWeb.ViewModel.SupplierRequest;
 
 namespace WrokFlowWeb.Services.Interface
 {
    public interface ISupplierRequestService
     {
+        Task PostMapUserSupplier(SupplierUserMappingViewModel supplierUserMappingViewModel, string user);
         Task<List<SupplierRequest>> GetSupplierRequests();
         void AddSupplierRequest(SupplierRequest supplierRequest);
         Task<Database.SupplierRequest> GetSupplierRequest(long id);
@@ -24,6 +26,7 @@ namespace WrokFlowWeb.Services.Interface
         Task<SupplierRequestApprovalLog> GetApprovalLogById(int supplierRequestApprovalId);
         Task ApproveUpdate(RequestApprovalViewModel requestApprovalViewModel, string user);
         Task<List<SupplierRequestApprovalLog>> GetApprovedLogBySupplierRequestId(long supplierRequestId);
+        Task<SupplierUserMappingViewModel> GetSUpplierUserMappingViewModel();
 
     }
 }

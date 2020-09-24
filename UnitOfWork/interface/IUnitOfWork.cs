@@ -13,6 +13,7 @@ namespace WrokFlowWeb.UnitOfWork
         ISupplierCategoryMappingRepository SupplierCategoryMappingRepository { get; }
         ISupplierRequestApprovalLogRepository SupplierRequestApprovalLog { get; }
         IRoleApprovalMasterRepository RoleApprovalMasterRepository { get; }
+        IUserRepository UserRepository { get; }
         Task<int> CompleteAsync();
         int Complete();
     }

@@ -6,24 +6,25 @@
 <h1> All Users</h1>
 
 
-    <a class="btn btn-primary mb-3" href="~/Identity/Account/RegisterUser"> Add New User</a>
-   <br />
-    <input id="GridSearch" placeholder="search user" />
-    <br />
-    @Html.AjaxGrid(Url.Action("ListUsers"))
+<a class="btn btn-primary mb-3" href="~/Identity/Account/RegisterUser"> Add New User</a>
+<a class="btn btn-primary mb-3"  asp-controller="role" asp-action="MapUserSupplier"> Map User SUpplier</a>
+<br />
+<input id="GridSearch" placeholder="search user" />
+<br />
+@Html.AjaxGrid(Url.Action("ListUsers"))
 
-    <script>
-        document.getElementById("GridSearch").addEventListener("input", function () {
+<script>
+    document.getElementById("GridSearch").addEventListener("input", function () {
         const grid = new MvcGrid(document.querySelector(".mvc-grid"));
 
 
-            grid.url.searchParams.set("search", this.value);
+        grid.url.searchParams.set("search", this.value);
 
         grid.reload();
     });
-    </script>
+</script>
 
-   
+
 
 
 

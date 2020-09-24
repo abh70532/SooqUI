@@ -7,9 +7,6 @@
 <h1> Supplier Requests</h1>
 <a class="btn btn-primary mb-3" asp-action="Get" asp-controller="SupplierRequest"> Add Supplier Request</a>
 
-@if (Model.SupplierRequests.Any())
-{
-
 
     @(Html
     .Grid(Model.SupplierRequests)
@@ -25,15 +22,17 @@
         columns.Add(model => model.PostalCode).Titled("Postal Code");
         columns.Add(model => model.EmailId).Titled("Email");
         columns.Add(model => model.ContactPhone).Titled("Contact No");
-        columns.Add(model => model.IsRejected ? "Rejected" : model.SupplierRequestApprovalLog.Where(x=>  x.SupplierRequestApprovalId==model.SupplierRequestApprovalId).FirstOrDefault().RoleApprovalMaster.Role.Name).Titled("Approval Status");
+        columns.Add(model => model.IsRejected ? "Rejected" : model.SupplierRequestApprovalId > 0? model.SupplierRequestApprovalLog.Where(x=>  x.SupplierRequestApprovalId==model.SupplierRequestApprovalId).FirstOrDefault().RoleApprovalMaster.Role.Name: "Approved").Titled("Approval Status");
 
         columns.Add(model => string.Join(',',model.SupplierRequestCategoryMapping.Select(y=>y.CategoryMaster.Category))).Titled("Category");
-        columns.Add(model => $"<a href=\"Edit?requestid={model.SupplierRequestId}\">Edit</a>").Encoded(false);
+        columns.Add(model => !model.IsEditable? $"<a href=\"ViewApprovals?requestid={model.SupplierRequestId}&moduleid=1\">View Approvals</a>" : $"<a href=\"Edit?requestid={model.SupplierRequestId}\">Edit</a>").Encoded(false);
         //columns.Add(model => $"<a href=\"@Url.Action('Delete', 'movies', new { requestid = model.SupplierRequestId })\">Edit</a>").Encoded(false);
 
 
 
-    }).Pageable(pager =>
+    })
+     .Empty("No supplier request data to be displayed")
+    .Pageable(pager =>
     {
         pager.PageSizes = new Dictionary<Int32, String> { { 0, "All" }, { 10, "10" }, { 25, "25" } };
         pager.ShowPageSizes = true;
@@ -42,5 +41,5 @@
         pager.RowsPerPage = 10;
     })
 )
-}
+
 

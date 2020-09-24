@@ -15,6 +15,7 @@ namespace WrokFlowWeb.Database
         public byte ModuleId { get; set; }
         public byte OrderBy { get; set; }
 
+        public virtual ModuleMaster Module { get; set; }
         public virtual AspNetRoles Role { get; set; }
         public virtual ICollection<SupplierRequestApprovalLog> SupplierRequestApprovalLog { get; set; }
     }

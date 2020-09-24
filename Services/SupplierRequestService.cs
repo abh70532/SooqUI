@@ -5,10 +5,12 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using WrokFlowWeb.Database;
+using WrokFlowWeb.Repository.Interface;
 using WrokFlowWeb.Services.Interface;
 using WrokFlowWeb.UnitOfWork;
 using WrokFlowWeb.ViewModel;
 using WrokFlowWeb.ViewModel.CategoryMaster;
+using WrokFlowWeb.ViewModel.Role;
 using WrokFlowWeb.ViewModel.SupplierRequest;
 using static WrokFlowWeb.Constants.Constants;
 
@@ -42,7 +44,8 @@ namespace WrokFlowWeb.Services
                 EmailId = model.EmailId,
                 ContactPhone = model.ContactPhone ,
                 IsApprovalPending = true,
-            CreatedBy = model.CreatedBy};
+                CreatedBy = model.CreatedBy,
+                IsEditable = true};
             this._context.SupplierRequest.Add(request);
             await this._context.CompleteAsync();
             var categoryMaster = new List<SupplierRequestCategoryMapping>();
@@ -178,6 +181,7 @@ namespace WrokFlowWeb.Services
             await this._context.CompleteAsync();
             var approvalLogList = await this._context.SupplierRequestApprovalLog.GetApprovalLogBySupplierRequestId(approvalLog.SupplierRequestId);
             supplierRequest.SupplierRequestApprovalId = approvalLogList.Where(x => !x.IsApproved.GetValueOrDefault()).OrderBy(x => x.OrderBy).FirstOrDefault()?.SupplierRequestApprovalId;
+            supplierRequest.IsEditable = false;
             if (!approvalLog.IsApproved.GetValueOrDefault())
             {
                 supplierRequest.IsRejected = true;
@@ -198,5 +202,50 @@ namespace WrokFlowWeb.Services
         {
            return await this._context.SupplierRequestApprovalLog.GetApprovedLogBySupplierRequestId(supplierRequestId);
          }
+
+        public async Task<List<AspNetUsers>> GetExternalUsers()
+        {
+            return await this._context.UserRepository.GetExternalUsers();
+        }
+
+        public async Task<SupplierUserMappingViewModel> GetSUpplierUserMappingViewModel()
+        {
+            SupplierUserMappingViewModel supplierUserMappingViewModel = new SupplierUserMappingViewModel();
+            List<UserViewModel> userViewModel = new List<UserViewModel>();
+            List<SuppilerListViewModel> suppilerListViewModels = new List<SuppilerListViewModel>();
+            var user = await this._context.UserRepository.GetExternalUsers();
+            foreach (var item in user)
+            {
+                userViewModel.Add(new UserViewModel() { 
+                     Email = item.Email,
+                     Userid = item.Id
+                });
+            }
+            supplierUserMappingViewModel.UserViewModels = userViewModel;
+            var supplier = await this._context.SupplierRequest.GetSupplierRequestMaster();
+            foreach (var item in supplier)
+            {
+                suppilerListViewModels.Add(new SuppilerListViewModel()
+                {
+                     SupplierRequestId = item.SupplierRequestId,
+                     SupplierName = string.Join('-',item.SupplierName,item.SupplierRequestId)
+                });
+            }
+            supplierUserMappingViewModel.SuppilerListViewModel = suppilerListViewModels;
+            return supplierUserMappingViewModel;
+        }
+
+
+        public async Task PostMapUserSupplier(SupplierUserMappingViewModel supplierUserMappingViewModel, string user)
+        {
+            var userList =  await this._context.UserRepository.GetUserListByIds(supplierUserMappingViewModel.UserViewModels.Where(x=>x.IsSelected).Select(x=>x.Userid).ToList());
+            userList.ForEach(item =>
+            {
+                item.SupplierRequestId = supplierUserMappingViewModel.SelectedSupplierId;
+             
+            });
+            this._context.UserRepository.UpdateAll(userList);
+            await this._context.CompleteAsync();
+        }
     }
 }

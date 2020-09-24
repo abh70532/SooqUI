@@ -22,6 +22,8 @@ namespace WrokFlowWeb.ViewModel.SupplierRequest
         public List<SupplierRequestApprovalLog> SupplierRequestApprovalLog { get; set; }
         public SupplierViewModel SupplierViewModel { get; set; }
         public InboxListViewModel InboxListViewModel { get; set; }
+
+        public bool  IsView { get; set; }
     }
 }
     

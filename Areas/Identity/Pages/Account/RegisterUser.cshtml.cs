@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using WrokFlowWeb.Areas.Identity.Data;
+using WrokFlowWeb.Database;
+using WrokFlowWeb.Services.Interface;
+using WrokFlowWeb.ViewModel.SupplierRequest;
 
 namespace WrokFlowWeb.Areas.Identity.Pages.Account
 {
@@ -24,17 +27,19 @@ namespace WrokFlowWeb.Areas.Identity.Pages.Account
         private readonly UserManager<WrokFlowWebUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ISupplierRequestService _supplierRequestService;
 
         public RegisterUserModel(
             UserManager<WrokFlowWebUser> userManager,
             SignInManager<WrokFlowWebUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, ISupplierRequestService supplierRequestService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _supplierRequestService = supplierRequestService;
         }
 
         [BindProperty]
@@ -43,6 +48,8 @@ namespace WrokFlowWeb.Areas.Identity.Pages.Account
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
+
+        public List<SuppilerListViewModel> SupplierRequests { get; set; }
 
         public class InputModel
         {
@@ -77,21 +84,61 @@ namespace WrokFlowWeb.Areas.Identity.Pages.Account
             [DataType(DataType.Text)]
             [Display(Name = "Department")]
             public string Department { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Internal/External User")]
+            public byte UserType { get; set; }
+
+            [Required]
+            [Display(Name = "Supplier")]
+            public long? SupplierRequestId { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Company Name")]
+            public string CompanyName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Cost Center")]
+            public string CostCenter { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            
+            var suppliers = _supplierRequestService.GetSupplierRequestMaster().Result;
+            List<SuppilerListViewModel> suppilerListViewModels = new List<SuppilerListViewModel>();
+            suppliers.ForEach(item => {
+                suppilerListViewModels.Add(new SuppilerListViewModel()
+                {
+                    SupplierRequestId = item.SupplierRequestId,
+                    SupplierName = string.Join('-', item.SupplierName, item.SupplierRequestId)
+                });
+            });
+
+            SupplierRequests = suppilerListViewModels;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            if (ModelState.IsValid)
+            if (Input.SupplierRequestId == null)
             {
-                var user = new WrokFlowWebUser { UserName = Input.Email, Email = Input.Email,FirstName=Input.FirstName,LastName=Input.LastName,Department=Input.Department,StartDate= Convert.ToDateTime(Input.StartDate) };
+              
+                ModelState.ClearValidationState("Input.SupplierRequestId");
+                ModelState.ClearValidationState("Input.CompanyName");
+            }
+                var user = new WrokFlowWebUser { UserName = Input.Email, Email = Input.Email,FirstName=Input.FirstName,
+                    LastName=Input.LastName,Department=Input.Department,StartDate= Convert.ToDateTime(Input.StartDate),
+                    UserType = Input.UserType,SupplierRequestId = Input.SupplierRequestId,
+                    CompanyName = Input.CompanyName,
+                    CostCenter= Input.CostCenter
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -117,11 +164,22 @@ namespace WrokFlowWeb.Areas.Identity.Pages.Account
                         return RedirectToAction("ListUsers", "Role");
                     }
                 }
-                foreach (var error in result.Errors)
+            var suppliers = _supplierRequestService.GetSupplierRequestMaster().Result;
+            List<SuppilerListViewModel> suppilerListViewModels = new List<SuppilerListViewModel>();
+            suppliers.ForEach(item => {
+                suppilerListViewModels.Add(new SuppilerListViewModel()
+                {
+                    SupplierRequestId = item.SupplierRequestId,
+                    SupplierName = string.Join('-', item.SupplierName, item.SupplierRequestId)
+                });
+            });
+
+            SupplierRequests = suppilerListViewModels;
+            foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-            }
+            
 
             // If we got this far, something failed, redisplay form
             return Page();

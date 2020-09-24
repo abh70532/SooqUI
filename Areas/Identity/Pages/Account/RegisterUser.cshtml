@@ -23,6 +23,40 @@
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Input.UserType"></label>
+                <select asp-for="Input.UserType" style="width:90%">
+                    <option></option>
+                    <option value="1">Internal user</option>
+                    <option value="2">External User</option>
+                </select>
+                <span asp-validation-for="Input.UserType" class="text-danger"></span>
+            </div>
+            <div id="controlId">
+                <div class="form-group">
+                    <label asp-for="Input.SupplierRequestId"></label>
+                    <div class="col-md-5">
+                        <select asp-for="Input.SupplierRequestId" style="width:90%"
+                                asp-items="@(new SelectList(Model.SupplierRequests,"SupplierRequestId","SupplierName"))">
+                            <option></option>
+                        </select>
+                        <span asp-validation-for="Input.SupplierRequestId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Input.CompanyName"></label>
+                    <input asp-for="Input.CompanyName" class="form-control" />
+                    <span asp-validation-for="Input.CompanyName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.CostCenter"></label>
+                <input asp-for="Input.CostCenter" class="form-control" />
+                <span asp-validation-for="Input.CostCenter" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
@@ -51,10 +85,22 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Register</button>
+            <a asp-controller="Role" asp-action="ListUsers" class="btn btn-primary" style="width:auto">Cancel</a>
         </form>
     </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        $("#controlId").hide();
+        $(".error").hide();
+        $("#Input_UserType").on("change", function () {
+            if ($("#Input_UserType option:selected").val() == 2) {
+                $("#controlId").show();
+            } else {
+                $("#controlId").hide();
+            }
+        });
+    </script>
 }
