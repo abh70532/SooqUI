@@ -21,6 +21,7 @@ namespace WrokFlowWeb.UnitOfWork
         private ICategoryMasterRepository _categoryMasterRepository;
         private ISupplierRequestApprovalLogRepository _supplierRequestApprovalLog;
         private IRoleApprovalMasterRepository _roleApprovalMasterRepository;
+        private IUserRepository _userRepository;
         public ISupplierRequestRepository SupplierRequest
         {
             get
@@ -78,6 +79,18 @@ namespace WrokFlowWeb.UnitOfWork
                     this._roleApprovalMasterRepository = new RoleApprovalMasterRepository(dbContext);
                 }
                 return this._roleApprovalMasterRepository;
+            }
+        }
+
+        public IUserRepository UserRepository
+        {
+            get
+            {
+                if (this._userRepository == null)
+                {
+                    this._userRepository = new UserRepository(dbContext);
+                }
+                return this._userRepository;
             }
         }
 

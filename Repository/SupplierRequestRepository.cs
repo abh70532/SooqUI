@@ -33,6 +33,8 @@ namespace WrokFlowWeb.Repository
             return await context.SupplierRequest.Where(x=>x.SupplierRequestId == id).Include(x => x.SuplierTypeRequest).Include(x => x.RequestTypeMaster).Include(x => x.SupplierRequestCategoryMapping).ThenInclude(x => x.CategoryMaster).FirstOrDefaultAsync();
         }
 
+        
+
         public async Task<List<Database.SupplierRequest>> GetSupplierRequests()
         {
             return await context.SupplierRequest.Where(x=> x.IsActive && !x.IsDeleted).Include(x=>x.SuplierTypeRequest).Include(x=>x.RequestTypeMaster).Include(x=> x.SupplierRequestApprovalLog).ThenInclude(x=>x.RoleApprovalMaster).ThenInclude(x=>x.Role).Include(x=>x.SupplierRequestCategoryMapping).ThenInclude(x=>x.CategoryMaster).ToListAsync();

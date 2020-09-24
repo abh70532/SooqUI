@@ -1,5 +1,84 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
+@model WrokFlowWeb.ViewModel.Role.SupplierUserMappingViewModel
+
 @{
+    ViewBag.Title = "Supplier Mapping Request";
+}
+
+<h1>@ViewBag.Title</h1>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Role" asp-action="PostMapUserSupplier" method="post">
+
+            <hr />
+            <div class="form-group">
+                <label asp-for="SelectedUsers"></label>
+                <table id="tblCategory">
+                    @for (int i = 0; i < Model.UserViewModels.Count(); i++)
+                    {
+                        <tr>
+                            <td>
+                                @Html.CheckBoxFor(m => m.UserViewModels[i].IsSelected)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m.UserViewModels[i].Email)
+                                @Html.HiddenFor(m => m.UserViewModels[i].Userid)
+                                @Html.HiddenFor(m => m.UserViewModels[i].Email)
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <span class="error">Please select at-least one user.</span>
+                <br />
+                <br />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SelectedSupplierId"></label>
+                <div class="col-md-5">
+                    <select asp-for="SelectedSupplierId" style="width:90%"
+                            asp-items="@(new SelectList(Model.SuppilerListViewModel,"SupplierRequestId","SupplierName"))">
+                        <option></option>
+                    </select>
+                    <span asp-validation-for="SelectedSupplierId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <button id="btnSubmit" type="submit" class="btn btn-primary">Update</button>
+            <a asp-controller="SupplierRequest" asp-action="List" class="btn btn-primary" style="width:auto">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $("#controlId").hide();
+        $(".error").hide();
+        $("#RequestTypeMasterId").on("change", function () {
+            if ($("#RequestTypeMasterId option:selected").val() == 2) {
+                $("#controlId").show();
+            } else {
+                $("#controlId").hide();
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnSubmit").click(function () {
+                var checked_checkboxes = $("#tblCategory input[type=checkbox]:checked");
+                if (checked_checkboxes.length == 0) {
+                    $(".error").show();
+                    return false;
+                } else {
+                    $(".error").hide();
+                    return true;
+                }
+
+            });
+        });
+    </script>
 }

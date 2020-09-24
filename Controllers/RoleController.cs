@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.IIS.Core;
 using WrokFlowWeb.Areas.Identity.Data;
+using WrokFlowWeb.Services.Interface;
 using WrokFlowWeb.ViewModel;
 using WrokFlowWeb.ViewModel.Role;
 
@@ -20,12 +21,15 @@ namespace WrokFlowWeb.Controllers
     {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<WrokFlowWebUser> userManager;
+        private readonly ISupplierRequestService supplierRequest;
 
         public RoleController(RoleManager<IdentityRole> roleManager,
-                              UserManager<WrokFlowWebUser> userManager)
+                              UserManager<WrokFlowWebUser> userManager,
+                              ISupplierRequestService supplierRequest)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
+            this.supplierRequest = supplierRequest;
         }
         // GET: RoleController
         public ActionResult ListRoles()
@@ -234,8 +238,16 @@ namespace WrokFlowWeb.Controllers
 
         [HttpGet]
         public async Task<IActionResult> MapUserSupplier()
-        {  
-            return View();
+        {
+            var model = await this.supplierRequest.GetSUpplierUserMappingViewModel();
+            return View("UserSupplierMap", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostMapUserSupplier(SupplierUserMappingViewModel supplierUserMappingViewModel)
+        {
+            await this.supplierRequest.PostMapUserSupplier(supplierUserMappingViewModel,"");
+            return RedirectToAction("ListUsers");
         }
     }
 }

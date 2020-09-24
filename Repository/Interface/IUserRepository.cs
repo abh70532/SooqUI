@@ -7,6 +7,8 @@ namespace WrokFlowWeb.Repository.Interface
 {
     public interface IUserRepository
     {
-        Task<Database.AspNetUsers> GetSupplierRequest(long id);
+        Task<List<Database.AspNetUsers>> GetExternalUsers();
+        Task<List<Database.AspNetUsers>> GetUserListByIds(List<long> id);
+        void UpdateAll(List<Database.AspNetUsers> aspNetUsers);
     }
 }
