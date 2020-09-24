@@ -38,6 +38,9 @@ namespace WrokFlowWeb.Database
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
 
+        public bool IsEditable { get; set; }
+
+
         public virtual RequestTypeMaster RequestTypeMaster { get; set; }
         public virtual SuplierTypeRequestMaster SuplierTypeRequest { get; set; }
         public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }

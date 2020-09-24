@@ -180,7 +180,7 @@ namespace WrokFlowWeb.Controllers
             };
             
 
-            foreach (var user in userManager.Users)
+            foreach (var user in userManager.Users.Where(x=>x.UserType==1).ToList())
             {
                 var userRoleViewModel = new UserRoleList()
                 {

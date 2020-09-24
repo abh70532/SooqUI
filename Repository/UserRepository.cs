@@ -20,7 +20,7 @@ namespace WrokFlowWeb.Repository
 
         public async Task<List<AspNetUsers>> GetExternalUsers()
         {
-            return await this.context.AspNetUsers.Where(x => x.UserType == 1).ToListAsync();
+            return await this.context.AspNetUsers.Where(x => x.UserType == 2).ToListAsync();
         }
 
         public async Task<List<AspNetUsers>> GetUserListByIds(List<string> id)

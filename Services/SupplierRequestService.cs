@@ -44,7 +44,8 @@ namespace WrokFlowWeb.Services
                 EmailId = model.EmailId,
                 ContactPhone = model.ContactPhone ,
                 IsApprovalPending = true,
-            CreatedBy = model.CreatedBy};
+                CreatedBy = model.CreatedBy,
+                IsEditable = true};
             this._context.SupplierRequest.Add(request);
             await this._context.CompleteAsync();
             var categoryMaster = new List<SupplierRequestCategoryMapping>();
@@ -180,6 +181,7 @@ namespace WrokFlowWeb.Services
             await this._context.CompleteAsync();
             var approvalLogList = await this._context.SupplierRequestApprovalLog.GetApprovalLogBySupplierRequestId(approvalLog.SupplierRequestId);
             supplierRequest.SupplierRequestApprovalId = approvalLogList.Where(x => !x.IsApproved.GetValueOrDefault()).OrderBy(x => x.OrderBy).FirstOrDefault()?.SupplierRequestApprovalId;
+            supplierRequest.IsEditable = false;
             if (!approvalLog.IsApproved.GetValueOrDefault())
             {
                 supplierRequest.IsRejected = true;
