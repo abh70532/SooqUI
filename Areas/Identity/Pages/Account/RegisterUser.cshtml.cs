@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using WrokFlowWeb.Areas.Identity.Data;
 using WrokFlowWeb.Database;
 using WrokFlowWeb.Services.Interface;
+using WrokFlowWeb.ViewModel.SupplierRequest;
 
 namespace WrokFlowWeb.Areas.Identity.Pages.Account
 {
@@ -48,7 +49,7 @@ namespace WrokFlowWeb.Areas.Identity.Pages.Account
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        public List<SupplierRequest> SupplierRequests { get; set; }
+        public List<SuppilerListViewModel> SupplierRequests { get; set; }
 
         public class InputModel
         {
@@ -108,8 +109,18 @@ namespace WrokFlowWeb.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            SupplierRequests = _supplierRequestService.GetSupplierRequestMaster().Result;
             
+            var suppliers = _supplierRequestService.GetSupplierRequestMaster().Result;
+            List<SuppilerListViewModel> suppilerListViewModels = new List<SuppilerListViewModel>();
+            suppliers.ForEach(item => {
+                suppilerListViewModels.Add(new SuppilerListViewModel()
+                {
+                    SupplierRequestId = item.SupplierRequestId,
+                    SupplierName = string.Join('-', item.SupplierName, item.SupplierRequestId)
+                });
+            });
+
+            SupplierRequests = suppilerListViewModels;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -153,7 +164,17 @@ namespace WrokFlowWeb.Areas.Identity.Pages.Account
                         return RedirectToAction("ListUsers", "Role");
                     }
                 }
-            SupplierRequests = _supplierRequestService.GetSupplierRequestMaster().Result;
+            var suppliers = _supplierRequestService.GetSupplierRequestMaster().Result;
+            List<SuppilerListViewModel> suppilerListViewModels = new List<SuppilerListViewModel>();
+            suppliers.ForEach(item => {
+                suppilerListViewModels.Add(new SuppilerListViewModel()
+                {
+                    SupplierRequestId = item.SupplierRequestId,
+                    SupplierName = string.Join('-', item.SupplierName, item.SupplierRequestId)
+                });
+            });
+
+            SupplierRequests = suppilerListViewModels;
             foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);

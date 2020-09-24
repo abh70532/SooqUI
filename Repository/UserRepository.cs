@@ -23,9 +23,9 @@ namespace WrokFlowWeb.Repository
             return await this.context.AspNetUsers.Where(x => x.UserType == 1).ToListAsync();
         }
 
-        public async Task<List<AspNetUsers>> GetUserListByIds(List<long> id)
+        public async Task<List<AspNetUsers>> GetUserListByIds(List<string> id)
         {
-            return await context.AspNetUsers.Where(x => id.Contains(x.UserId)).ToListAsync();
+            return await context.AspNetUsers.Where(x => id.Contains(x.Id)).ToListAsync();
         }
 
         public void UpdateAll(List<AspNetUsers> aspNetUsers)

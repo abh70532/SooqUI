@@ -7,7 +7,7 @@ namespace WrokFlowWeb.ViewModel.Role
 {
     public class UserViewModel
     {
-        public long Userid { get; set; }
+        public string Userid { get; set; }
         public string Email { get; set; }
         public bool IsSelected { get; set; }
     }

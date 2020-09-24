@@ -216,7 +216,7 @@ namespace WrokFlowWeb.Services
             {
                 userViewModel.Add(new UserViewModel() { 
                      Email = item.Email,
-                     Userid = item.UserId
+                     Userid = item.Id
                 });
             }
             supplierUserMappingViewModel.UserViewModels = userViewModel;

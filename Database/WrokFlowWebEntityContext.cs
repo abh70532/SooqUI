@@ -33,10 +33,7 @@ namespace WrokFlowWeb.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
 
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -147,6 +144,7 @@ namespace WrokFlowWeb.Database
                 entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
 
                 entity.Property(e => e.StartDate).HasColumnType("date");
+
 
                 entity.Property(e => e.UserName).HasMaxLength(256);
 

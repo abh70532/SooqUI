@@ -8,7 +8,7 @@ namespace WrokFlowWeb.Repository.Interface
     public interface IUserRepository
     {
         Task<List<Database.AspNetUsers>> GetExternalUsers();
-        Task<List<Database.AspNetUsers>> GetUserListByIds(List<long> id);
+        Task<List<Database.AspNetUsers>> GetUserListByIds(List<string> id);
         void UpdateAll(List<Database.AspNetUsers> aspNetUsers);
     }
 }
