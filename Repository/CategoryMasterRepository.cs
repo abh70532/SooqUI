@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +19,11 @@ namespace WrokFlowWeb.Repository
         public void Add(CategoryMaster categoryMaster)
         {
             context.CategoryMaster.Add(categoryMaster);
+        }
+
+        public async Task<List<CategoryMaster>> GetAllCategories()
+        {
+            return await this.context.CategoryMaster.Where(x=>x.IsActive).ToListAsync();
         }
     }
 }

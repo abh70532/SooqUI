@@ -1,0 +1,23 @@
+﻿@model IEnumerable<WrokFlowWeb.ViewModel.CategoryMaster.CategoryMasterViewModel>
+
+
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        
+        columns.Add(model => model.Category).Titled("First Name");
+        columns.Add(model => model.Description).Titled("Last Name");
+        columns.Add(model => $"<a href=\"Details\\{model.CategoryMasterId}\">Edit</a>").Encoded(false);
+
+    })
+    .Empty("No categories to be displayed")
+    .Pageable(pager =>
+    {
+        pager.PageSizes = new Dictionary<Int32, String> { { 0, "All" }, { 10, "10" }, { 25, "25" } };
+        pager.ShowPageSizes = true;
+        pager.PagesToDisplay = 3;
+        pager.CurrentPage = 1;
+        pager.RowsPerPage = 10;
+    })
+)

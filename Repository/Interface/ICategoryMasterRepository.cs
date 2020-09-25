@@ -9,5 +9,6 @@ namespace WrokFlowWeb.Repository.Interface
     public interface ICategoryMasterRepository
     {
         void Add(CategoryMaster categoryMaster);
+        Task<List<CategoryMaster>> GetAllCategories();
     }
 }

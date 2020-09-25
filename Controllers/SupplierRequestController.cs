@@ -20,10 +20,12 @@ namespace WrokFlowWeb.Controllers
     public class SupplierRequestController : Controller
     {
         private readonly ISupplierRequestService supplierRequest;
+        private readonly ICategoryMasterService categoryService;
 
-        public SupplierRequestController(ISupplierRequestService supplierRequest)
+        public SupplierRequestController(ISupplierRequestService supplierRequest,ICategoryMasterService categoryMasterService)
         {
             this.supplierRequest = supplierRequest;
+            this.categoryService = categoryMasterService;
         }
         public async Task<IActionResult> Index()
         {
@@ -175,6 +177,17 @@ namespace WrokFlowWeb.Controllers
             await this.supplierRequest.ApproveUpdate(requestApprovalViewModel, this.User.Identity.Name);
 
            return RedirectToAction("InboxList");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CategoryList(string search)
+        {
+            var model = await this.categoryService.GetAllCategories();
+            model = !string.IsNullOrEmpty(search) ? model.Where(x=>x.Category.ToLower().Contains(search.ToLower()) ||  x.Description.ToLower().Contains(search.ToLower())).ToList(): model;
+            if (HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                return PartialView("_CategoryList", model);
+
+            return View("CategoryList");
         }
     }
 }  

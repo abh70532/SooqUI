@@ -65,8 +65,9 @@ namespace WrokFlowWeb
                 .Build();
                 options.Filters.Add(new AuthorizeFilter());
             });
-
+            
             services.AddScoped<ISupplierRequestService, SupplierRequestService>();
+            services.AddScoped<ICategoryMasterService, SupplierRequestService>();
 
             services.AddScoped<UnitOfWork.IUnitOfWork, WrokFlowWeb.UnitOfWork.UnitOfWork>();
         }

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<WrokFlowWeb.ViewModel.CategoryMaster.CategoryMasterViewModel>
+@{
+    ViewBag.Title = "Category Listing";
+}
+
+<h1> All Users</h1>
+
+
+<a class="btn btn-primary mb-3" href="~/Identity/Account/RegisterUser"> Add New Category</a>
+<a class="btn btn-primary mb-3" asp-controller="role" asp-action="MapUserSupplier"> Categories</a>
+<br />
+<input id="GridSearch" placeholder="search" />
+<br />
+@Html.AjaxGrid(Url.Action("CategoryList"))
+
+<script>
+    document.getElementById("GridSearch").addEventListener("input", function () {
+        const grid = new MvcGrid(document.querySelector(".mvc-grid"));
+
+
+        grid.url.searchParams.set("search", this.value);
+
+        grid.reload();
+    });
+</script>
+
+
+
+
+

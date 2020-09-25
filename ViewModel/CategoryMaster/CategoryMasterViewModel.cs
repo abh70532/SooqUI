@@ -9,6 +9,7 @@ namespace WrokFlowWeb.ViewModel.CategoryMaster
     {
         public byte CategoryMasterId { get; set; }
         public string Category { get; set; }
+        public string Description { get; set; }
         public bool IsSelected { get; set; }
     }
 }

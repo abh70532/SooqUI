@@ -19,7 +19,7 @@
                         <a asp-action="InboxList" asp-controller="SupplierRequest" class="nav-link">Inbox</a>
                     }
 
-                    
+
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-action="ListRoles" asp-controller="Role" class="nav-link">Manage Roles</a>
@@ -37,6 +37,10 @@
                     @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
                     {
                         <a h asp-action="List" asp-controller="SupplierRequest" class="nav-link">Supplier Request</a>
+                    }
+                    @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
+                    {
+                        <a h asp-action="CategoryList" asp-controller="SupplierRequest" class="nav-link">Masters</a>
                     }
 
                 </div>

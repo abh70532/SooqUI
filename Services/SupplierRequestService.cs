@@ -247,5 +247,20 @@ namespace WrokFlowWeb.Services
             this._context.UserRepository.UpdateAll(userList);
             await this._context.CompleteAsync();
         }
+
+        public async Task<List<CategoryMasterViewModel>> GetAllCategories()
+        {
+            List<CategoryMasterViewModel> categoryMasterViewModel = new List<CategoryMasterViewModel>();
+            var categoryList = await this._context.CategoryMasterRepository.GetAllCategories();
+            categoryList.ForEach(item => {
+                categoryMasterViewModel.Add(new CategoryMasterViewModel()
+                {
+                     Category   = item.Category,
+                     Description = !string.IsNullOrEmpty(item.Description)? item.Description: string.Empty ,
+                     CategoryMasterId  =item.CategoryMasterId
+                });
+            });
+            return categoryMasterViewModel;
+        }
     }
 }
