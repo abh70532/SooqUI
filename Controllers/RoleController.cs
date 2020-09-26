@@ -50,7 +50,7 @@ namespace WrokFlowWeb.Controllers
         }
 
         // GET: RoleController/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> GetUserDetails(string id)
         {
             var role = await roleManager.FindByIdAsync(id);
             if (role == null)

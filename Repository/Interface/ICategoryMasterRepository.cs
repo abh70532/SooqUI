@@ -10,5 +10,7 @@ namespace WrokFlowWeb.Repository.Interface
     {
         void Add(CategoryMaster categoryMaster);
         Task<List<CategoryMaster>> GetAllCategories();
+        Task<CategoryMaster> GetCategoryById(int categoryid);
+        void Update(CategoryMaster categoryMaster);
     }
 }

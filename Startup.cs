@@ -68,6 +68,7 @@ namespace WrokFlowWeb
             
             services.AddScoped<ISupplierRequestService, SupplierRequestService>();
             services.AddScoped<ICategoryMasterService, SupplierRequestService>();
+            services.AddScoped<IMasterService, MasterService>();
 
             services.AddScoped<UnitOfWork.IUnitOfWork, WrokFlowWeb.UnitOfWork.UnitOfWork>();
         }

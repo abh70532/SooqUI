@@ -189,5 +189,11 @@ namespace WrokFlowWeb.Controllers
 
             return View("CategoryList");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> CategoryEdit(int categoryMasterid)
+        {
+            return RedirectToAction("CategoryEdit", "master", new { categoryId = categoryMasterid });
+        }
     }
 }  

@@ -8,7 +8,7 @@
         
         columns.Add(model => model.Category).Titled("First Name");
         columns.Add(model => model.Description).Titled("Last Name");
-        columns.Add(model => $"<a href=\"Details\\{model.CategoryMasterId}\">Edit</a>").Encoded(false);
+        columns.Add(model => $"<a href=\"CategoryEdit?categoryMasterid={model.CategoryMasterId}\">Edit</a>").Encoded(false);
 
     })
     .Empty("No categories to be displayed")

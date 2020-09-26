@@ -32,5 +32,7 @@ namespace WrokFlowWeb.Repository
         {
             context.AspNetUsers.UpdateRange(aspNetUsers);
         }
+
+        public async Task<AspNetUsers> GetUserListById(string id) => await context.AspNetUsers.Where(x => x.Id == id).FirstOrDefaultAsync();
     }
 }
