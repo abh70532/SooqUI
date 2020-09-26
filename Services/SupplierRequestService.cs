@@ -263,6 +263,16 @@ namespace WrokFlowWeb.Services
             return categoryMasterViewModel;
         }
 
+        public async Task<AspNetUsers> GetUserListById(string id)
+        {
+            return await this._context.UserRepository.GetUserListById(id);
+        }
+
+        public async Task<int> UpdateUser(AspNetUsers aspNetUsers)
+        {
+              this._context.UserRepository.Updateuser(aspNetUsers);
+              return await _context.CompleteAsync(); 
+        }
 
     }
 }

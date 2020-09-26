@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WrokFlowWeb.Areas.Identity.Pages.Account;
 using WrokFlowWeb.Database;
 using WrokFlowWeb.ViewModel;
 using WrokFlowWeb.ViewModel.CategoryMaster;
@@ -27,6 +28,7 @@ namespace WrokFlowWeb.Services.Interface
         Task ApproveUpdate(RequestApprovalViewModel requestApprovalViewModel, string user);
         Task<List<SupplierRequestApprovalLog>> GetApprovedLogBySupplierRequestId(long supplierRequestId);
         Task<SupplierUserMappingViewModel> GetSUpplierUserMappingViewModel();
-
+        Task<AspNetUsers> GetUserListById(string id);
+        Task<int> UpdateUser(AspNetUsers aspNetUsers);
     }
 }

@@ -12,5 +12,6 @@ namespace WrokFlowWeb.Repository.Interface
         Task<AspNetUsers> GetUserListById(string id);
         Task<List<Database.AspNetUsers>> GetUserListByIds(List<string> id);
         void UpdateAll(List<Database.AspNetUsers> aspNetUsers);
+        void Updateuser(AspNetUsers aspNetUsers);
     }
 }
