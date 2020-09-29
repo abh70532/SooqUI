@@ -1,0 +1,6 @@
+﻿
+.login_reg_container { background: #3498db; }
+.log_reg_inner {  width: 410px; border-radius: 10px;  padding: 15px; box-shadow: 0 2px 10px 0 #525252; }
+.form_Header { margin: 0; font-size: 22px; text-transform: uppercase;  text-align: center;
+    padding: 10px;  border-bottom: 1px solid #e2e2e2; }
+.formBtns .btn { width:100px; }

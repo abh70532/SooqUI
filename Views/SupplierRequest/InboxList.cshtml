@@ -1,31 +1,35 @@
 ﻿@model List<WrokFlowWeb.ViewModel.InboxListViewModel>
+@{
+    ViewBag.PageName = "Inbox";
+}
 
 @{
     ViewBag.Title = "Inbox Items";
 }
 
-<h1> Inbox Items</h1>
+<div class="w-100 h-100 bg-white p-10 border-radius-5 box-shadow">
+    <div class="overflow-y w-100 h-100">
+        @(Html
+        .Grid(Model)
+        .Build(columns =>
+        {
+            columns.Add(model => model.ModuleName).Titled("Module");
+            columns.Add(model => model.RequestId).Titled("Request");
+            columns.Add(model => $"<a href=\"Approve?requestid={model.RequestId}&moduleid={model.ModuleId}\">Aprrove/Reject</a>").Encoded(false);
+
+        })
+         .Empty("No request for approval")
+        .Pageable(pager =>
+        {
+            pager.PageSizes = new Dictionary<Int32, String> { { 0, "All" }, { 10, "10" }, { 25, "25" } };
+            pager.ShowPageSizes = true;
+            pager.PagesToDisplay = 3;
+            pager.CurrentPage = 1;
+            pager.RowsPerPage = 10;
+        })
+        )
+    </div>
+</div>
 
 
-
-
-    @(Html
-    .Grid(Model)
-    .Build(columns =>
-    {
-        columns.Add(model => model.ModuleName).Titled("Module");
-        columns.Add(model => model.RequestId).Titled("Request");
-        columns.Add(model => $"<a href=\"Approve?requestid={model.RequestId}&moduleid={model.ModuleId}\">Aprrove/Reject</a>").Encoded(false);
-
-    })
-     .Empty("No request for approval")
-    .Pageable(pager =>
-    {
-        pager.PageSizes = new Dictionary<Int32, String> { { 0, "All" }, { 10, "10" }, { 25, "25" } };
-        pager.ShowPageSizes = true;
-        pager.PagesToDisplay = 3;
-        pager.CurrentPage = 1;
-        pager.RowsPerPage = 10;
-    })
-)
 

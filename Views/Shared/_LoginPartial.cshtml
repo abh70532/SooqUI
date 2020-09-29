@@ -4,66 +4,58 @@
 @inject SignInManager<WrokFlowWebUser> SignInManager
 @inject UserManager<WrokFlowWebUser> UserManager
 
-<ul class="navbar-nav">
+<ul class="navbar-nav sidebarNav">
     @if (SignInManager.IsSignedIn(User))
     {
-        
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">Manage</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a asp-area="Identity" asp-page="/Account/Manage/Index" class="nav-link">User Profile</a>
+        @if (User.IsInRole("Admin"))
+        {
+            <li>
+                <a asp-controller="Home" asp-action="Index" class="nav-link @(ViewBag.PageName == "Dashboard" ? "active" : "")"><img src="~/images/home.png" />Dashboard</a>
+            </li>
+        }
 
-                    @if (User.IsInRole("Admin") || User.IsInRole("VendorManagmentTeam") || User.IsInRole("ProcurementManger"))
-                    {
-                        <a asp-action="InboxList" asp-controller="SupplierRequest" class="nav-link">Inbox</a>
-                    }
+        @if (User.IsInRole("Admin") || User.IsInRole("VendorManagmentTeam") || User.IsInRole("ProcurementManger"))
+        {
+            <li>
+                <a asp-action="InboxList" asp-controller="SupplierRequest" class="nav-link @(ViewBag.PageName == "Inbox" ? "active" : "")"><img src="~/images/inbox.png" />Inbox</a>
+            </li>
+        }
+
+        @if (User.IsInRole("Admin"))
+        {
+            <li>
+                <a asp-action="ListRoles" asp-controller="Role" class="nav-link @(ViewBag.PageName == "Roles" ? "active" : "")"><img src="~/images/role.png" />Manage Roles</a>
+            </li>
+        }
+
+        @if (User.IsInRole("Admin"))
+        {
+            <li>
+                <a asp-action="ListUsers" asp-controller="Role" class="nav-link @(ViewBag.PageName == "ListUsers" ? "active" : "")"><img src="~/images/register.png" />User Registration</a>
+            </li>
+        }
+
+        @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
+        {
+            <li>
+                <a href="#" class="nav-link @(ViewBag.PageName == "Reports" ? "active" : "")"><img src="~/images/reports.png" />Reports</a>
+            </li>
+        }
+
+        @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
+        {
+            <li>
+                <a asp-action="List" asp-controller="SupplierRequest" class="nav-link @(ViewBag.PageName == "SupplierRequest" ? "active" : "")"><img src="~/images/request.png" />Supplier Request</a>
+            </li>
+        }
+
+        @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
+        {
+            <li>
+                <a asp-action="CategoryList" asp-controller="SupplierRequest" class="nav-link @(ViewBag.PageName == "Masters" ? "active" : "")"><img src="~/images/masters.png" />Masters</a>
+            </li>
+        }
 
 
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <a asp-action="ListRoles" asp-controller="Role" class="nav-link">Manage Roles</a>
-                    }
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <a asp-action="ListUsers" asp-controller="Role" class="nav-link">User Registration</a>
-                    }
-
-                    @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
-                    {
-                        <a href="#" class="nav-link">Reports</a>
-                    }
-                    @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
-                    {
-                        <a h asp-action="List" asp-controller="SupplierRequest" class="nav-link">Supplier Request</a>
-                    }
-                    @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
-                    {
-                        <a h asp-action="CategoryList" asp-controller="SupplierRequest" class="nav-link">Masters</a>
-                    }
-
-                </div>
-            </li> 
-
-        
-
-        <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-        </li>
-        <li class="nav-item">
-            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
-        </li>
-    }
-    else
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        </li>
     }
 </ul>

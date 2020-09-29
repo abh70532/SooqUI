@@ -8,32 +8,49 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" rel="stylesheet" />
     <link href="~/css/mvc-grid/mvc-grid.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/default.css" />
+    <link rel="stylesheet" href="~/css/custom.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WrokFlowWeb</a>
-
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+  
+    <div class="container-fluid containerWrap h-100 d-flex m-0 p-0">
+        <div class="containerLeft h-100 bg-white">
+            <div class="d-flex flex-column h-100 box-shadow w-100">
+                <div class="w-100 border-bottom logo mb-10">
+                    <a class="p-10 d-block" asp-area="" asp-controller="Home" asp-action="Index">SUPPLIER MANAGEMENT</a>
+                </div>
+                <div class="w-100 h-100 overflow-y">
                     <partial name="_LoginPartial.cshtml" />
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            
+        </div>
+        <div class="containerRight flex-auto p-10">
+            <header class="d-flex justify-content-between pl-10 pr-10 box-shadow bg-white align-items-center">
+                <div class="pageTitle">
+                    @ViewBag.Title
+                </div>
+                <partial name="_header.cshtml" />
+            </header>
+            <main role="main" class="main_content_area pt-10 pb-10">
+                <div class="main_content_inner w-100 h-100">
+                    @RenderBody()
+                </div>
+            </main>
+            <footer class="footer text-muted">
+                <div class="w-100 d-flex justify-content-center">
+                    &copy; 2020 - WrokFlowWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>
+        </div>
+
+        
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - WrokFlowWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+   
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
