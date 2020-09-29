@@ -50,6 +50,33 @@ namespace WrokFlowWeb.Controllers
         }
 
         // GET: RoleController/Details/5
+        public async Task<IActionResult> Details(string id)
+        {
+            var role = await roleManager.FindByIdAsync(id);
+            if (role == null)
+            {
+                ViewBag.ErrorMessage = $"Role with Id = {id} cannot be found";
+                return View("NotFound");
+            }
+
+            var model = new EditRoleViewModel()
+            {
+                Id = role.Id,
+                RoleName = role.Name
+            };
+
+            foreach (var user in userManager.Users)
+            {
+                if (await userManager.IsInRoleAsync(user, role.Name))
+                {
+                    model.Users.Add(user.UserName);
+                }
+            }
+
+            return View("Edit", model);
+        }
+
+        // GET: RoleController/Details/5
         public async Task<IActionResult> GetUserDetails(string id)
         {
             //supplierRequest.getuser
