@@ -2,7 +2,7 @@
 .logo a { font-family: 'Bebas Neue', cursive;  font-size: 1.6rem; text-decoration: none;  color: #808080;
     padding: 8px 10px 8px; line-height: normal; text-align: center;}
 .containerLeft { flex:0 0 220px; }
-.containerRight { padding-bottom:5px !important; }
+.containerRight { padding-bottom:5px !important;  }
 ul.sidebarNav { padding:5px 10px; }
 ul.sidebarNav li { padding:4px 0; }
 ul.sidebarNav li a.nav-link { padding: 8px 12px;   border-radius: 20px; border: 1px solid transparent; }

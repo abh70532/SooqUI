@@ -2,18 +2,21 @@
 @{
     ViewBag.Title = "Supplier Requests";
 }
+@{
+    ViewBag.PageName = "SupplierRequest";
+}
 
 
-<h1> Supplier Requests</h1>
-<a class="btn btn-primary mb-3" asp-action="Get" asp-controller="SupplierRequest"> Add Supplier Request</a>
-
-
-    @(Html
+<div class="w-100 h-100 bg-white p-10 border-radius-5 box-shadow">
+    <div class="d-flex flex-column h-100 w-100">
+        <div class="d-flex justify-content-end pb-2">
+            <a class="btn btn-primary" asp-action="Get" asp-controller="SupplierRequest"> Add Supplier Request</a>
+        </div>
+        <div class="d-flex flex-1 overflow-y w-100 h-100">
+            @(Html
     .Grid(Model.SupplierRequests)
     .Build(columns =>
     {
-
-
         columns.Add(model => model.SupplierRequestId).Titled("Supplier Code");
         columns.Add(model => model.SuplierTypeRequest.SuplierTypeRequest).Titled("Suplier Type");
         columns.Add(model => model.RequestTypeMaster.RequestType).Titled("Request Type");
@@ -28,8 +31,6 @@
         columns.Add(model => !model.IsEditable? $"<a href=\"ViewApprovals?requestid={model.SupplierRequestId}&moduleid=1\">View Approvals</a>" : $"<a href=\"Edit?requestid={model.SupplierRequestId}\">Edit</a>").Encoded(false);
         //columns.Add(model => $"<a href=\"@Url.Action('Delete', 'movies', new { requestid = model.SupplierRequestId })\">Edit</a>").Encoded(false);
 
-
-
     })
      .Empty("No supplier request data to be displayed")
     .Pageable(pager =>
@@ -41,5 +42,10 @@
         pager.RowsPerPage = 10;
     })
 )
+        </div>
+     </div>
+</div>
+    
 
 
+    
