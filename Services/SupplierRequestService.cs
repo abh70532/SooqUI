@@ -274,5 +274,10 @@ namespace WrokFlowWeb.Services
               return await _context.CompleteAsync(); 
         }
 
+        public async Task<List<AspNetUsers>> GetAllUsers(String search)
+        {
+            return await this._context.UserRepository.GetAllUsers(search);
+        }
+
     }
 }

@@ -39,12 +39,9 @@ namespace WrokFlowWeb.Controllers
 
         public ActionResult ListUsers(String search)
         {
-            var users = !string.IsNullOrEmpty(search) ? userManager.Users.Where(x => x.Email.Contains(search) 
-            || x.PhoneNumber.Contains(search) || x.Department.Contains(search)) : userManager.Users;
-            //users = users.Select(x => x.Email.Contains(search))
-
+            var result = this.supplierRequest.GetAllUsers(search).Result;
             if (HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-                return PartialView("_IndexGrid", users);
+                return PartialView("_IndexGrid", result);
 
             return View();
         }

@@ -38,6 +38,21 @@ namespace WrokFlowWeb.Repository
             context.AspNetUsers.Update(aspNetUsers);
         }
 
+        public async Task<List<AspNetUsers>> GetAllUsers(String search)
+        {
+            if (!string.IsNullOrEmpty(search))
+            {
+                return await this.context.AspNetUsers.Include(x => x.SupplierRequest).Where(x => x.Email.Contains(search)
+            || x.PhoneNumber.Contains(search) || x.Department.Contains(search) || x.SupplierRequest.SupplierName.Contains(search)
+            || x.SupplierRequest.SupplierRequestId.ToString().Contains(search)).ToListAsync();
+            }
+            else
+            {
+                return await this.context.AspNetUsers.Include(x=>x.SupplierRequest).ToListAsync();
+            }
+            
+        }
+
         public async Task<AspNetUsers> GetUserListById(string id) => await context.AspNetUsers.Where(x => x.Id == id).FirstOrDefaultAsync();
     }
 }

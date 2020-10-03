@@ -30,5 +30,6 @@ namespace WrokFlowWeb.Services.Interface
         Task<SupplierUserMappingViewModel> GetSUpplierUserMappingViewModel();
         Task<AspNetUsers> GetUserListById(string id);
         Task<int> UpdateUser(AspNetUsers aspNetUsers);
+        Task<List<AspNetUsers>> GetAllUsers(String search);
     }
 }
