@@ -141,15 +141,19 @@ namespace WrokFlowWeb.Services
         {
             var resposnse =   this._context.SupplierRequest.GetInboxList(emailid);
             var inboxList = new List<InboxListViewModel>();
-
-            foreach (DataRow item in resposnse.Result.Tables[0].Rows)
+            if (resposnse.Result.Tables.Count > 0)
             {
-                inboxList.Add(new InboxListViewModel()
-                {  RequestId = Convert.ToInt64(item["RequestId"]),
-                    ModuleId = Convert.ToInt64(item["ModuleId"]),
-                    ModuleName = item["ModuleName"].ToString()
-                });
+                foreach (DataRow item in resposnse.Result.Tables[0].Rows)
+                {
+                    inboxList.Add(new InboxListViewModel()
+                    {
+                        RequestId = Convert.ToInt64(item["RequestId"]),
+                        ModuleId = Convert.ToInt64(item["ModuleId"]),
+                        ModuleName = item["ModuleName"].ToString()
+                    });
+                }
             }
+
             return inboxList;
         }
 

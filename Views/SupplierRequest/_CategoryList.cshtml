@@ -6,8 +6,8 @@
     .Build(columns =>
     {
         
-        columns.Add(model => model.Category).Titled("First Name");
-        columns.Add(model => model.Description).Titled("Last Name");
+        columns.Add(model => model.Category).Titled("Category");
+        columns.Add(model => model.Description).Titled("Description");
         columns.Add(model => $"<a href=\"CategoryEdit?categoryMasterid={model.CategoryMasterId}\">Edit</a>").Encoded(false);
 
     })

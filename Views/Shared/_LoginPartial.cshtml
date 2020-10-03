@@ -14,7 +14,7 @@
             </li>
         }
 
-        @if (User.IsInRole("Admin") || User.IsInRole("VendorManagmentTeam") || User.IsInRole("ProcurementManger"))
+        @if (User.IsInRole("Admin") || User.IsInRole("VendorManagmentTeam") || User.IsInRole("ProcurementManger") || User.IsInRole("Buyer"))
         {
             <li>
                 <a asp-action="InboxList" asp-controller="SupplierRequest" class="nav-link @(ViewBag.PageName == "Inbox" ? "active" : "")"><img src="~/images/inbox.png" />Inbox</a>
@@ -35,12 +35,6 @@
             </li>
         }
 
-        @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
-        {
-            <li>
-                <a href="#" class="nav-link @(ViewBag.PageName == "Reports" ? "active" : "")"><img src="~/images/reports.png" />Reports</a>
-            </li>
-        }
 
         @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
         {
@@ -49,10 +43,17 @@
             </li>
         }
 
-        @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
+        @if (User.IsInRole("Admin"))
         {
             <li>
                 <a asp-action="CategoryList" asp-controller="SupplierRequest" class="nav-link @(ViewBag.PageName == "Masters" ? "active" : "")"><img src="~/images/masters.png" />Masters</a>
+            </li>
+        }
+
+        @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
+        {
+            <li>
+                <a href="#" class="nav-link @(ViewBag.PageName == "Reports" ? "active" : "")"><img src="~/images/reports.png" />Reports</a>
             </li>
         }
 
