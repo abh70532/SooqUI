@@ -9,7 +9,7 @@
     .Grid(Model)
     .Build(columns =>
     {
-        columns.Add(model => Html.CheckBox("user_" + model.Id)); // IHtmlContent has encoding disabled by default.
+       
 
         columns.Add(model => model.FirstName).Titled("First Name");
         columns.Add(model => model.LastName).Titled("Last Name");
