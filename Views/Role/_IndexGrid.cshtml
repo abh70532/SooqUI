@@ -17,7 +17,7 @@
         columns.Add(model => model.SupplierRequest !=null ? string.Join('-', model.SupplierRequest.SupplierRequestId.ToString(), model.SupplierRequest.SupplierName.ToString()): string.Empty).Titled("Supplier Name");
         columns.Add(model => model.PhoneNumber).Titled("Phone Number");
         columns.Add(model => model.Department).Titled("Department");
-        columns.Add(model => model.StartDate).Titled("Start Date").Formatted("{0:d}"); ;
+        columns.Add(model => model.StartDate).Titled("Start Date").Formatted("{0:d}");
         columns.Add(model => $"<a href=\"/Identity/Account/RegisterUserEdit?id={model.Id}\">Edit</a>").Encoded(false);
 
     })
