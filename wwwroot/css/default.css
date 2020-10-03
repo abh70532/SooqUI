@@ -28,8 +28,9 @@ a { color:#808080; }
 .single-column { width:330px; }
 .two-column-form { width:660px; }
 .flex-184 { flex:0 0 184px; }
-.f-14 { font-size:14px !important; }
 .f-13 { font-size:13px !important; }
+.f-14 { font-size:14px !important; }
+.f-15 { font-size: 15px !important; }
 
 ::-webkit-scrollbar {  width: 6px; height:6px; }
 ::-webkit-scrollbar-track {  }

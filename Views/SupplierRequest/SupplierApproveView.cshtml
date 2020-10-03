@@ -3,76 +3,82 @@
 @{
     ViewBag.Title = "Approval Details";
 }
+@{
+    ViewBag.PageName = "SupplierRequest";
+}
 
-<h1>Supplier Request Approval/Rejection Details</h1>
+<div class="w-100 h-100 bg-white p-10 border-radius-5 box-shadow">
+    <div class="d-flex flex-column h-100 w-100 pt-10"   >
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-controller="SupplierRequest" asp-action="Approve" method="post">
-            @Html.HiddenFor(m => m.InboxListViewModel.RequestId)
-            @Html.HiddenFor(m => m.InboxListViewModel.ModuleId)
-            <hr />
-            <table>
-                <tr>
-                    <td>@Html.DisplayNameFor(x => x.SupplierViewModel.SupplierName): </td>
-                    <td>@Html.DisplayFor(x => x.SupplierViewModel.SupplierName)</td>
-                </tr>
-                <tr>
-                    <td>@Html.DisplayNameFor(x => x.SupplierViewModel.EmailId): </td>
-                    <td>@Html.DisplayFor(x => x.SupplierViewModel.EmailId)</td>
-                </tr>
-                <tr>
-                    <td>@Html.DisplayNameFor(x => x.SupplierViewModel.FirstName): </td>
-                    <td>@Html.DisplayFor(x => x.SupplierViewModel.FirstName)</td>
-                </tr>
-            </table>
+        <div class="d-flex flex-1 overflow-y w-100 h-100">
+            <form class="w-100" asp-controller="SupplierRequest" asp-action="Approve" method="post">
+                @Html.HiddenFor(m => m.InboxListViewModel.RequestId)
+                @Html.HiddenFor(m => m.InboxListViewModel.ModuleId)
 
-            <div class="form-group">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Aprroved By </th>
-                            <th>Comments</th>
-                            <th>Approved Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var approvedLog in Model.SupplierRequestApprovalLog)
+                <div class="d-flex w-100 flex-column  pb-3 border-bottom">
+                    <div class="d-flex f-15 pb-1 font-weight-bold">
+                        <div>@Html.DisplayNameFor(x => x.SupplierViewModel.SupplierName):&nbsp;</div>
+                        <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.SupplierName)</div>
+                    </div>
+
+                    <div class="d-flex pb-1">
+                        <div>@Html.DisplayNameFor(x => x.SupplierViewModel.EmailId):&nbsp;</div>
+                        <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.EmailId)</div>
+                    </div>
+
+                    <div class="d-flex pb-1">
+                        <div>@Html.DisplayNameFor(x => x.SupplierViewModel.FirstName):&nbsp;</div>
+                        <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.FirstName)</div>
+                    </div>
+                </div>
+                <br/>
+                <div class="d-flex w-100 grid-small mb-10">
+                    <table class="w-100">
+                        <thead>
+                            <tr>
+                                <th>Aprroved By </th>
+                                <th>Comments</th>
+                                <th>Approved Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var approvedLog in Model.SupplierRequestApprovalLog)
+                            {
+                                <tr>
+                                    <td>@approvedLog.ApprovedBy</td>
+                                    <td>@approvedLog.ApprovalComments</td>
+                                    <td>@approvedLog.ApprovedOn?.ToString("f")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                @if (!Model.IsView)
+                {
+                    <div class="form-group">
+                        @foreach (var approve in Model.ApproveList)
                         {
-                        <tr>
-                            <td>@approvedLog.ApprovedBy</td>
-                            <td>@approvedLog.ApprovalComments</td>
-                            <td>@approvedLog.ApprovedOn?.ToString("f")</td>
-                        </tr>
+                            <input type="radio" asp-for="Approve" value="@approve" />@approve<br />
                         }
-                    </tbody>
-                </table>
-            </div>
+                        <span asp-validation-for="Approve" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Comments"></label>
+                        <input asp-for="Comments" class="form-control" />
+                        <span asp-validation-for="Comments" class="text-danger"></span>
+                    </div>
 
-            @if (!Model.IsView)
-            {
-                <div class="form-group">
-                    @foreach (var approve in Model.ApproveList)
-                    {
-                        <input type="radio" asp-for="Approve" value="@approve" />@approve<br />
-                    }
-                    <span asp-validation-for="Approve" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Comments"></label>
-                    <input asp-for="Comments" class="form-control" />
-                    <span asp-validation-for="Comments" class="text-danger"></span>
-                </div>
+                    <button id="btnSubmit" type="submit" class="btn btn-primary">Sumbit</button>
+                    <a asp-controller="SupplierRequest" asp-action="InboxList" class="btn btn-primary" style="width:auto">Cancel</a>
+                }
+                else
+                {
+                    <a asp-controller="SupplierRequest" asp-action="List" class="btn btn-primary" style="width:auto">Cancel</a>
+                }
 
-                <button id="btnSubmit" type="submit" class="btn btn-primary">Sumbit</button>
-                <a asp-controller="SupplierRequest" asp-action="InboxList" class="btn btn-primary" style="width:auto">Cancel</a>
-            }
-            else
-            {
-                <a asp-controller="SupplierRequest" asp-action="List" class="btn btn-primary" style="width:auto">Cancel</a>
-            }
-
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 

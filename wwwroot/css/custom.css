@@ -88,3 +88,12 @@ header ul.navbar-nav li:hover ul { display:block; }
 .search input { height:32px; }
 
 /**form style ends**/
+
+.grid-small table th {
+    background: #fff;
+    font-size: 13px;
+    padding: 8px 4px;
+    border-bottom: 1px solid #ececec;
+}
+.grid-small table tbody td  { padding:8px 4px; }
+.grid-small table tbody tr:nth-of-type(even) { background:#f7f7f7; }

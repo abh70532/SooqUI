@@ -1,136 +1,135 @@
 ﻿
 @model WrokFlowWeb.ViewModel.SupplierViewModel
 
+
 @{
     ViewBag.Title = "Edit Supplier Request";
 }
 
-<h1>@ViewBag.Title</h1>
+@{
+    ViewBag.PageName = "ListUsers";
+}
 
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-controller="SupplierRequest" asp-action="Create" method="post">
+<div class="w-100 h-100 bg-white p-10 border-radius-5 box-shadow">
+    <div class="d-flex flex-column h-100 w-100">
+        <div class="d-flex justify-content-end pb-2 border-bottom">
+            <a class="btn btn-primary ml-1" asp-action="ListUsers" asp-controller="Role">All Users</a>
+            <a class="btn btn-primary ml-1" asp-controller="role" asp-action="MapUserSupplier"> Map User Supplier</a>
+        </div>
+        <div class="d-flex flex-1 overflow-y w-100 h-100 pt-10">
+            <div class="d-inline-block two-column-form">
+                <form asp-controller="SupplierRequest" asp-action="Create" method="post">
+                    <div class="form-group">
+                        <label asp-for="SuplierTypeRequestId"></label>
+                        <select class="form-control" asp-for="SuplierTypeRequestId"
+                                asp-items="@(new SelectList(Model.SuplierTypeRequest,"SuplierTypeRequestId","SuplierTypeRequest"))">
+                            <option></option>
+                        </select>
+                        <span asp-validation-for="SuplierTypeRequestId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RequestTypeMasterId"></label>
+                        <select class="form-control" asp-for="RequestTypeMasterId"
+                                asp-items="@(new SelectList(Model.RequestTypeMaster,"RequestTypeMasterId","RequestType"))">
+                            <option></option>
+                        </select>
+                        <span asp-validation-for="RequestTypeMasterId" class="text-danger"></span>
+                    </div>
 
-            <hr />
+                    <div class="form-group controlId">
+                        <label asp-for="RequesterName"></label>
+                        <input asp-for="RequesterName" class="form-control" />
+                        <span asp-validation-for="RequesterName" class="text-danger"></span>
 
-            <div class="form-group">
-                <label asp-for="SuplierTypeRequestId"></label>
-                <div class="col-md-5">
-                    <select asp-for="SuplierTypeRequestId"
-                            asp-items="@(new SelectList(Model.SuplierTypeRequest,"SuplierTypeRequestId","SuplierTypeRequest"))">
-                        <option></option>
-                    </select>
-                    <span asp-validation-for="SuplierTypeRequestId" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="RequestTypeMasterId"></label>
-                <div class="col-md-5">
-                    <select asp-for="RequestTypeMasterId"
-                            asp-items="@(new SelectList(Model.RequestTypeMaster,"RequestTypeMasterId","RequestType"))">
-                        <option></option>
-                    </select>
-                    <span asp-validation-for="RequestTypeMasterId" class="text-danger"></span>
-                </div>
-            </div>
+                    </div>
+                    <div class="form-group controlId">
+                        <label asp-for="Department"></label>
+                        <input asp-for="Department" class="form-control" />
+                        <span asp-validation-for="Department" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SupplierName"></label>
+                        <input asp-for="SupplierName" class="form-control" />
+                        <span asp-validation-for="SupplierName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Street"></label>
+                        <input asp-for="Street" class="form-control" />
+                        <span asp-validation-for="Street" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address1"></label>
+                        <input asp-for="Address1" class="form-control" />
+                        <span asp-validation-for="Address1" class="text-danger"></span>
+                    </div>
 
-            <div id="controlId">
-
-                <div class="form-group">
-                    <label asp-for="RequesterName"></label>
-                    <input asp-for="RequesterName" class="form-control" />
-                    <span asp-validation-for="RequesterName" class="text-danger"></span>
-
-                </div>
-                <div class="form-group">
-                    <label asp-for="Department"></label>
-                    <input asp-for="Department" class="form-control" />
-                    <span asp-validation-for="Department" class="text-danger"></span>
-
-                </div>
-
+                    <div class="form-group">
+                        <label asp-for="Address2"></label>
+                        <input asp-for="Address2" class="form-control" />
+                        <span asp-validation-for="Address2" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="City"></label>
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PostalCode"></label>
+                        <input asp-for="PostalCode" class="form-control" />
+                        <span asp-validation-for="PostalCode" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Country"></label>
+                        <input asp-for="Country" class="form-control" />
+                        <span asp-validation-for="Country" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EmailId"></label>
+                        <input asp-for="EmailId" class="form-control" />
+                        <span asp-validation-for="EmailId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ContactPhone"></label>
+                        <input asp-for="ContactPhone" class="form-control" />
+                        <span asp-validation-for="ContactPhone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CategoryMaster"></label>
+                        <table id="tblCategory">
+                            @for (int i = 0; i < Model.CategoryMaster.Count(); i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(m => m.CategoryMaster[i].IsSelected)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => m.CategoryMaster[i].Category)
+                                        @Html.HiddenFor(m => m.CategoryMaster[i].CategoryMasterId)
+                                        @Html.HiddenFor(m => m.CategoryMaster[i].Category)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                        <span class="error">Please select at-least one category.</span>
+                        <br />
+                        <br />
+                    </div>
+                    <button id="btnSubmit" type="submit" class="btn btn-primary">Update Supplier Request</button>
+                    <a asp-controller="SupplierRequest" asp-action="List" class="btn btn-primary" style="width:auto">Cancel</a>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="SupplierName"></label>
-                <input asp-for="SupplierName" class="form-control" />
-                <span asp-validation-for="SupplierName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Street"></label>
-                <input asp-for="Street" class="form-control" />
-                <span asp-validation-for="Street" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address1"></label>
-                <input asp-for="Address1" class="form-control" />
-                <span asp-validation-for="Address1" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Address2"></label>
-                <input asp-for="Address2" class="form-control" />
-                <span asp-validation-for="Address2" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="City"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PostalCode"></label>
-                <input asp-for="PostalCode" class="form-control" />
-                <span asp-validation-for="PostalCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Country"></label>
-                <input asp-for="Country" class="form-control" />
-                <span asp-validation-for="Country" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FirstName"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmailId"></label>
-                <input asp-for="EmailId" class="form-control" />
-                <span asp-validation-for="EmailId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactPhone"></label>
-                <input asp-for="ContactPhone" class="form-control" />
-                <span asp-validation-for="ContactPhone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryMaster"></label>
-                <table id="tblCategory">
-                    @for (int i = 0; i < Model.CategoryMaster.Count(); i++)
-                    {
-                        <tr>
-                            <td>
-                                @Html.CheckBoxFor(m => m.CategoryMaster[i].IsSelected)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => m.CategoryMaster[i].Category)
-                                @Html.HiddenFor(m => m.CategoryMaster[i].CategoryMasterId)
-                                @Html.HiddenFor(m => m.CategoryMaster[i].Category)
-                            </td>
-                        </tr>
-                    }
-                </table>
-                <span class="error">Please select at-least one category.</span>
-                <br />
-                <br />
-            </div>
-            <button id="btnSubmit" type="submit" class="btn btn-primary">Update Supplier Request</button>
-            <a asp-controller="SupplierRequest" asp-action="List" class="btn btn-primary" style="width:auto">Cancel</a>
-        </form>
+        </div>
     </div>
 </div>
 
@@ -140,18 +139,18 @@
     <script>
         $(document).ready(function () {
             if ($("#RequestTypeMasterId option:selected").val() == 2) {
-                $("#controlId").show();
+                $(".controlId").show();
             } else {
-                $("#controlId").hide();
+                $(".controlId").hide();
             }
         });
         //$("#controlId").hide();
         $(".error").hide();
         $("#RequestTypeMasterId").on("change", function () {
             if ($("#RequestTypeMasterId option:selected").val() == 2) {
-                $("#controlId").show();
+                $(".controlId").show();
             } else {
-                $("#controlId").hide();
+                $(".controlId").hide();
             }
         });
     </script>

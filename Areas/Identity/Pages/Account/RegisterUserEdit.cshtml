@@ -3,79 +3,86 @@
 @{
     ViewData["Title"] = "User";
 }
+@{
+    ViewBag.PageName = "ListUsers";
+}
 
-<h1>@ViewData["Title"]</h1>
+<div class="w-100 h-100 bg-white p-10 border-radius-5 box-shadow">
+    <div class="d-flex flex-column h-100 w-100">
+        <div class="d-flex justify-content-end pb-2 border-bottom">
+            <a class="btn btn-primary ml-1" asp-action="ListUsers" asp-controller="Role">All Users</a>
+            <a class="btn btn-primary ml-1" asp-controller="role" asp-action="MapUserSupplier"> Map User Supplier</a>
+        </div>
+        <div class="d-flex flex-1 overflow-y w-100 h-100 pt-10">
+            <div class="d-inline-block two-column-form">
+                <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    @Html.HiddenFor(m => m.Input.Id)
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Input.FirstName"></label>
+                        <input asp-for="Input.FirstName" class="form-control" />
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.LastName"></label>
+                        <input asp-for="Input.LastName" class="form-control" />
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.UserType"></label>
+                        <select asp-for="Input.UserType" class="form-control">
+                            <option></option>
+                            <option value="1">Internal user</option>
+                            <option value="2">External User</option>
+                        </select>
+                        <span asp-validation-for="Input.UserType" class="text-danger"></span>
+                    </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            @Html.HiddenFor(m => m.Input.Id)
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.FirstName"></label>
-                <input asp-for="Input.FirstName" class="form-control" />
-                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.LastName"></label>
-                <input asp-for="Input.LastName" class="form-control" />
-                <span asp-validation-for="Input.LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.UserType"></label>
-                <select asp-for="Input.UserType" style="width:90%">
-                    <option></option>
-                    <option value="1">Internal user</option>
-                    <option value="2">External User</option>
-                </select>
-                <span asp-validation-for="Input.UserType" class="text-danger"></span>
-            </div>
-            <div id="controlId">
-                <div class="form-group">
-                    <label asp-for="Input.SupplierRequestId"></label>
-                    <div class="col-md-5">
-                        <select asp-for="Input.SupplierRequestId" style="width:90%"
+                    <div class="form-group controlId">
+                        <label asp-for="Input.SupplierRequestId"></label>
+                        <select asp-for="Input.SupplierRequestId" class="form-control"
                                 asp-items="@(new SelectList(Model.SupplierRequests,"SupplierRequestId","SupplierName"))">
                             <option></option>
                         </select>
                         <span asp-validation-for="Input.SupplierRequestId" class="text-danger"></span>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label asp-for="Input.CompanyName"></label>
-                    <input asp-for="Input.CompanyName" class="form-control" />
-                    <span asp-validation-for="Input.CompanyName" class="text-danger"></span>
-                </div>
+                    <div class="form-group controlId">
+                        <label asp-for="Input.CompanyName"></label>
+                        <input asp-for="Input.CompanyName" class="form-control" />
+                        <span asp-validation-for="Input.CompanyName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.CostCenter"></label>
+                        <input asp-for="Input.CostCenter" class="form-control" />
+                        <span asp-validation-for="Input.CostCenter" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Email"></label>
+                        <input disabled asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Department"></label>
+                        <input asp-for="Input.Department" class="form-control" />
+                        <span asp-validation-for="Input.Department" class="text-danger"></span>
+                    </div>
+
+                    @*<div class="form-group">
+                        <label asp-for="Input.StartDate"></label>
+                        <input  asp-for="Input.StartDate" class="form-control" />
+                        <span asp-validation-for="Input.StartDate" class="text-danger"></span>
+                    </div>*@
+                    <div class="d-flex pb-10">
+                        <button type="submit" class="btn btn-primary mr-1">Update</button>
+                        <a asp-controller="Role" asp-action="ListUsers" class="btn btn-primary mr-1">Cancel</a>
+                    </div>
+                </form>
             </div>
-
-            <div class="form-group">
-                <label asp-for="Input.CostCenter"></label>
-                <input asp-for="Input.CostCenter" class="form-control" />
-                <span asp-validation-for="Input.CostCenter" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input disabled asp-for="Input.Email" class="form-control" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Input.Department"></label>
-                <input asp-for="Input.Department" class="form-control" />
-                <span asp-validation-for="Input.Department" class="text-danger"></span>
-            </div>
-
-            @*<div class="form-group">
-            <label asp-for="Input.StartDate"></label>
-            <input  asp-for="Input.StartDate" class="form-control" />
-            <span asp-validation-for="Input.StartDate" class="text-danger"></span>
-        </div>*@
-            <button type="submit" class="btn btn-primary">Update</button>
-            <a asp-controller="Role" asp-action="ListUsers" class="btn btn-primary" style="width:auto">Cancel</a>
-        </form>
+        </div>
     </div>
 </div>
 
@@ -85,17 +92,17 @@
 
         $(document).ready(function () {
             if ($("#Input_UserType option:selected").val() == 2) {
-                $("#controlId").show();
+                $(".controlId").show();
             } else {
-                $("#controlId").hide();
+                $(".controlId").hide();
             }
         });
         $(".error").hide();
         $("#Input_UserType").on("change", function () {
             if ($("#Input_UserType option:selected").val() == 2) {
-                $("#controlId").show();
+                $(".controlId").show();
             } else {
-                $("#controlId").hide();
+                $(".controlId").hide();
             }
         });
     </script>
