@@ -43,10 +43,10 @@ namespace WrokFlowWeb.ViewModel
 
         public string Country { get; set; }
         [Required]
-        [DisplayName("First Name")]
+        [DisplayName("Primary Contact Name")]
         public string FirstName { get; set; }
         [Required]
-        [DisplayName("Last Name")]
+        [DisplayName("Primary Contact Last Name")]
         public string LastName { get; set; }
         [Required]
         [EmailAddress]
