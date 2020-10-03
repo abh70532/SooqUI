@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WrokFlowWeb.Areas.Identity.Data.WrokFlowWebUser>
+﻿@model IEnumerable<WrokFlowWeb.Database.AspNetUsers>
 
 
 
@@ -9,11 +9,12 @@
     .Grid(Model)
     .Build(columns =>
     {
-       
+
 
         columns.Add(model => model.FirstName).Titled("First Name");
         columns.Add(model => model.LastName).Titled("Last Name");
         columns.Add(model => model.Email).Titled("Email");
+        columns.Add(model => model.SupplierRequest !=null ? string.Join('-', model.SupplierRequest.SupplierRequestId.ToString(), model.SupplierRequest.SupplierName.ToString()): string.Empty).Titled("Supplier Name");
         columns.Add(model => model.PhoneNumber).Titled("Phone Number");
         columns.Add(model => model.Department).Titled("Department");
         columns.Add(model => model.StartDate).Titled("Start Date").Formatted("{0:d}"); ;
