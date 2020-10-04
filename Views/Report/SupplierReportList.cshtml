@@ -1,5 +1,66 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model WrokFlowWeb.ViewModel.SupplierReportViewModel
 @{
+    ViewBag.Title = "Supplier Requests Report";
 }
+@{
+    ViewBag.PageName = "Supplier Request Report";
+}
+
+
+<div class="w-100 h-100 bg-white p-10 border-radius-5 box-shadow">
+    <div class="d-flex flex-column h-100 w-100">
+
+        <form asp-controller="Report" asp-action="FetchSupplierReport" method="post">
+            <div class="form-group">
+                <label asp-for="StartDate"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group controlId">
+                <label asp-for="EndDate"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex pb-10">
+                <button type="submit" class="btn btn-primary mr-1">Sumbit</button>
+            </div>
+        </form>
+
+        <div class="d-flex flex-1 overflow-y w-100 h-100">
+            @(Html
+    .Grid(Model.SupplierRequests)
+    .Build(columns =>
+    {
+        columns.Add(model => model.SupplierRequestId).Titled("Supplier Code");
+        columns.Add(model => model.SuplierTypeRequest.SuplierTypeRequest).Titled("Suplier Type");
+        columns.Add(model => model.RequestTypeMaster.RequestType).Titled("Request Type");
+        columns.Add(model => model.RequesterName).Titled("Requester Name");
+        columns.Add(model => model.SupplierName).Titled("Supplier Name");
+        columns.Add(model => model.PostalCode).Titled("Postal Code");
+        columns.Add(model => model.EmailId).Titled("Email");
+        columns.Add(model => model.ContactPhone).Titled("Contact No");
+        columns.Add(model => model.IsRejected ? "Rejected" : model.SupplierRequestApprovalId > 0? model.SupplierRequestApprovalLog.Where(x=>  x.SupplierRequestApprovalId==model.SupplierRequestApprovalId).FirstOrDefault().RoleApprovalMaster.Role.Name: "Approved").Titled("Approval Status");
+
+        columns.Add(model => string.Join(',',model.SupplierRequestCategoryMapping.Select(y=>y.CategoryMaster.Category))).Titled("Category");
+
+    })
+     .Empty("No supplier request data to be displayed")
+    .Pageable(pager =>
+    {
+        pager.PageSizes = new Dictionary<Int32, String> { { 0, "All" }, { 10, "10" }, { 25, "25" } };
+        pager.ShowPageSizes = true;
+        pager.PagesToDisplay = 3;
+        pager.CurrentPage = 1;
+        pager.RowsPerPage = 10;
+    })
+)
+        </div>
+    </div>
+
+    
+</div>
+
+
+
+

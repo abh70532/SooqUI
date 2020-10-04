@@ -283,5 +283,10 @@ namespace WrokFlowWeb.Services
             return await this._context.UserRepository.GetAllUsers(search);
         }
 
+        public async Task<List<Database.SupplierRequest>> FetchSupplierReport(SupplierReportViewModel supplierReportViewModel)
+        {
+            return await this._context.SupplierRequest.FetchSupplierReport(supplierReportViewModel);
+        }
+
     }
 }

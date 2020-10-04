@@ -11,6 +11,7 @@ using WrokFlowWeb.Repository.Interface;
 using WrokFlowWeb.Services.Interface;
 using WrokFlowWeb.ViewModel.CategoryMaster;
 using System.Data.SqlClient;
+using WrokFlowWeb.ViewModel;
 
 namespace WrokFlowWeb.Repository
 {
@@ -95,6 +96,13 @@ namespace WrokFlowWeb.Repository
                 } 
             }
             return ds;
+        }
+
+        public async Task<List<Database.SupplierRequest>> FetchSupplierReport(SupplierReportViewModel supplierReportViewModel)
+        {
+            DateTime startDate = Convert.ToDateTime(supplierReportViewModel.StartDate);
+            DateTime endDate = Convert.ToDateTime(supplierReportViewModel.EndDate);
+            return await context.SupplierRequest.Where(x => x.IsActive && !x.IsDeleted && (x.CreatedOn >= startDate && x.CreatedOn <= endDate)).Include(x => x.SuplierTypeRequest).Include(x => x.RequestTypeMaster).Include(x => x.SupplierRequestApprovalLog).ThenInclude(x => x.RoleApprovalMaster).ThenInclude(x => x.Role).Include(x => x.SupplierRequestCategoryMapping).ThenInclude(x => x.CategoryMaster).OrderByDescending(x => x.SupplierRequestId).ToListAsync();
         }
     }
 }

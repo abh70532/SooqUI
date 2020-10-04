@@ -31,5 +31,6 @@ namespace WrokFlowWeb.Services.Interface
         Task<AspNetUsers> GetUserListById(string id);
         Task<int> UpdateUser(AspNetUsers aspNetUsers);
         Task<List<AspNetUsers>> GetAllUsers(String search);
+        Task<List<SupplierRequest>> FetchSupplierReport(SupplierReportViewModel supplierReportViewModel);
     }
 }

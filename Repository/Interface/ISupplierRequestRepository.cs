@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using WrokFlowWeb.Database;
+using WrokFlowWeb.ViewModel;
 
 namespace WrokFlowWeb.Repository.Interface
 {
@@ -19,5 +20,6 @@ namespace WrokFlowWeb.Repository.Interface
         void Update(SupplierRequest supplierRequest);
         Task<List<Database.CategoryMaster>> GetCategoryMaster();
         Task<DataSet> GetInboxList(string emailid);
+        Task<List<SupplierRequest>> FetchSupplierReport(SupplierReportViewModel supplierReportViewModel);
     }
 }

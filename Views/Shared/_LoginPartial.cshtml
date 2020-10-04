@@ -53,7 +53,7 @@
         @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
         {
             <li>
-                <a href="#" class="nav-link @(ViewBag.PageName == "Reports" ? "active" : "")"><img src="~/images/reports.png" />Reports</a>
+                <a asp-action="SupplierReport"  asp-controller="Report" class="nav-link @(ViewBag.PageName == "Reports" ? "active" : "")"><img src="~/images/reports.png" />Reports</a>
             </li>
         }
 

@@ -66,4 +66,24 @@ namespace WrokFlowWeb.ViewModel
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
     }
+
+    public class SupplierReportViewModel
+    {
+       public SupplierReportViewModel()
+        {
+            SupplierRequests = new List<Database.SupplierRequest>();
+        }
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Created Start Date")]
+        public string StartDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Created End Date")]
+        public string EndDate { get; set; }
+
+        public List<WrokFlowWeb.Database.SupplierRequest> SupplierRequests { get; set; }
+
+    }
 }
