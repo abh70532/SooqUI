@@ -91,6 +91,7 @@ namespace WrokFlowWeb.Controllers
             
             var model = new SupplierViewModel()
             {
+                SupplierRequestId = response.SupplierRequestId,
                 SuplierTypeRequest = await this.supplierRequest.GetSupplierTypeRequestMaster(),
                 RequestTypeMaster = await this.supplierRequest.GetRequestTypeMaster(),
                 CategoryMaster = await this.supplierRequest.GetCategoryMaster(),

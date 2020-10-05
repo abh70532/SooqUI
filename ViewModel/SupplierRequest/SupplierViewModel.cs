@@ -12,6 +12,7 @@ namespace WrokFlowWeb.ViewModel
 {
     public class SupplierViewModel
     {
+        [DisplayName("Supplier Request Id")]
         public long SupplierRequestId { get; set; }
         public long SupplierRequestCode { get; set; }
 

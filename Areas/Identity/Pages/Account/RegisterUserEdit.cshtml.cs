@@ -82,7 +82,6 @@ namespace WrokFlowWeb.Areas.Identity.Pages.Account
             [Display(Name = "Internal/External User")]
             public byte UserType { get; set; }
 
-            [Required]
             [Display(Name = "Supplier")]
             public long? SupplierRequestId { get; set; }
 

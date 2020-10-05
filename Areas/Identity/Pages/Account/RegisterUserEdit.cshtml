@@ -53,7 +53,7 @@
                         <span asp-validation-for="Input.CompanyName" class="text-danger"></span>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group costCenterId">
                         <label asp-for="Input.CostCenter"></label>
                         <input asp-for="Input.CostCenter" class="form-control" />
                         <span asp-validation-for="Input.CostCenter" class="text-danger"></span>
@@ -65,7 +65,7 @@
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group costCenterId">
                         <label asp-for="Input.Department"></label>
                         <input asp-for="Input.Department" class="form-control" />
                         <span asp-validation-for="Input.Department" class="text-danger"></span>
@@ -93,16 +93,20 @@
         $(document).ready(function () {
             if ($("#Input_UserType option:selected").val() == 2) {
                 $(".controlId").show();
+                $(".costCenterId").hide();
             } else {
                 $(".controlId").hide();
+                $(".costCenterId").show();
             }
         });
         $(".error").hide();
         $("#Input_UserType").on("change", function () {
             if ($("#Input_UserType option:selected").val() == 2) {
                 $(".controlId").show();
+                $(".costCenterId").hide();
             } else {
                 $(".controlId").hide();
+                $(".costCenterId").show();
             }
         });
     </script>
