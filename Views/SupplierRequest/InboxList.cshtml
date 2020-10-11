@@ -8,14 +8,14 @@
 }
 
 <div class="w-100 h-100 bg-white p-10 border-radius-5 box-shadow">
-    <div class="overflow-y w-100 h-100">
+    <div class="w-100 h-100 grid-h-100">
         @(Html
         .Grid(Model)
         .Build(columns =>
         {
             columns.Add(model => model.ModuleName).Titled("Module");
             columns.Add(model => model.RequestId).Titled("Request");
-            columns.Add(model => $"<a href=\"Approve?requestid={model.RequestId}&moduleid={model.ModuleId}\">Aprrove/Reject</a>").Encoded(false);
+            columns.Add(model => $"<a class=\"btn btn-sm btn-warning\" href=\"Approve?requestid={model.RequestId}&moduleid={model.ModuleId}\">Aprrove/Reject</a>").Encoded(false).Css("smallColumn"); ;
 
         })
          .Empty("No request for approval")

@@ -97,3 +97,25 @@ header ul.navbar-nav li:hover ul { display:block; }
 }
 .grid-small table tbody td  { padding:8px 4px; }
 .grid-small table tbody tr:nth-of-type(even) { background:#f7f7f7; }
+.grid-h-100 > div {  position: relative;  height: 100%;  padding:0;  }
+
+table { width:100%; font-size:14px; }
+th {
+    text-align: inherit;
+    font-weight: normal;
+    padding: 8px 5px;
+    font-size: 14px;
+    border-bottom: 1px solid #f2f2f2;
+}
+td {
+    padding:5px;
+    border-bottom: 1px solid #f2f2f2;
+}
+tbody tr:nth-of-type(odd) td { background:#F5F5F5; }
+.smallColumn { width:122px; }
+.grid-h-100 th {
+    position: sticky;
+    top: 0;
+    box-shadow: 0 1px 1px #f2f2f2;
+    background:#fff;
+}

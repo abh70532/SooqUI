@@ -24,6 +24,7 @@ a { color:#808080; }
 .border-radius-5 { border-radius: 5px; }
 .footer { line-height:normal; font-size:0.8rem; padding:5px; position:relative; }
 .grid .mvc-grid { width:100%; }
+.mvc-grid-pager { flex:0; }
 .btn-primary { font-size:13px; }
 .single-column { width:330px; }
 .two-column-form { width:660px; }
@@ -38,3 +39,5 @@ a { color:#808080; }
 ::-webkit-scrollbar-thumb:hover { background: #555; }
 div:hover::-webkit-scrollbar-thumb { background:#888; }
 div.visible-scroll::-webkit-scrollbar-thumb { background:#888;}
+
+.btn-sm { font-size:12px; }
