@@ -109,7 +109,8 @@ namespace WrokFlowWeb.Controllers
                 FirstName = response.FirstName,
                 LastName = response.LastName,
                 EmailId = response.EmailId,
-                ContactPhone = response.ContactPhone
+                ContactPhone = response.ContactPhone,
+                CategoryMasterNames = string.Join(',',response.SupplierRequestCategoryMapping.Select(x=>x.CategoryMaster.Category).ToList())
             };
             return model;
         }
