@@ -15,7 +15,7 @@
             <div class="d-flex justify-content-end flex-0">
                 <a class="btn btn-primary mb-3" asp-action="Create" asp-controller="Role"> Add New Role</a>
             </div>
-            <div class="d-flex flex-1 overflow-y w-100 h-100 grid">
+            <div class="d-flex flex-1 overflow-y w-100 h-100 grid-h-100">
                 @*foreach (var role in Model)
                 {
                 <div class="card mb-3">
@@ -39,7 +39,7 @@
                         
 
                         columns.Add(model => model.Name).Titled("Name");
-                        columns.Add(model => $"<a href=\"Details\\{model.Id}\">Edit</a>").Encoded(false);
+                        columns.Add(model => $"<a class=\"btn btn-sm btn-info whiteColor\" href=\"Details\\{model.Id}\"><i class=\"fa fa-pencil-alt\"></i>&nbsp;Edit</a>").Encoded(false).Css("w-71");
                      
 
                     }).Pageable(pager =>

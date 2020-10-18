@@ -10,25 +10,28 @@
 <div class="w-100 h-100 bg-white p-10 border-radius-5 box-shadow">
     <div class="d-flex flex-column h-100 w-100">
         <div class="d-flex pb-2 border-bottom">
-            <form asp-controller="Report" asp-action="FetchSupplierReport" method="post">
-                <div class="form-group">
-                    <label asp-for="StartDate"></label>
-                    <input asp-for="StartDate" class="form-control" />
-                    <span asp-validation-for="StartDate" class="text-danger"></span>
-                </div>
+            <form class="d-flex flex-column" asp-controller="Report" asp-action="FetchSupplierReport" method="post">
+                <div class="d-flex">
+                    <div class="form-group pr-1">
+                        <label asp-for="StartDate"></label>
+                        <input asp-for="StartDate" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
 
-                <div class="form-group">
-                    <label asp-for="EndDate"></label>
-                    <input asp-for="EndDate" class="form-control" />
-                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                    <div class="form-group pl-1">
+                        <label asp-for="EndDate"></label>
+                        <input asp-for="EndDate" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary mr-1">Sumbit</button>
+                <div>
+                    <button type="submit" class="btn btn-primary mr-1">Sumbit</button>
+                </div>
             </form>
         </div>
        
 
-        <div class="d-flex flex-1 overflow-y w-100 h-100">
+        <div class="d-flex flex-1 overflow-y w-100 h-100 grid-h-100">
             @(Html
     .Grid(Model.SupplierRequests)
     .Build(columns =>

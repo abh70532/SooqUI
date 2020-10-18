@@ -17,41 +17,41 @@
 
                 <div class="d-flex w-100 flex-column  pb-3 border-bottom">
 
-                    <div class="d-flex f-15 pb-1 font-weight-bold">
-                        <div>@Html.DisplayNameFor(x => x.SupplierViewModel.SupplierName):&nbsp;</div>
+                    <div class="d-flex f-15 pb-1 font-weight-bold fieldWrap">
+                        <div class="label">@Html.DisplayNameFor(x => x.SupplierViewModel.SupplierName):&nbsp;</div>
                         <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.SupplierName)</div>
                     </div>
-                    <div class="d-flex f-15 pb-1 font-weight-bold">
-                        <div>@Html.DisplayNameFor(x => x.SupplierViewModel.SupplierRequestId):&nbsp;</div>
+                    <div class="d-flex f-15 pb-1 font-weight-bold fieldWrap">
+                        <div class="label">@Html.DisplayNameFor(x => x.SupplierViewModel.SupplierRequestId):&nbsp;</div>
                         <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.SupplierRequestId)</div>
                     </div>
-                    <div class="d-flex f-15 pb-1">
-                        <div>@Html.DisplayNameFor(x => x.SupplierViewModel.SuplierTypeRequestId):&nbsp;</div>
+                    <div class="d-flex f-15 pb-1 fieldWrap">
+                        <div class="label">@Html.DisplayNameFor(x => x.SupplierViewModel.SuplierTypeRequestId):&nbsp;</div>
                         <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.SuplierTypeRequest.FirstOrDefault().SuplierTypeRequest)</div>
                     </div>
-                    <div class="d-flex f-15 pb-1">
-                        <div>@Html.DisplayNameFor(x => x.SupplierViewModel.RequestTypeMasterId):&nbsp;</div>
+                    <div class="d-flex f-15 pb-1 fieldWrap">
+                        <div class="label">@Html.DisplayNameFor(x => x.SupplierViewModel.RequestTypeMasterId):&nbsp;</div>
                         <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.RequestTypeMaster.FirstOrDefault().RequestType)</div>
                     </div>
                     @if (!string.IsNullOrEmpty(Model.SupplierViewModel.RequesterName))
                     {
-                        <div class="d-flex pb-1">
-                            <div>@Html.DisplayNameFor(x => x.SupplierViewModel.RequesterName):&nbsp;</div>
+                        <div class="d-flex pb-1 fieldWrap">
+                            <div class="label">@Html.DisplayNameFor(x => x.SupplierViewModel.RequesterName):&nbsp;</div>
                             <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.RequesterName)</div>
                         </div>
                     }
 
                     @if (!string.IsNullOrEmpty(Model.SupplierViewModel.EmailId))
                     {
-                        <div class="d-flex pb-1">
-                            <div>@Html.DisplayNameFor(x => x.SupplierViewModel.EmailId):&nbsp;</div>
+                        <div class="d-flex pb-1 fieldWrap">
+                            <div class="label">@Html.DisplayNameFor(x => x.SupplierViewModel.EmailId):&nbsp;</div>
                             <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.EmailId)</div>
                         </div>
                     }
                     @if (!string.IsNullOrEmpty(Model.SupplierViewModel.FirstName))
                     {
-                        <div class="d-flex pb-1">
-                            <div>@Html.DisplayNameFor(x => x.SupplierViewModel.FirstName):&nbsp;</div>
+                        <div class="d-flex pb-1 fieldWrap">
+                            <div class="label">@Html.DisplayNameFor(x => x.SupplierViewModel.FirstName):&nbsp;</div>
                             <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.FirstName)</div>
                         </div>
                     }
@@ -59,8 +59,8 @@
 
                     @if (!string.IsNullOrEmpty(Model.SupplierViewModel.LastName))
                     {
-                        <div class="d-flex pb-1">
-                            <div>@Html.DisplayNameFor(x => x.SupplierViewModel.LastName):&nbsp;</div>
+                        <div class="d-flex pb-1 fieldWrap">
+                            <div class="label">@Html.DisplayNameFor(x => x.SupplierViewModel.LastName):&nbsp;</div>
                             <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.LastName)</div>
                         </div>
                     }
@@ -68,16 +68,16 @@
 
                     @if (!string.IsNullOrEmpty(Model.SupplierViewModel.ContactPhone))
                     {
-                        <div class="d-flex pb-1">
-                            <div>@Html.DisplayNameFor(x => x.SupplierViewModel.ContactPhone):&nbsp;</div>
+                        <div class="d-flex pb-1 fieldWrap">
+                            <div class="label">@Html.DisplayNameFor(x => x.SupplierViewModel.ContactPhone):&nbsp;</div>
                             <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.ContactPhone)</div>
                         </div>
                     }
 
                     @if (!string.IsNullOrEmpty(Model.SupplierViewModel.Street))
                     {
-                        <div class="d-flex pb-1">
-                            <div>@Html.DisplayNameFor(x => x.SupplierViewModel.Street):&nbsp;</div>
+                        <div class="d-flex pb-1 fieldWrap">
+                            <div class="label">@Html.DisplayNameFor(x => x.SupplierViewModel.Street):&nbsp;</div>
                             <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.Street)</div>
                         </div>
                     }
@@ -86,8 +86,8 @@
 
                     @if (!string.IsNullOrEmpty(Model.SupplierViewModel.City))
                     {
-                        <div class="d-flex pb-1">
-                            <div>@Html.DisplayNameFor(x => x.SupplierViewModel.City):&nbsp;</div>
+                        <div class="d-flex pb-1 fieldWrap">
+                            <div class="label">@Html.DisplayNameFor(x => x.SupplierViewModel.City):&nbsp;</div>
                             <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.City)</div>
                         </div>
                     }
@@ -95,7 +95,7 @@
 
                     @if (!string.IsNullOrEmpty(Model.SupplierViewModel.Address1))
                     {
-                        <div class="d-flex pb-1">
+                        <div class="d-flex pb-1 fieldWrap">
                             <div>@Html.DisplayNameFor(x => x.SupplierViewModel.Address1):&nbsp;</div>
                             <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.Address1)</div>
                         </div>
@@ -104,7 +104,7 @@
 
                     @if (!string.IsNullOrEmpty(Model.SupplierViewModel.Address2))
                     {
-                        <div class="d-flex pb-1">
+                        <div class="d-flex pb-1 fieldWrap">
                             <div>@Html.DisplayNameFor(x => x.SupplierViewModel.Address2):&nbsp;</div>
                             <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.Address2)</div>
                         </div>
@@ -113,8 +113,8 @@
 
                     @if (!string.IsNullOrEmpty(Model.SupplierViewModel.PostalCode))
                     {
-                        <div class="d-flex pb-1">
-                            <div>@Html.DisplayNameFor(x => x.SupplierViewModel.PostalCode):&nbsp;</div>
+                        <div class="d-flex pb-1 fieldWrap">
+                            <div class="label">@Html.DisplayNameFor(x => x.SupplierViewModel.PostalCode):&nbsp;</div>
                             <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.PostalCode)</div>
                         </div>
                     }
@@ -122,8 +122,8 @@
 
                     @if (!string.IsNullOrEmpty(Model.SupplierViewModel.Country))
                     {
-                        <div class="d-flex pb-1">
-                            <div>@Html.DisplayNameFor(x => x.SupplierViewModel.Country):&nbsp;</div>
+                        <div class="d-flex pb-1 fieldWrap">
+                            <div class="label">@Html.DisplayNameFor(x => x.SupplierViewModel.Country):&nbsp;</div>
                             <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.Country)</div>
                         </div>
                     }
@@ -131,8 +131,8 @@
 
                     @if (!string.IsNullOrEmpty(Model.SupplierViewModel.CategoryMasterNames))
                     {
-                        <div class="d-flex pb-1">
-                            <div>@Html.DisplayNameFor(x => x.SupplierViewModel.CategoryMaster):&nbsp;</div>
+                        <div class="d-flex pb-1 fieldWrap">
+                            <div class="label">@Html.DisplayNameFor(x => x.SupplierViewModel.CategoryMaster):&nbsp;</div>
                             <div class="flex-auto">@Html.DisplayFor(x => x.SupplierViewModel.CategoryMasterNames)</div>
                         </div>
                     }
@@ -165,26 +165,31 @@
 
                 @if (!Model.IsView)
                 {
-                    <div class="form-group">
+
+                    <div class="form-group single-column d-flex">
                         @foreach (var approve in Model.ApproveList)
-                        {
-                            <input type="radio" asp-for="Approve" value="@approve" />@approve<br />
+                        {   <div class="p-1">
+                                <input type="radio" asp-for="Approve" value="@approve" />@approve<br />
+                            </div>
                         }
                         <span asp-validation-for="Approve" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Comments"></label>
-                        <input asp-for="Comments" class="form-control" />
-                        <span asp-validation-for="Comments" class="text-danger"></span>
-                    </div>
+                    <div class="single-column">
+                        <div class="form-group">
+                            <label asp-for="Comments"></label>
+                            <textarea asp-for="Comments" class="form-control"></textarea>
+                            <span asp-validation-for="Comments" class="text-danger"></span>
+                        </div>
 
-                    <button id="btnSubmit" type="submit" class="btn btn-primary">Sumbit</button>
-                    <a asp-controller="SupplierRequest" asp-action="InboxList" class="btn btn-primary" style="width:auto">Cancel</a>
-                }
-                else
-                {
-                    <a asp-controller="SupplierRequest" asp-action="List" class="btn btn-primary" style="width:auto">Cancel</a>
-                }
+                        <button id="btnSubmit" type="submit" class="btn btn-primary">Sumbit</button>
+                        <a asp-controller="SupplierRequest" asp-action="InboxList" class="btn btn-primary">Cancel</a>
+                    </div>
+                   
+                    }
+                    else
+                    {
+                        <a asp-controller="SupplierRequest" asp-action="List" class="btn btn-primary" style="width:auto">Cancel</a>
+                    }
 
             </form>
         </div>

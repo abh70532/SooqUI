@@ -15,7 +15,7 @@
         {
             columns.Add(model => model.ModuleName).Titled("Module");
             columns.Add(model => model.RequestId).Titled("Request");
-            columns.Add(model => $"<a class=\"btn btn-sm btn-warning\" href=\"Approve?requestid={model.RequestId}&moduleid={model.ModuleId}\">Aprrove/Reject</a>").Encoded(false).Css("smallColumn"); ;
+            columns.Add(model => $"<a class=\"btn btn-sm btn-warning whiteColor\" href=\"Approve?requestid={model.RequestId}&moduleid={model.ModuleId}\">Aprrove/Reject</a>").Encoded(false).Css("w-122"); ;
 
         })
          .Empty("No request for approval")
