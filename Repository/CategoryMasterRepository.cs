@@ -28,7 +28,7 @@ namespace WrokFlowWeb.Repository
 
         public async Task<List<CategoryMaster>> GetAllCategories()
         {
-            return await this.context.CategoryMaster.Where(x=>x.IsActive).ToListAsync();
+            return await this.context.CategoryMaster.Where(x=>x.IsActive.Value).ToListAsync();
         }
 
         public async Task<CategoryMaster> GetCategoryById(int categoryid) => await context.CategoryMaster.Where(x => x.CategoryMasterId == categoryid).FirstOrDefaultAsync();

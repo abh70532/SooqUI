@@ -38,7 +38,7 @@ namespace WrokFlowWeb.Repository
 
         public async Task<List<Database.SupplierRequest>> GetSupplierRequests()
         {
-            return await context.SupplierRequest.Where(x=> x.IsActive && !x.IsDeleted).Include(x=>x.SuplierTypeRequest).Include(x=>x.RequestTypeMaster).Include(x=> x.SupplierRequestApprovalLog).ThenInclude(x=>x.RoleApprovalMaster).ThenInclude(x=>x.Role).Include(x=>x.SupplierRequestCategoryMapping).ThenInclude(x=>x.CategoryMaster).OrderByDescending(x=>x.SupplierRequestId).ToListAsync();
+            return await context.SupplierRequest.Where(x=> x.IsActive.Value && !x.IsDeleted).Include(x=>x.SuplierTypeRequest).Include(x=>x.RequestTypeMaster).Include(x=> x.SupplierRequestApprovalLog).ThenInclude(x=>x.RoleApprovalMaster).ThenInclude(x=>x.Role).Include(x=>x.SupplierRequestCategoryMapping).ThenInclude(x=>x.CategoryMaster).OrderByDescending(x=>x.SupplierRequestId).ToListAsync();
         }
 
         public async Task<List<Database.SuplierTypeRequestMaster>> GetSupplierTypeRequestMaster()
@@ -54,7 +54,7 @@ namespace WrokFlowWeb.Repository
 
         public async Task<List<SupplierRequest>> GetSupplierRequestMaster()
         {
-            return await context.SupplierRequest.Where(x=>x.IsActive && !x.IsDeleted).ToListAsync();
+            return await context.SupplierRequest.Where(x=>x.IsActive.GetValueOrDefault() && !x.IsDeleted).ToListAsync();
         }
 
         public void  Add(SupplierRequest supplierRequest)
@@ -69,13 +69,12 @@ namespace WrokFlowWeb.Repository
 
         public async Task<List<Database.CategoryMaster>> GetCategoryMaster()
         {
-            return await context.CategoryMaster.Where(x=>x.IsActive).ToListAsync();
+            return await context.CategoryMaster.Where(x=>x.IsActive.Value).ToListAsync();
         }
 
         public Task<long> Add(CategoryMasterViewModel categoryMasterView)
         {
             throw new NotImplementedException();
-
         }
 
         public async Task<DataSet> GetInboxList(string emailid)
@@ -102,7 +101,7 @@ namespace WrokFlowWeb.Repository
         {
             DateTime startDate = Convert.ToDateTime(supplierReportViewModel.StartDate);
             DateTime endDate = Convert.ToDateTime(supplierReportViewModel.EndDate);
-            return await context.SupplierRequest.Where(x => x.IsActive && !x.IsDeleted && (x.CreatedOn >= startDate && x.CreatedOn <= endDate)).Include(x => x.SuplierTypeRequest).Include(x => x.RequestTypeMaster).Include(x => x.SupplierRequestApprovalLog).ThenInclude(x => x.RoleApprovalMaster).ThenInclude(x => x.Role).Include(x => x.SupplierRequestCategoryMapping).ThenInclude(x => x.CategoryMaster).OrderByDescending(x => x.SupplierRequestId).ToListAsync();
+            return await context.SupplierRequest.Where(x => x.IsActive.Value && !x.IsDeleted && (x.CreatedOn >= startDate && x.CreatedOn <= endDate)).Include(x => x.SuplierTypeRequest).Include(x => x.RequestTypeMaster).Include(x => x.SupplierRequestApprovalLog).ThenInclude(x => x.RoleApprovalMaster).ThenInclude(x => x.Role).Include(x => x.SupplierRequestCategoryMapping).ThenInclude(x => x.CategoryMaster).OrderByDescending(x => x.SupplierRequestId).ToListAsync();
         }
     }
 }

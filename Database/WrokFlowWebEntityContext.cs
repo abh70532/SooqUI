@@ -15,6 +15,7 @@ namespace WrokFlowWeb.Database
         {
         }
 
+        public virtual DbSet<ApprovalFormMaster> ApprovalFormMaster { get; set; }
         public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
@@ -27,17 +28,34 @@ namespace WrokFlowWeb.Database
         public virtual DbSet<RequestTypeMaster> RequestTypeMaster { get; set; }
         public virtual DbSet<RoleApprovalMaster> RoleApprovalMaster { get; set; }
         public virtual DbSet<SuplierTypeRequestMaster> SuplierTypeRequestMaster { get; set; }
+        public virtual DbSet<SupplierRegistrationInternalQuestion> SupplierRegistrationInternalQuestion { get; set; }
         public virtual DbSet<SupplierRequest> SupplierRequest { get; set; }
         public virtual DbSet<SupplierRequestApprovalLog> SupplierRequestApprovalLog { get; set; }
         public virtual DbSet<SupplierRequestCategoryMapping> SupplierRequestCategoryMapping { get; set; }
+        public virtual DbSet<TabMaster> TabMaster { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=WrokFlowWeb;User Id=sa; Password=123456;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ApprovalFormMaster>(entity =>
+            {
+                entity.Property(e => e.ApprovalFormMasterName)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+            });
+
             modelBuilder.Entity<AspNetRoleClaims>(entity =>
             {
                 entity.HasIndex(e => e.RoleId);
@@ -145,7 +163,6 @@ namespace WrokFlowWeb.Database
 
                 entity.Property(e => e.StartDate).HasColumnType("date");
 
-
                 entity.Property(e => e.UserName).HasMaxLength(256);
 
                 entity.HasOne(d => d.SupplierRequest)
@@ -159,6 +176,8 @@ namespace WrokFlowWeb.Database
                 entity.Property(e => e.CategoryMasterId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Category).HasMaxLength(100);
+
+                entity.Property(e => e.Description).HasMaxLength(500);
 
                 entity.Property(e => e.IsActive)
                     .IsRequired()
@@ -215,6 +234,82 @@ namespace WrokFlowWeb.Database
                 entity.Property(e => e.SuplierTypeRequest).HasMaxLength(100);
             });
 
+            modelBuilder.Entity<SupplierRegistrationInternalQuestion>(entity =>
+            {
+                entity.Property(e => e.AccountGroup)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ActualQmsystem)
+                    .HasColumnName("ActualQMSystem")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.BlockForCompanyCodeAlba)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.BlockForPurchasingOrganisation)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.BlockForQualityReasons)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CashMangementGroup)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CheckDoubleInvoice)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.ClerkAbbrevation)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CompanyCode)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Industry)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.OrderCurreny)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PaymentMethod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PaymentTerm)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PurchasingOrganisation)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ReconsiliationAccount)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SearchTerm)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SetIncoterm)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TrainStation)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<SupplierRequest>(entity =>
             {
                 entity.Property(e => e.Address1).HasMaxLength(200);
@@ -240,6 +335,10 @@ namespace WrokFlowWeb.Database
                 entity.Property(e => e.FirstName).HasMaxLength(100);
 
                 entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.IsEditable)
                     .IsRequired()
                     .HasDefaultValueSql("((1))");
 
@@ -310,6 +409,17 @@ namespace WrokFlowWeb.Database
                     .WithMany(p => p.SupplierRequestCategoryMapping)
                     .HasForeignKey(d => d.SupplierRequestId)
                     .HasConstraintName("FK_SupplierRequestCategoryMapping_SupplierRequest");
+            });
+
+            modelBuilder.Entity<TabMaster>(entity =>
+            {
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TabMasterName)
+                    .IsRequired()
+                    .HasMaxLength(200);
             });
 
             OnModelCreatingPartial(modelBuilder);

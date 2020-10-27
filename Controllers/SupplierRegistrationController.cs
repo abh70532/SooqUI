@@ -85,5 +85,16 @@ namespace WrokFlowWeb.Controllers
 
             return View();
         }
+
+        public IActionResult GetInternalQuestionaire()
+        {
+            SupplierRegistrationInternalQuestionViewModel model = new SupplierRegistrationInternalQuestionViewModel();
+            return View("InternalQuestionare", model);
+        }
+        public IActionResult SyncSAP()
+        {
+            SyncSAPViewModel model = new SyncSAPViewModel();
+            return View("SyncSAP", model);
+        }
     }
 }

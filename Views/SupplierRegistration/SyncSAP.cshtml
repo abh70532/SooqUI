@@ -1,0 +1,60 @@
+﻿
+@model WrokFlowWeb.ViewModel.SupplierRegistration.SyncSAPViewModel
+
+@{
+    ViewBag.PageName = "Sync SAP";
+}@{
+    ViewBag.Title = "Sync SAP";
+}
+
+<div class="w-100 h-100 bg-white p-10 border-radius-5 box-shadow">
+    <div class="d-flex flex-column h-100 w-100">
+        <div class="d-flex justify-content-end pb-2 border-bottom">
+            <a class="btn btn-primary ml-1" asp-action="List" asp-controller="SupplierRequest">Supplier Request List</a>
+        </div>
+        <div class="d-flex flex-1 overflow-y w-100 h-100 pt-10">
+            <div class="d-inline-block two-column-form">
+                <form asp-controller="SupplierRequest" asp-action="Create" method="post">
+                    <div class="form-group">
+                        <label asp-for="SupplierRequestId"></label>
+                        <input asp-for="SupplierRequestId" class="form-control" />
+                        <span asp-validation-for="SupplierRequestId" class="text-danger"></span>
+                    </div>
+                   
+                    <button id="btnSubmit" type="submit" class="btn btn-primary">Sync SAP</button>
+                    <a asp-controller="SupplierRequest" asp-action="List" class="btn btn-primary" style="width:auto">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+            $(".controlId").hide();
+            $(".error").hide();
+            $("#RequestTypeMasterId").on("change", function () {
+                if ($("#RequestTypeMasterId option:selected").val() == 2) {
+                    $(".controlId").show();
+                } else {
+                    $(".controlId").hide();
+                }
+            });
+    </script>
+    <script type="text/javascript">
+            $(function () {
+                $("#btnSubmit").click(function () {
+                    var checked_checkboxes = $("#tblCategory input[type=checkbox]:checked");
+                    if (checked_checkboxes.length == 0) {
+                        $(".error").show();
+                        return false;
+                    } else {
+                        $(".error").hide();
+                        return true;
+                    }
+
+                });
+            });
+    </script>
+}
