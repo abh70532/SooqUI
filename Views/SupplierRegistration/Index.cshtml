@@ -1,0 +1,41 @@
+﻿@model WrokFlowWeb.ViewModel.SupplierRegistration.SupplierRegistration;
+    <table>
+        @using (Html.BeginForm("Create", "SupplierRegistration", FormMethod.Post) )
+        {
+
+            for (int i = 0; i < Model.Questions.Count(); i++)
+            {
+        <tr>
+            @if (Model.Questions[i].QuestionControlType.ToString() == "Textbox")
+            {
+                <td>
+                    @Html.DisplayFor(model => model.Questions[i].QuestionText)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Questions[i].QuestionAnswer)
+                </td>
+            }
+            @if (Model.Questions[i].QuestionControlType.ToString() == "MultiLineTextox")
+            {
+                <td>
+                    @Html.DisplayFor(model => model.Questions[i].QuestionText)
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.Questions[i].QuestionAnswer)
+                </td>
+            }
+            @if (Model.Questions[i].QuestionControlType.ToString() == "Dropdown")
+            {
+                <td>
+                    @Html.DisplayFor(model => model.Questions[i].QuestionText)
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model.Questions[i].SelectedValue, new SelectList(Model.Questions[i].DataSource, "Id", "Text", Model.Questions[i].SelectedValue)) 
+                </td>
+            }
+        </tr>
+            }
+
+            <input type="submit" />
+        }
+    </table>
