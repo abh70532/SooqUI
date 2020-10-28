@@ -24,9 +24,13 @@ namespace WrokFlowWeb.Database
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<CategoryMaster> CategoryMaster { get; set; }
+        public virtual DbSet<ControlMaster> ControlMaster { get; set; }
+        public virtual DbSet<DataSourceMaster> DataSourceMaster { get; set; }
         public virtual DbSet<ModuleMaster> ModuleMaster { get; set; }
+        public virtual DbSet<QuestionMaster> QuestionMaster { get; set; }
         public virtual DbSet<RequestTypeMaster> RequestTypeMaster { get; set; }
         public virtual DbSet<RoleApprovalMaster> RoleApprovalMaster { get; set; }
+        public virtual DbSet<SourceMaster> SourceMaster { get; set; }
         public virtual DbSet<SuplierTypeRequestMaster> SuplierTypeRequestMaster { get; set; }
         public virtual DbSet<SupplierRegistrationInternalQuestion> SupplierRegistrationInternalQuestion { get; set; }
         public virtual DbSet<SupplierRequest> SupplierRequest { get; set; }
@@ -184,6 +188,27 @@ namespace WrokFlowWeb.Database
                     .HasDefaultValueSql("((1))");
             });
 
+            modelBuilder.Entity<ControlMaster>(entity =>
+            {
+                entity.Property(e => e.ControlName)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.IsDataSource).HasDefaultValueSql("((0))");
+            });
+
+            modelBuilder.Entity<DataSourceMaster>(entity =>
+            {
+                entity.Property(e => e.DataSourceName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+            });
+
             modelBuilder.Entity<ModuleMaster>(entity =>
             {
                 entity.HasKey(e => e.ModuleId)
@@ -194,6 +219,32 @@ namespace WrokFlowWeb.Database
                 entity.Property(e => e.ModuleName)
                     .IsRequired()
                     .HasMaxLength(200);
+            });
+
+            modelBuilder.Entity<QuestionMaster>(entity =>
+            {
+                entity.Property(e => e.DefautText).HasMaxLength(200);
+
+                entity.Property(e => e.QuestionText)
+                    .IsRequired()
+                    .HasMaxLength(1000);
+
+                entity.HasOne(d => d.ControlMaster)
+                    .WithMany(p => p.QuestionMaster)
+                    .HasForeignKey(d => d.ControlMasterId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_QuestionMaster_ControlMaster");
+
+                entity.HasOne(d => d.DataSourceMaster)
+                    .WithMany(p => p.QuestionMaster)
+                    .HasForeignKey(d => d.DataSourceMasterId)
+                    .HasConstraintName("FK_QuestionMaster_DataSourceMaster");
+
+                entity.HasOne(d => d.TabMaster)
+                    .WithMany(p => p.QuestionMaster)
+                    .HasForeignKey(d => d.TabMasterId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_QuestionMaster_TabMaster");
             });
 
             modelBuilder.Entity<RequestTypeMaster>(entity =>
@@ -222,6 +273,21 @@ namespace WrokFlowWeb.Database
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_RoleApprovalMaster_AspNetRoles");
+            });
+
+            modelBuilder.Entity<SourceMaster>(entity =>
+            {
+                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Text)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.HasOne(d => d.DataSourceMaster)
+                    .WithMany(p => p.SourceMaster)
+                    .HasForeignKey(d => d.DataSourceMasterId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SourceMaster_DataSourceMaster");
             });
 
             modelBuilder.Entity<SuplierTypeRequestMaster>(entity =>
