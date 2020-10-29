@@ -12,5 +12,13 @@ namespace WrokFlowWeb.Constants
         {
             SupplierRequest =1 
         }
+
+        public enum Controls
+        {
+            Textbox,
+            MultiLineTextox,
+            Dropdown,
+            FileUpload
+        }
     }
 }

@@ -1,0 +1,168 @@
+﻿
+@model WrokFlowWeb.ViewModel.SupplierRegistration.SupplierRegistrationInternalQuestionViewModel
+
+@{
+    ViewBag.PageName = "Internal Questionaire";
+}@{
+    ViewBag.Title = "Create Internal Questionaire";
+}
+
+<div class="w-100 h-100 bg-white p-10 border-radius-5 box-shadow">
+    <div class="d-flex flex-column h-100 w-100">
+        <div class="d-flex justify-content-end pb-2 border-bottom">
+            <a class="btn btn-primary ml-1" asp-action="List" asp-controller="SupplierRequest">Supplier Request List</a>
+        </div>
+        <div class="d-flex flex-1 overflow-y w-100 h-100 pt-10">
+            <div class="d-inline-block two-column-form">
+                <form asp-controller="SupplierRequest" asp-action="Create" method="post">
+                    <div class="form-group">
+                        <label asp-for="SupplierRequestId"></label>
+                        <input asp-for="SupplierRequestId" class="form-control" />
+                        <span asp-validation-for="SupplierRequestId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AccountGroup"></label>
+                        <input asp-for="AccountGroup" class="form-control" />
+                        <span asp-validation-for="AccountGroup" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group controlId">
+                        <label asp-for="SearchTerm"></label>
+                        <input asp-for="SearchTerm" class="form-control" />
+                        <span asp-validation-for="SearchTerm" class="text-danger"></span>
+                    </div>
+                    <div class="form-group controlId">
+                        <label asp-for="Industry"></label>
+                        <input asp-for="Industry" class="form-control" />
+                        <span asp-validation-for="Industry" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="TrainStation"></label>
+                        <input asp-for="TrainStation" class="form-control" />
+                        <span asp-validation-for="TrainStation" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ActualQmsystem"></label>
+                        <input asp-for="ActualQmsystem" class="form-control" />
+                        <span asp-validation-for="ActualQmsystem" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ReconsiliationAccount"></label>
+                        <input asp-for="ReconsiliationAccount" class="form-control" />
+                        <span asp-validation-for="ReconsiliationAccount" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="CashMangementGroup"></label>
+                        <input asp-for="CashMangementGroup" class="form-control" />
+                        <span asp-validation-for="CashMangementGroup" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CompanyCode"></label>
+                        <input asp-for="CompanyCode" class="form-control" />
+                        <span asp-validation-for="CompanyCode" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PaymentTerm"></label>
+                        <input asp-for="PaymentTerm" class="form-control" />
+                        <span asp-validation-for="PaymentTerm" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CheckDoubleInvoice"></label>
+                        <select class="form-control" asp-for="CheckDoubleInvoice">
+                            <option></option>
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                        <span asp-validation-for="CheckDoubleInvoice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PaymentMethod"></label>
+                        <input asp-for="PaymentMethod" class="form-control" />
+                        <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ClerkAbbrevation"></label>
+                        <input asp-for="ClerkAbbrevation" class="form-control" />
+                        <span asp-validation-for="ClerkAbbrevation" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PurchasingOrganisation"></label>
+                        <input asp-for="PurchasingOrganisation" class="form-control" />
+                        <span asp-validation-for="PurchasingOrganisation" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="OrderCurreny"></label>
+                        <input asp-for="OrderCurreny" class="form-control" />
+                        <span asp-validation-for="OrderCurreny" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SetIncoterm"></label>
+                        <select class="form-control" asp-for="SetIncoterm">
+                            <option></option>
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                        <span asp-validation-for="SetIncoterm" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BlockForCompanyCodeAlba"></label>
+                        <select class="form-control" asp-for="BlockForCompanyCodeAlba">
+                            <option></option>
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                        <span asp-validation-for="BlockForCompanyCodeAlba" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BlockForPurchasingOrganisation"></label>
+                        <select class="form-control" asp-for="BlockForPurchasingOrganisation">
+                            <option></option>
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                        <span asp-validation-for="BlockForPurchasingOrganisation" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BlockForQualityReasons"></label>
+                        <input asp-for="BlockForQualityReasons" class="form-control" />
+                        <span asp-validation-for="BlockForQualityReasons" class="text-danger"></span>
+                    </div>
+                    <button id="btnSubmit" type="submit" class="btn btn-primary">Create Internal Questionnaire</button>
+                    <a asp-controller="SupplierRequest" asp-action="List" class="btn btn-primary" style="width:auto">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+            $(".controlId").hide();
+            $(".error").hide();
+            $("#RequestTypeMasterId").on("change", function () {
+                if ($("#RequestTypeMasterId option:selected").val() == 2) {
+                    $(".controlId").show();
+                } else {
+                    $(".controlId").hide();
+                }
+            });
+    </script>
+    <script type="text/javascript">
+            $(function () {
+                $("#btnSubmit").click(function () {
+                    var checked_checkboxes = $("#tblCategory input[type=checkbox]:checked");
+                    if (checked_checkboxes.length == 0) {
+                        $(".error").show();
+                        return false;
+                    } else {
+                        $(".error").hide();
+                        return true;
+                    }
+
+                });
+            });
+    </script>
+}

@@ -42,6 +42,26 @@
                 <a asp-action="List" asp-controller="SupplierRequest" class="nav-link @(ViewBag.PageName == "SupplierRequest" ? "active" : "")"><img src="~/images/request.png" />Supplier Request</a>
             </li>
         }
+        @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
+        {
+            <li>
+                <a asp-action="GetInternalQuestionaire" asp-controller="SupplierRegistration" class="nav-link @(ViewBag.PageName == "SupplierRegistration" ? "active" : "")"><img src="~/images/request.png" />Internal Questionnaire</a>
+            </li>
+        }
+
+        @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
+        {
+            <li>
+                <a asp-action="GetInternalQuestionaire" asp-controller="SupplierRegistration" class="nav-link @(ViewBag.PageName == "SupplierRegistration" ? "active" : "")"><img src="~/images/request.png" />Supplier Qualification</a>
+            </li>
+        }
+
+        @if (User.IsInRole("Admin"))
+        {
+            <li>
+                <a asp-action="SyncSAP" asp-controller="SupplierRegistration" class="nav-link @(ViewBag.PageName == "Masters" ? "active" : "")"><img src="~/images/masters.png" />Sync SAP</a>
+            </li>
+        }
 
         @if (User.IsInRole("Admin"))
         {
@@ -50,10 +70,17 @@
             </li>
         }
 
+        @if (User.IsInRole("Admin"))
+        {
+            <li>
+                <a asp-action="List" asp-controller="Question" class="nav-link @(ViewBag.PageName == "Masters" ? "active" : "")"><img src="~/images/masters.png" />Create Question Master</a>
+            </li>
+        }
+
         @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
         {
             <li>
-                <a asp-action="SupplierReport"  asp-controller="Report" class="nav-link @(ViewBag.PageName == "Reports" ? "active" : "")"><img src="~/images/reports.png" />Reports</a>
+                <a asp-action="SupplierReport" asp-controller="Report" class="nav-link @(ViewBag.PageName == "Reports" ? "active" : "")"><img src="~/images/reports.png" />Reports</a>
             </li>
         }
 

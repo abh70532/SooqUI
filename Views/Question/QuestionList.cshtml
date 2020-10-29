@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WrokFlowWeb.Database.QuestionMaster>
+@{
+        ViewBag.Title = "Question List";
+    }
+@{
+        ViewBag.PageName = "Question List";
+    }
+
+
+<div class="w-100 h-100 bg-white p-10 border-radius-5 box-shadow">
+    <div class="d-flex flex-column h-100 w-100">
+        <div class="d-flex justify-content-end pb-2">
+           <a class="btn btn-primary" asp-action="Index" asp-controller="Question"> Add Question</a>
+        </div>
+        <div class="d-flex flex-1 overflow-y w-100 h-100 grid-h-100">
+            @(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+    columns.Add(model => model.TabMaster.TabMasterName).Titled("Tab Name");
+    columns.Add(model => model.ControlMaster.ControlName).Titled("Control Name");
+    columns.Add(model => model.DataSourceMaster.DataSourceName).Titled("Data Source");
+    columns.Add(model => model.QuestionText).Titled("Question");
+    })
+     .Empty("No questions added.")
+    .Pageable(pager =>
+    {
+        pager.PageSizes = new Dictionary<Int32, String> { { 0, "All" }, { 10, "10" }, { 25, "25" } };
+        pager.ShowPageSizes = true;
+        pager.PagesToDisplay = 3;
+        pager.CurrentPage = 1;
+        pager.RowsPerPage = 10;
+    })
+)
+        </div>
+    </div>
+</div>
+
+
+
+

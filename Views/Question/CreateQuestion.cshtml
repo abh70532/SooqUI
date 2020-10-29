@@ -1,0 +1,56 @@
+﻿
+@model WrokFlowWeb.ViewModel.Question.QuestionMasterViewModel
+
+@{
+    ViewBag.PageName = "Question Master";
+}@{
+    ViewBag.Title = "Create Question Master";
+}
+
+<div class="w-100 h-100 bg-white p-10 border-radius-5 box-shadow">
+    <div class="d-flex flex-column h-100 w-100">
+        <div class="d-flex justify-content-end pb-2 border-bottom">
+            @*<a class="btn btn-primary ml-1" asp-action="List" asp-controller="SupplierRequest">Supplier Request List</a>*@
+        </div>
+        <div class="d-flex flex-1 overflow-y w-100 h-100 pt-10">
+            <div class="d-inline-block two-column-form">
+                <form asp-controller="Question" asp-action="Create" method="post">
+                    <div class="form-group">
+                        <label asp-for="TabMasterId"></label>
+                        <select class="form-control" asp-for="TabMasterId"
+                                asp-items="@(new SelectList(Model.TabMasterSource,"TabMasterId","TabMasterName"))">
+                            <option></option>
+                        </select>
+                        <span asp-validation-for="TabMasterId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ControlMasterId"></label>
+                        <select class="form-control" asp-for="ControlMasterId"
+                                asp-items="@(new SelectList(Model.ControlMaster,"ControlMasterId","ControlName"))">
+                            <option></option>
+                        </select>
+                        <span asp-validation-for="ControlMasterId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DataSourceMasterId"></label>
+                        <select class="form-control" asp-for="DataSourceMasterId"
+                                asp-items="@(new SelectList(Model.DataSourceMaster,"DataSourceMasterId","DataSourceName"))">
+                            <option></option>
+                        </select>
+                        <span asp-validation-for="DataSourceMasterId" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="QuestionText"></label>
+                        <input asp-for="QuestionText" class="form-control" />
+                        <span asp-validation-for="QuestionText" class="text-danger"></span>
+                    </div>
+                    <button id="btnSubmit" type="submit" class="btn btn-primary">Create Question</button>
+                    <a asp-controller="Question" asp-action="List" class="btn btn-primary" style="width:auto">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

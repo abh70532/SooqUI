@@ -28,7 +28,7 @@
         columns.Add(model => model.IsRejected ? "Rejected" : model.SupplierRequestApprovalId > 0? model.SupplierRequestApprovalLog.Where(x=>  x.SupplierRequestApprovalId==model.SupplierRequestApprovalId).FirstOrDefault().RoleApprovalMaster.Role.Name: "Approved").Titled("Approval Status");
 
         columns.Add(model => string.Join(',',model.SupplierRequestCategoryMapping.Select(y=>y.CategoryMaster.Category))).Titled("Category");
-        columns.Add(model => !model.IsEditable? $"<a class=\"btn btn-sm btn-warning whiteColor\" href=\"ViewApprovals?requestid={model.SupplierRequestId}&moduleid=1\"><i class=\"fa fa-eye\"></i>&nbsp;View Approvals</a>" : $"<a class=\"btn btn-sm btn-info whiteColor\" href=\"Edit?requestid={model.SupplierRequestId}\"><i class=\"fa fa-pencil-alt\"></i>&nbsp;Edit</a>").Encoded(false).Css("text-right");
+        columns.Add(model => !model.IsEditable.GetValueOrDefault()? $"<a class=\"btn btn-sm btn-warning whiteColor\" href=\"ViewApprovals?requestid={model.SupplierRequestId}&moduleid=1\"><i class=\"fa fa-eye\"></i>&nbsp;View Approvals</a>" : $"<a class=\"btn btn-sm btn-info whiteColor\" href=\"Edit?requestid={model.SupplierRequestId}\"><i class=\"fa fa-pencil-alt\"></i>&nbsp;Edit</a>").Encoded(false).Css("text-right");
         //columns.Add(model => $"<a href=\"@Url.Action('Delete', 'movies', new { requestid = model.SupplierRequestId })\">Edit</a>").Encoded(false);
 
     })
