@@ -22,6 +22,59 @@ namespace WrokFlowWeb.UnitOfWork
         private ISupplierRequestApprovalLogRepository _supplierRequestApprovalLog;
         private IRoleApprovalMasterRepository _roleApprovalMasterRepository;
         private IUserRepository _userRepository;
+        private IControlMasterRepository _controlMasterRepository;
+        private IDataSourceMasterRepository _dataSourceRepository;
+        private ITabMasterRepository _tabMasterRepository;
+        private IQuestionMasterRepository _questionMasterRepository;
+
+        public IQuestionMasterRepository QuestionMasterRepository
+        {
+            get
+            {
+                if (this._questionMasterRepository == null)
+                {
+                    this._questionMasterRepository = new QuestionMasterRepository(dbContext);
+                }
+                return this._questionMasterRepository;
+            }
+        }
+
+        public ITabMasterRepository TabMasterRepository
+        {
+            get
+            {
+                if (this._tabMasterRepository == null)
+                {
+                    this._tabMasterRepository = new TabMasterRepository(dbContext);
+                }
+                return this._tabMasterRepository;
+            }
+        }
+
+        public IControlMasterRepository ControlMasterRepository
+        {
+            get
+            {
+                if (this._controlMasterRepository == null)
+                {
+                    this._controlMasterRepository = new ControlMasterRepository(dbContext);
+                }
+                return this._controlMasterRepository;
+            }
+        }
+
+        public IDataSourceMasterRepository DataSourceMasterRepository
+        {
+            get
+            {
+                if (this._dataSourceRepository == null)
+                {
+                    this._dataSourceRepository = new DataSourceMasterRepository(dbContext);
+                }
+                return this._dataSourceRepository;
+            }
+        }
+
         public ISupplierRequestRepository SupplierRequest
         {
             get

@@ -70,6 +70,13 @@
             </li>
         }
 
+        @if (User.IsInRole("Admin"))
+        {
+            <li>
+                <a asp-action="List" asp-controller="Question" class="nav-link @(ViewBag.PageName == "Masters" ? "active" : "")"><img src="~/images/masters.png" />Question Masters</a>
+            </li>
+        }
+
         @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
         {
             <li>

@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Database\model\" />
-    <Folder Include="Views\Question\" />
   </ItemGroup>
 
 </Project>
