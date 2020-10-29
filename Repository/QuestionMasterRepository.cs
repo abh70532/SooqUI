@@ -23,7 +23,7 @@ namespace WrokFlowWeb.Repository
 
         public Task<List<QuestionMaster>> GetAllQuestion()
         {
-            return context.QuestionMaster.Where(x=>x.IsActive.HasValue).Include(x=>x.TabMaster).Include(x=>x.ControlMaster).Include(x=>x.DataSourceMaster).ToListAsync();
+            return context.QuestionMaster.Where(x=>x.IsActive.HasValue).Include(x=>x.TabMaster).ThenInclude(y=>y.ApprovalFormMaster).Include(x=>x.ControlMaster).Include(x=>x.DataSourceMaster).ToListAsync();
         }
     }
 }

@@ -16,6 +16,14 @@
             <div class="d-inline-block two-column-form">
                 <form asp-controller="Question" asp-action="Create" method="post">
                     <div class="form-group">
+                        <label asp-for="ApprovalFormMasterId"></label>
+                        <select class="form-control" asp-for="ApprovalFormMasterId">
+                            <option>Supplier Registration</option>
+                            <option>Supplier Qualification</option>
+                        </select>
+                        <span asp-validation-for="TabMasterId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="TabMasterId"></label>
                         <select class="form-control" asp-for="TabMasterId"
                                 asp-items="@(new SelectList(Model.TabMasterSource,"TabMasterId","TabMasterName"))">

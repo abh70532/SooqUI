@@ -16,6 +16,7 @@ namespace WrokFlowWeb.Database
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
 
+        public virtual ApprovalFormMaster ApprovalFormMaster { get; set; }
         public virtual ICollection<QuestionMaster> QuestionMaster { get; set; }
     }
 }

@@ -45,6 +45,12 @@
         @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
         {
             <li>
+                <a asp-action="index" asp-controller="SupplierRegistration" class="nav-link @(ViewBag.PageName == "SupplierRequest" ? "active" : "")"><img src="~/images/request.png" />Supplier Registration</a>
+            </li>
+        }
+        @if (User.IsInRole("Admin") || User.IsInRole("Buyer"))
+        {
+            <li>
                 <a asp-action="GetInternalQuestionaire" asp-controller="SupplierRegistration" class="nav-link @(ViewBag.PageName == "SupplierRegistration" ? "active" : "")"><img src="~/images/request.png" />Internal Questionnaire</a>
             </li>
         }

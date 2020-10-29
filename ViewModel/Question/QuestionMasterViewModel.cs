@@ -13,6 +13,11 @@ namespace WrokFlowWeb.ViewModel.Question
         {
            
         }
+
+        [Required]
+        [Display(Name = "Module")]
+        public int ApprovalFormMasterId { get; set; }
+
         [Required]
         [Display(Name = "Tab Name")]
         public int TabMasterId { get; set; } 
