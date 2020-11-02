@@ -1,22 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WrokFlowWeb.ViewModel.SupplierRequest;
 using static WrokFlowWeb.Constants.Constants;
 
 namespace WrokFlowWeb.ViewModel.SupplierRegistration
 {
     public class SupplierRegistration
     {
-        public List<QuestionModel> Questions { get; set; }
+        public SupplierRegistration()
+        {
+            TabNames = new List<TabModel>();
+            SuppilerListViewModels = new List<SuppilerListViewModel>();
+        }
+
+        [Required]
+        [DisplayName("Supplier")]
+        public long SupplierRequestId { get; set; }
+        public List<SuppilerListViewModel> SuppilerListViewModels { get; set; }
+        public List<TabModel> TabNames { get; set; }
     }
 
     public class QuestionModel
     {
+        public QuestionModel()
+        {
+            DataSource = new List<DropdownSource>();
+        }
+        public long QuestionMasterId { get; set; }
         public string QuestionText { get; set; }
         public string QuestionComment { get; set; }
-        public Controls QuestionControlType { get; set; }
+        public string QuestionControlType { get; set; }
         public string QuestionAnswer { get; set; }
         public List<DropdownSource> DataSource { get; set; }
         public long SelectedValue { get; set; }
@@ -27,10 +44,23 @@ namespace WrokFlowWeb.ViewModel.SupplierRegistration
         public bool IsCorrect { get; set; }
     }
 
+    public class TabModel
+    {
+        public TabModel()
+        {
+            Questions = new List<QuestionModel>();
+        }
+        public int TabId { get; set; }
+        public string Tabname { get; set; }
+
+        public List<QuestionModel> Questions { get; set; }
+    }
+
     public class DropdownSource
     {
         public long Id { get; set; }
         public string Text { get; set; }
+
     }
 
     public  class SupplierRegistrationInternalQuestionViewModel

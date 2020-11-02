@@ -1,41 +1,72 @@
 ﻿@model WrokFlowWeb.ViewModel.SupplierRegistration.SupplierRegistration;
-    <table>
-        @using (Html.BeginForm("Create", "SupplierRegistration", FormMethod.Post) )
-        {
 
-            for (int i = 0; i < Model.Questions.Count(); i++)
+@{
+    ViewBag.PageName = "Supplier Registration Request";
+}@{
+    ViewBag.Title = "Supplier Registration Request";
+}
+
+@using (Html.BeginForm("Create", "SupplierRegistration", FormMethod.Post))
+{
+    <div class="form-group">
+        <label asp-for="SupplierRequestId"></label>
+        <select class="form-control" asp-for="SupplierRequestId"
+                asp-items="@(new SelectList(Model.SuppilerListViewModels,"SupplierRequestId","SupplierName"))">
+            <option></option>
+        </select>
+        <span asp-validation-for="SupplierRequestId" class="text-danger"></span>
+    </div>
+    <button id="btnSubmit" type="submit" class="btn btn-primary">Invite</button>
+
+    <h4>Question Preview</h4>
+
+    for (int i = 0; i < Model.TabNames.Count(); i++)
+    {
+        <table>
+            <h4>
+                @Html.DisplayFor(model => model.TabNames[i].Tabname)
+                @Html.HiddenFor(m => m.TabNames[i].TabId)
+            </h4>
+            @for (int qstNo = 0; qstNo < Model.TabNames[i].Questions.Count(); qstNo++)
             {
         <tr>
-            @if (Model.Questions[i].QuestionControlType.ToString() == "Textbox")
+            @if (Model.TabNames[i].Questions[qstNo].QuestionControlType.ToString() == "Textbox")
             {
+                @Html.HiddenFor(m => m.TabNames[i].Questions[qstNo].QuestionMasterId)
                 <td>
-                    @Html.DisplayFor(model => model.Questions[i].QuestionText)
+                    @Html.DisplayFor(model => model.TabNames[i].Questions[qstNo].QuestionText)
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model.Questions[i].QuestionAnswer)
+                    @Html.TextBoxFor(model => model.TabNames[i].Questions[qstNo].QuestionAnswer)
                 </td>
             }
-            @if (Model.Questions[i].QuestionControlType.ToString() == "MultiLineTextox")
+            @if (Model.TabNames[i].Questions[qstNo].QuestionControlType.ToString() == "MultiLineTextox")
             {
+                @Html.HiddenFor(m => m.TabNames[i].Questions[qstNo].QuestionMasterId)
                 <td>
-                    @Html.DisplayFor(model => model.Questions[i].QuestionText)
+                    @Html.DisplayFor(model => model.TabNames[i].Questions[qstNo].QuestionText)
                 </td>
                 <td>
-                    @Html.TextAreaFor(model => model.Questions[i].QuestionAnswer)
+                    @Html.TextAreaFor(model => model.TabNames[i].Questions[qstNo].QuestionAnswer)
                 </td>
             }
-            @if (Model.Questions[i].QuestionControlType.ToString() == "Dropdown")
+            @if (Model.TabNames[i].Questions[qstNo].QuestionControlType.ToString() == "Dropdown")
             {
+                @Html.HiddenFor(m => m.TabNames[i].Questions[qstNo].QuestionMasterId)
                 <td>
-                    @Html.DisplayFor(model => model.Questions[i].QuestionText)
+                    @Html.DisplayFor(model => model.TabNames[i].Questions[qstNo].QuestionText)
                 </td>
                 <td>
-                    @Html.DropDownListFor(model => model.Questions[i].SelectedValue, new SelectList(Model.Questions[i].DataSource, "Id", "Text", Model.Questions[i].SelectedValue)) 
+                    @Html.DropDownListFor(model => model.TabNames[i].Questions[qstNo].SelectedValue, new SelectList(Model.TabNames[i].Questions[qstNo].DataSource, "Id", "Text", Model.TabNames[i].Questions[qstNo].SelectedValue), "Select")
                 </td>
             }
         </tr>
             }
+        </table>
 
-            <input type="submit" />
-        }
-    </table>
+
+
+    }
+
+
+}

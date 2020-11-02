@@ -15,7 +15,7 @@ namespace WrokFlowWeb.ViewModel.Question
         }
 
         [Required]
-        [Display(Name = "Module")]
+        [Display(Name = "Module Name")]
         public int ApprovalFormMasterId { get; set; }
 
         [Required]
@@ -28,12 +28,13 @@ namespace WrokFlowWeb.ViewModel.Question
 
         [Required]
         [Display(Name = "Dropdown Source")]
-        public int DataSourceMasterId { get; set; }
+        public int? DataSourceMasterId { get; set; }
 
         [Required]
         [Display(Name = "Question")]
         public string QuestionText { get; set; }
 
+        public List<ApprovalFormMaster> ApprovalFormMaster { get; set; }
         public List<TabMaster> TabMasterSource { get; set; }
         public List<DataSourceMaster> DataSourceMaster { get; set; }
         public List<ControlMaster> ControlMaster { get; set; }

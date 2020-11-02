@@ -10,5 +10,6 @@ namespace WrokFlowWeb.Repository.Interface
     {
         void Add(QuestionMaster questionMaster);
         Task<List<QuestionMaster>> GetAllQuestion();
+        Task<List<QuestionMaster>> GetAllQuestionByModule(int moduleId);
     }
 }

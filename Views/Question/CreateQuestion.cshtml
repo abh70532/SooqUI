@@ -17,11 +17,11 @@
                 <form asp-controller="Question" asp-action="Create" method="post">
                     <div class="form-group">
                         <label asp-for="ApprovalFormMasterId"></label>
-                        <select class="form-control" asp-for="ApprovalFormMasterId">
-                            <option>Supplier Registration</option>
-                            <option>Supplier Qualification</option>
+                        <select class="form-control" asp-for="ApprovalFormMasterId"
+                                asp-items="@(new SelectList(Model.ApprovalFormMaster,"ApprovalFormMasterId","ApprovalFormMasterName"))">
+                            <option></option>
                         </select>
-                        <span asp-validation-for="TabMasterId" class="text-danger"></span>
+                        <span asp-validation-for="ApprovalFormMasterId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="TabMasterId"></label>
@@ -39,7 +39,7 @@
                         </select>
                         <span asp-validation-for="ControlMasterId" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group controlId">
                         <label asp-for="DataSourceMasterId"></label>
                         <select class="form-control" asp-for="DataSourceMasterId"
                                 asp-items="@(new SelectList(Model.DataSourceMaster,"DataSourceMasterId","DataSourceName"))">
@@ -61,4 +61,34 @@
 </div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+    $(function () {
+        $("#ApprovalFormMasterId").on("change", function () {
+            
+            var categoryId = $(this).val();
+            $("#TabMasterId").empty();
+            $("#TabMasterId").append("<option>Loading...</option>");
+            $.getJSON(`Question/LoadTab?moduleId=${categoryId}`, (data) => {
+                $("#TabMasterId").empty();
+                $("#TabMasterId").append("<option></option>");
+                $.each(data, function (i, item) {
+                    $("#TabMasterId").append(`<option value="${item.tabMasterId}">${item.tabMasterName}</option>`);
+                });
+            });
+        });
+
+        $("#ControlMasterId").on("change", function () {
+            var categoryId = $(this).val();
+            $(".controlId").hide();
+            $.getJSON(`Question/CheckLoadDataSource?controlId=${categoryId}`, (data) => {
+                debugger;
+                if (data == true) {
+                    $(".controlId").show();
+                } else {
+                    $(".controlId").hide();
+                }
+            });
+        });
+    });
+    </script>
 }

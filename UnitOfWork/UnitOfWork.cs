@@ -26,6 +26,19 @@ namespace WrokFlowWeb.UnitOfWork
         private IDataSourceMasterRepository _dataSourceRepository;
         private ITabMasterRepository _tabMasterRepository;
         private IQuestionMasterRepository _questionMasterRepository;
+        private IApprovalFormMasterRepository _approvalFormMasterRepository;
+
+        public IApprovalFormMasterRepository ApprovalFormMasterRepository
+        {
+            get
+            {
+                if (this._approvalFormMasterRepository == null)
+                {
+                    this._approvalFormMasterRepository = new ApprovalFormMasterRepository(dbContext);
+                }
+                return this._approvalFormMasterRepository;
+            }
+        }
 
         public IQuestionMasterRepository QuestionMasterRepository
         {

@@ -20,5 +20,10 @@ namespace WrokFlowWeb.Repository
         {
             return await this.context.DataSourceMaster.Where(x => x.IsActive.Value).ToListAsync();
         }
+
+        public async Task<List<SourceMaster>> GetAllDataSourceBySourceid(int sourceId)
+        {
+            return await this.context.SourceMaster.Where(x => x.IsActive.Value && x.DataSourceMasterId == sourceId).ToListAsync();
+        }
     }
 }

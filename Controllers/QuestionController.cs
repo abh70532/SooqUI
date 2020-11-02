@@ -37,5 +37,19 @@ namespace WrokFlowWeb.Controllers
             var responseModel = this.supplierRegistrationService.GetAllQuestions();
             return View("QuestionList", responseModel);
         }
+
+        [HttpGet]
+        public JsonResult LoadTab(int moduleId)
+        {
+            var responseModel = this.supplierRegistrationService.LoadTabDetails(moduleId);
+            return Json(responseModel);
+        }
+
+        [HttpGet]
+        public JsonResult CheckLoadDataSource(int controlId)
+        {
+            var responseModel = this.supplierRegistrationService.CheckLoadDataSource(controlId);
+            return Json(responseModel);
+        }
     }
 }

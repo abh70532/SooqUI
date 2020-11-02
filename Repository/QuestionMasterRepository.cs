@@ -25,5 +25,12 @@ namespace WrokFlowWeb.Repository
         {
             return context.QuestionMaster.Where(x=>x.IsActive.HasValue).Include(x=>x.TabMaster).ThenInclude(y=>y.ApprovalFormMaster).Include(x=>x.ControlMaster).Include(x=>x.DataSourceMaster).ToListAsync();
         }
+
+        public Task<List<QuestionMaster>> GetAllQuestionByModule(int moduleId)
+        {
+            return context.QuestionMaster.Include(x => x.TabMaster).ThenInclude(y => y.ApprovalFormMaster).
+                Include(x => x.ControlMaster).Include(x => x.DataSourceMaster).Where(x => x.IsActive.HasValue && x.TabMaster.ApprovalFormMasterId == moduleId).OrderBy(x=>x.TabMaster.TabMasterName)
+                .ToListAsync();
+        }
     }
 }

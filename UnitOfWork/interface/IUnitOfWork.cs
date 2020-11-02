@@ -18,6 +18,7 @@ namespace WrokFlowWeb.UnitOfWork
         ITabMasterRepository TabMasterRepository { get; }
         IUserRepository UserRepository { get; }
         IQuestionMasterRepository QuestionMasterRepository { get; }
+        IApprovalFormMasterRepository ApprovalFormMasterRepository { get; }
         Task<int> CompleteAsync();
         int Complete();
     }

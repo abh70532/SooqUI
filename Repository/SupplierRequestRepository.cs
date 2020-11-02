@@ -54,7 +54,7 @@ namespace WrokFlowWeb.Repository
 
         public async Task<List<SupplierRequest>> GetSupplierRequestMaster()
         {
-            return await context.SupplierRequest.Where(x=>x.IsActive.GetValueOrDefault() && !x.IsDeleted).ToListAsync();
+            return await context.SupplierRequest.Where(x=>x.IsActive.Value && !x.IsDeleted).ToListAsync();
         }
 
         public void  Add(SupplierRequest supplierRequest)
